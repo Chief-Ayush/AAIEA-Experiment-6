@@ -1,0 +1,15 @@
+{
+ "pr_id": "INV-03",
+ "verdict": "BLOCK",
+ "summary": "Do not merge - a critical problem must be fixed first. Findings: 1 critical.",
+ "comments": [
+  {
+   "path": "inventory/config.py",
+   "line": 5,
+   "severity": "critical",
+   "rule": "SEC001",
+   "message": "stripe_live_key committed in source (high confidence)"
+  }
+ ],
+ "posted_at": "2026-10-21T16:57:44+00:00"
+}

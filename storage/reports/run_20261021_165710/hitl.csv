@@ -1,0 +1,13 @@
+id,scenario,expected,observed,result
+HITL-01,Manual mode pauses before anything is posted,graph interrupted at HumanApproval,"awaiting_human; payload verdict COMMENT, 2 findings",PASS
+HITL-02,Approve -> review is posted,"post_review called, review stored",completed; stored verdict COMMENT,PASS
+HITL-03,Reject -> nothing is posted,no post_review call,rejected_by_reviewer; review stored: False,PASS
+HITL-04,Reviewer overrides the verdict,posted verdict = override,"posted REQUEST_CHANGES, overridden=True",PASS
+HITL-05,Reviewer dismisses a finding,finding removed and verdict recalculated,"verdict COMMENT, dismissed 1",PASS
+HITL-06,Approved auto-fix,"branch created, tests pass on the branch","created, 1 fix(es), tests passed",PASS
+HITL-07,Auto-fix removes a breakpoint() that made the PR's tests fail,branch created and its tests pass,"PR verdict REQUEST_CHANGES; fix branch created, tests passed",PASS
+HITL-08,Tests cannot run on the fix branch,branch rolled back (delete_autofix_branch),"rolled_back, branch left behind=False",PASS
+HITL-09,Resume payload asks for non-fixable rules,ignored - only rules the verdict marked fixable,"auto-fix approved: [], fix agent ran: False",PASS
+HITL-10,"Workbench HIGH-risk call, human says no","paused, then denied","paused=True, tool called after rejection=False",PASS
+HITL-11,"Workbench HIGH-risk call, human approves",tool runs,branch created=True,PASS
+HITL-12,Auto mode with fixable findings,"verdict posted, no auto-fix without a person","by 'auto (no reviewer present)', fix=False",PASS

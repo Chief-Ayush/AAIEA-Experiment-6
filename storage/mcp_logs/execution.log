@@ -1,0 +1,422 @@
+2026-10-21 17:44:51,408 INFO MCP hub connected: repo (6 tools, 1564.8 ms), analysis (3 tools, 1485.7 ms), quality (4 tools, 1585.9 ms), automation (5 tools, 1503.1 ms)
+2026-10-21 17:46:40,829 WARNING MCP server 'analysis' reconnected
+2026-10-21 17:46:44,542 WARNING MCP server 'automation' reconnected
+2026-10-21 17:48:09,440 INFO TRACE-8BB094E3 TASK-001 list_files@repo success 9.1ms attempt=1
+2026-10-21 17:48:11,488 INFO TRACE-F8240892 review_start {"pr_id": "CALC-01", "settings": {"execution_mode": "parallel", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:11,509 INFO TRACE-F8240892 TASK-001 get_pull_request@repo success 15.9ms attempt=1
+2026-10-21 17:48:11,515 INFO TRACE-F8240892 agent IntakeGuard 24.0ms - CALC-01 'Add power() with tests' - 2 files, +20/-1
+2026-10-21 17:48:11,516 INFO TRACE-F8240892 agent Planner 0.1ms - 10 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:11,540 INFO TRACE-F8240892 agent Supervisor 22.1ms - 18 tools listed; 10 tasks approved, 0 rejected
+2026-10-21 17:48:11,543 INFO TRACE-F8240892 agent PolicyGuard 1.3ms - LOW 7, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:11,597 INFO TRACE-F8240892 TASK-003 compare_versions@analysis success 50.5ms attempt=1
+2026-10-21 17:48:11,604 INFO TRACE-F8240892 TASK-002 get_diff@repo success 58.4ms attempt=1
+2026-10-21 17:48:11,620 INFO TRACE-F8240892 TASK-004 compare_versions@analysis success 72.5ms attempt=1
+2026-10-21 17:48:11,631 INFO TRACE-F8240892 TASK-005 scan_secrets@quality success 82.2ms attempt=1
+2026-10-21 17:48:11,638 INFO TRACE-F8240892 TASK-006 scan_security@quality success 87.5ms attempt=1
+2026-10-21 17:48:11,644 INFO TRACE-F8240892 TASK-007 lint@quality success 92.5ms attempt=1
+2026-10-21 17:48:11,664 INFO TRACE-F8240892 TASK-008 find_usages@analysis success 13.1ms attempt=1
+2026-10-21 17:48:12,502 INFO TRACE-F8240892 TASK-009 run_tests@quality success 831.7ms attempt=1
+2026-10-21 17:48:13,515 INFO TRACE-F8240892 TASK-010 run_tests@quality success 1004.6ms attempt=1
+2026-10-21 17:48:13,522 INFO TRACE-F8240892 agent Executor 1977.9ms - 9 MCP calls in 4 phases, 1977 ms wall (DOP 6, speed-up x1.16)
+2026-10-21 17:48:13,524 INFO TRACE-F8240892 agent DiffAnalyst 0.1ms - 2 files, +20/-1 (size S), tests touched
+2026-10-21 17:48:13,524 INFO TRACE-F8240892 agent QualityReviewer 0.0ms - no quality issues on added lines
+2026-10-21 17:48:13,526 INFO TRACE-F8240892 agent SecurityReviewer 0.1ms - no security issues on added lines
+2026-10-21 17:48:13,527 INFO TRACE-F8240892 agent TestImpactAgent 1.2ms - 3 test run(s): passed, passed, skipped; 1/1 changed functions tested
+2026-10-21 17:48:13,528 INFO TRACE-F8240892 agent Validator 0.0ms - 0 findings kept, 0 dropped; 9/9 tool results valid
+2026-10-21 17:48:13,529 INFO TRACE-F8240892 agent VerdictAgent 0.0ms - APPROVE (score 100, confidence 1.0)
+2026-10-21 17:48:13,530 INFO TRACE-F8240892 agent HumanApproval 0.0ms - approve by gate disabled; verdict APPROVE
+2026-10-21 17:48:13,532 INFO TRACE-F8240892 report {"path": "storage/mcp_logs/runs/TRACE-F8240892.json", "status": "completed"}
+2026-10-21 17:48:13,532 INFO TRACE-F8240892 agent Reporter 1.5ms - completed; report TRACE-F8240892.json
+2026-10-21 17:48:26,269 INFO MCP hub connected: repo (6 tools, 1151.4 ms), analysis (3 tools, 1092.0 ms), quality (4 tools, 1145.5 ms), automation (5 tools, 1092.4 ms)
+2026-10-21 17:48:26,270 INFO TRACE-D59E89C5 review_start {"pr_id": "CALC-03", "settings": {"execution_mode": "parallel", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:26,314 INFO TRACE-D59E89C5 TASK-001 get_pull_request@repo success 17.8ms attempt=1
+2026-10-21 17:48:26,320 INFO TRACE-D59E89C5 agent IntakeGuard 25.4ms - CALC-03 'Evaluate expressions from the command line' - 1 files, +5/-0
+2026-10-21 17:48:26,322 INFO TRACE-D59E89C5 agent Planner 0.1ms - 9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:26,354 INFO TRACE-D59E89C5 agent Supervisor 30.7ms - 18 tools listed; 9 tasks approved, 0 rejected
+2026-10-21 17:48:26,359 INFO TRACE-D59E89C5 agent PolicyGuard 2.9ms - LOW 6, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:26,401 INFO TRACE-D59E89C5 TASK-002 get_diff@repo success 38.5ms attempt=1
+2026-10-21 17:48:26,413 INFO TRACE-D59E89C5 TASK-004 scan_secrets@quality success 48.0ms attempt=1
+2026-10-21 17:48:26,429 INFO TRACE-D59E89C5 TASK-005 scan_security@quality success 62.5ms attempt=1
+2026-10-21 17:48:26,438 INFO TRACE-D59E89C5 TASK-003 compare_versions@analysis success 73.8ms attempt=1
+2026-10-21 17:48:26,446 INFO TRACE-D59E89C5 TASK-006 lint@quality success 77.0ms attempt=1
+2026-10-21 17:48:26,464 INFO TRACE-D59E89C5 TASK-007 find_usages@analysis success 13.0ms attempt=1
+2026-10-21 17:48:27,364 INFO TRACE-D59E89C5 TASK-008 run_tests@quality success 892.2ms attempt=1
+2026-10-21 17:48:27,370 INFO TRACE-D59E89C5 agent Executor 1009.8ms - 7 MCP calls in 3 phases, 1009 ms wall (DOP 5, speed-up x1.19)
+2026-10-21 17:48:27,374 INFO TRACE-D59E89C5 agent DiffAnalyst 0.1ms - 1 files, +5/-0 (size XS)
+2026-10-21 17:48:27,375 INFO TRACE-D59E89C5 agent QualityReviewer 0.0ms - no quality issues on added lines
+2026-10-21 17:48:27,377 INFO TRACE-D59E89C5 agent SecurityReviewer 0.1ms - SEC002 x1
+2026-10-21 17:48:27,379 INFO TRACE-D59E89C5 agent TestImpactAgent 1.4ms - 3 test run(s): skipped, passed, skipped; 0/1 changed functions tested
+2026-10-21 17:48:27,380 INFO TRACE-D59E89C5 agent Validator 0.0ms - 2 findings kept, 0 dropped; 7/7 tool results valid
+2026-10-21 17:48:27,381 INFO TRACE-D59E89C5 agent VerdictAgent 0.1ms - REQUEST_CHANGES (score 65, confidence 1.0)
+2026-10-21 17:48:27,383 INFO TRACE-D59E89C5 agent HumanApproval 0.0ms - approve by gate disabled; verdict REQUEST_CHANGES
+2026-10-21 17:48:27,385 INFO TRACE-D59E89C5 report {"path": "storage/mcp_logs/runs/TRACE-D59E89C5.json", "status": "completed"}
+2026-10-21 17:48:27,385 INFO TRACE-D59E89C5 agent Reporter 1.7ms - completed; report TRACE-D59E89C5.json
+2026-10-21 17:48:27,387 INFO TRACE-82B9A924 review_start {"pr_id": "INV-03", "settings": {"execution_mode": "parallel", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:27,409 INFO TRACE-82B9A924 TASK-001 get_pull_request@repo success 16.5ms attempt=1
+2026-10-21 17:48:27,416 INFO TRACE-82B9A924 agent IntakeGuard 26.1ms - INV-03 'Configure the reporting API' - 1 files, +1/-1
+2026-10-21 17:48:27,417 INFO TRACE-82B9A924 agent Planner 0.1ms - 9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:27,442 INFO TRACE-82B9A924 agent Supervisor 23.3ms - 18 tools listed; 9 tasks approved, 0 rejected
+2026-10-21 17:48:27,444 INFO TRACE-82B9A924 agent PolicyGuard 1.1ms - LOW 6, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:27,474 INFO TRACE-82B9A924 TASK-002 get_diff@repo success 27.5ms attempt=1
+2026-10-21 17:48:27,486 INFO TRACE-82B9A924 TASK-004 scan_secrets@quality success 36.5ms attempt=1
+2026-10-21 17:48:27,493 INFO TRACE-82B9A924 TASK-006 lint@quality success 40.6ms attempt=1
+2026-10-21 17:48:27,500 INFO TRACE-82B9A924 TASK-005 scan_security@quality success 48.8ms attempt=1
+2026-10-21 17:48:27,511 INFO TRACE-82B9A924 TASK-003 compare_versions@analysis success 63.3ms attempt=1
+2026-10-21 17:48:28,391 INFO TRACE-82B9A924 TASK-007 run_tests@quality success 871.2ms attempt=1
+2026-10-21 17:48:28,397 INFO TRACE-82B9A924 agent Executor 951.6ms - 6 MCP calls in 2 phases, 951 ms wall (DOP 5, speed-up x1.14)
+2026-10-21 17:48:28,399 INFO TRACE-82B9A924 agent DiffAnalyst 0.1ms - 1 files, +1/-1 (size XS)
+2026-10-21 17:48:28,399 INFO TRACE-82B9A924 agent QualityReviewer 0.0ms - no quality issues on added lines
+2026-10-21 17:48:28,401 INFO TRACE-82B9A924 agent SecurityReviewer 0.0ms - SEC001 x1
+2026-10-21 17:48:28,403 INFO TRACE-82B9A924 agent TestImpactAgent 1.3ms - 3 test run(s): skipped, passed, skipped; 0/0 changed functions tested
+2026-10-21 17:48:28,404 INFO TRACE-82B9A924 agent Validator 0.0ms - 1 findings kept, 0 dropped; 6/6 tool results valid
+2026-10-21 17:48:28,405 INFO TRACE-82B9A924 agent VerdictAgent 0.1ms - BLOCK (score 40, confidence 1.0)
+2026-10-21 17:48:28,406 INFO TRACE-82B9A924 agent HumanApproval 0.0ms - approve by gate disabled; verdict BLOCK
+2026-10-21 17:48:28,409 INFO TRACE-82B9A924 report {"path": "storage/mcp_logs/runs/TRACE-82B9A924.json", "status": "completed"}
+2026-10-21 17:48:28,409 INFO TRACE-82B9A924 agent Reporter 1.8ms - completed; report TRACE-82B9A924.json
+2026-10-21 17:48:28,411 INFO TRACE-542C3B37 review_start {"pr_id": "INV-14", "settings": {"execution_mode": "parallel", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:28,435 INFO TRACE-542C3B37 TASK-001 get_pull_request@repo success 20.4ms attempt=1
+2026-10-21 17:48:28,443 INFO TRACE-542C3B37 agent IntakeGuard 29.1ms - INV-14 'Restock more safely' - 1 files, +9/-6
+2026-10-21 17:48:28,444 INFO TRACE-542C3B37 agent Planner 0.1ms - 9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:28,471 INFO TRACE-542C3B37 agent Supervisor 24.7ms - 18 tools listed; 9 tasks approved, 0 rejected
+2026-10-21 17:48:28,473 INFO TRACE-542C3B37 agent PolicyGuard 1.1ms - LOW 6, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:28,508 INFO TRACE-542C3B37 TASK-002 get_diff@repo success 32.0ms attempt=1
+2026-10-21 17:48:28,518 INFO TRACE-542C3B37 TASK-005 scan_security@quality success 39.2ms attempt=1
+2026-10-21 17:48:28,526 INFO TRACE-542C3B37 TASK-004 scan_secrets@quality success 47.9ms attempt=1
+2026-10-21 17:48:28,536 INFO TRACE-542C3B37 TASK-006 lint@quality success 55.3ms attempt=1
+2026-10-21 17:48:28,551 INFO TRACE-542C3B37 TASK-003 compare_versions@analysis success 74.2ms attempt=1
+2026-10-21 17:48:28,577 INFO TRACE-542C3B37 TASK-007 find_usages@analysis success 14.4ms attempt=1
+2026-10-21 17:48:29,633 INFO TRACE-542C3B37 TASK-008 run_tests@quality success 1049.6ms attempt=1
+2026-10-21 17:48:30,541 INFO TRACE-542C3B37 TASK-009 run_tests@quality success 901.2ms attempt=1
+2026-10-21 17:48:30,547 INFO TRACE-542C3B37 agent Executor 2073.2ms - 8 MCP calls in 4 phases, 2072 ms wall (DOP 5, speed-up x1.07)
+2026-10-21 17:48:30,549 INFO TRACE-542C3B37 agent DiffAnalyst 0.0ms - 1 files, +9/-6 (size S)
+2026-10-21 17:48:30,549 INFO TRACE-542C3B37 agent QualityReviewer 0.1ms - QLT002 x1
+2026-10-21 17:48:30,550 INFO TRACE-542C3B37 agent SecurityReviewer 0.0ms - no security issues on added lines
+2026-10-21 17:48:30,552 INFO TRACE-542C3B37 agent TestImpactAgent 1.5ms - 3 test run(s): failed, skipped, passed; 1/1 changed functions tested
+2026-10-21 17:48:30,554 INFO TRACE-542C3B37 agent Validator 0.0ms - 2 findings kept, 0 dropped; 8/8 tool results valid
+2026-10-21 17:48:30,554 INFO TRACE-542C3B37 agent VerdictAgent 0.0ms - REQUEST_CHANGES (score 65, confidence 1.0)
+2026-10-21 17:48:30,556 INFO TRACE-542C3B37 agent HumanApproval 0.0ms - approve by gate disabled; verdict REQUEST_CHANGES
+2026-10-21 17:48:30,558 INFO TRACE-542C3B37 report {"path": "storage/mcp_logs/runs/TRACE-542C3B37.json", "status": "completed"}
+2026-10-21 17:48:30,558 INFO TRACE-542C3B37 agent Reporter 2.1ms - completed; report TRACE-542C3B37.json
+2026-10-21 17:48:30,561 INFO TRACE-AD82B61C review_start {"pr_id": "TXT-01", "settings": {"execution_mode": "parallel", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:30,581 INFO TRACE-AD82B61C TASK-001 get_pull_request@repo success 16.6ms attempt=1
+2026-10-21 17:48:30,588 INFO TRACE-AD82B61C agent IntakeGuard 24.2ms - TXT-01 'Add truncate_words' - 2 files, +13/-1
+2026-10-21 17:48:30,589 INFO TRACE-AD82B61C agent Planner 0.1ms - 10 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:30,614 INFO TRACE-AD82B61C agent Supervisor 23.7ms - 18 tools listed; 10 tasks approved, 0 rejected
+2026-10-21 17:48:30,617 INFO TRACE-AD82B61C agent PolicyGuard 1.3ms - LOW 7, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:30,665 INFO TRACE-AD82B61C TASK-002 get_diff@repo success 37.8ms attempt=1
+2026-10-21 17:48:30,677 INFO TRACE-AD82B61C TASK-005 scan_secrets@quality success 54.3ms attempt=1
+2026-10-21 17:48:30,692 INFO TRACE-AD82B61C TASK-006 scan_security@quality success 67.1ms attempt=1
+2026-10-21 17:48:30,699 INFO TRACE-AD82B61C TASK-003 compare_versions@analysis success 78.8ms attempt=1
+2026-10-21 17:48:30,712 INFO TRACE-AD82B61C TASK-007 lint@quality success 85.5ms attempt=1
+2026-10-21 17:48:30,716 INFO TRACE-AD82B61C TASK-004 compare_versions@analysis success 95.1ms attempt=1
+2026-10-21 17:48:30,739 INFO TRACE-AD82B61C TASK-008 find_usages@analysis success 14.8ms attempt=1
+2026-10-21 17:48:31,650 INFO TRACE-AD82B61C TASK-009 run_tests@quality success 904.8ms attempt=1
+2026-10-21 17:48:32,520 INFO TRACE-AD82B61C TASK-010 run_tests@quality success 862.4ms attempt=1
+2026-10-21 17:48:32,527 INFO TRACE-AD82B61C agent Executor 1909.6ms - 9 MCP calls in 4 phases, 1909 ms wall (DOP 6, speed-up x1.15)
+2026-10-21 17:48:32,529 INFO TRACE-AD82B61C agent DiffAnalyst 0.1ms - 2 files, +13/-1 (size S), tests touched
+2026-10-21 17:48:32,530 INFO TRACE-AD82B61C agent QualityReviewer 0.1ms - no quality issues on added lines
+2026-10-21 17:48:32,532 INFO TRACE-AD82B61C agent SecurityReviewer 0.1ms - no security issues on added lines
+2026-10-21 17:48:32,534 INFO TRACE-AD82B61C agent TestImpactAgent 1.4ms - 3 test run(s): passed, passed, skipped; 1/1 changed functions tested
+2026-10-21 17:48:32,535 INFO TRACE-AD82B61C agent Validator 0.0ms - 0 findings kept, 0 dropped; 9/9 tool results valid
+2026-10-21 17:48:32,536 INFO TRACE-AD82B61C agent VerdictAgent 0.0ms - APPROVE (score 100, confidence 1.0)
+2026-10-21 17:48:32,538 INFO TRACE-AD82B61C agent HumanApproval 0.0ms - approve by gate disabled; verdict APPROVE
+2026-10-21 17:48:32,542 INFO TRACE-AD82B61C report {"path": "storage/mcp_logs/runs/TRACE-AD82B61C.json", "status": "completed"}
+2026-10-21 17:48:32,542 INFO TRACE-AD82B61C agent Reporter 3.1ms - completed; report TRACE-AD82B61C.json
+2026-10-21 17:48:32,545 INFO TRACE-EC573F00 review_start {"pr_id": "TXT-07", "settings": {"execution_mode": "parallel", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:32,569 INFO TRACE-EC573F00 TASK-001 get_pull_request@repo success 19.1ms attempt=1
+2026-10-21 17:48:32,576 INFO TRACE-EC573F00 agent IntakeGuard 28.3ms - TXT-07 'Debugging slug lengths' - 1 files, +1/-0
+2026-10-21 17:48:32,578 INFO TRACE-EC573F00 agent Planner 0.1ms - 9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:32,605 INFO TRACE-EC573F00 agent Supervisor 26.1ms - 18 tools listed; 9 tasks approved, 0 rejected
+2026-10-21 17:48:32,607 INFO TRACE-EC573F00 agent PolicyGuard 0.9ms - LOW 6, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:32,649 INFO TRACE-EC573F00 TASK-002 get_diff@repo success 38.9ms attempt=1
+2026-10-21 17:48:32,659 INFO TRACE-EC573F00 TASK-004 scan_secrets@quality success 46.8ms attempt=1
+2026-10-21 17:48:32,673 INFO TRACE-EC573F00 TASK-005 scan_security@quality success 60.0ms attempt=1
+2026-10-21 17:48:32,681 INFO TRACE-EC573F00 TASK-003 compare_versions@analysis success 70.2ms attempt=1
+2026-10-21 17:48:32,688 INFO TRACE-EC573F00 TASK-006 lint@quality success 73.1ms attempt=1
+2026-10-21 17:48:32,705 INFO TRACE-EC573F00 TASK-007 find_usages@analysis success 12.8ms attempt=1
+2026-10-21 17:48:33,789 INFO TRACE-EC573F00 TASK-008 run_tests@quality success 1078.2ms attempt=1
+2026-10-21 17:48:34,671 INFO TRACE-EC573F00 TASK-009 run_tests@quality success 874.0ms attempt=1
+2026-10-21 17:48:34,676 INFO TRACE-EC573F00 agent Executor 2068.2ms - 8 MCP calls in 4 phases, 2068 ms wall (DOP 5, speed-up x1.09)
+2026-10-21 17:48:34,679 INFO TRACE-EC573F00 agent DiffAnalyst 0.0ms - 1 files, +1/-0 (size XS)
+2026-10-21 17:48:34,679 INFO TRACE-EC573F00 agent QualityReviewer 0.0ms - QLT001 x1
+2026-10-21 17:48:34,680 INFO TRACE-EC573F00 agent SecurityReviewer 0.0ms - no security issues on added lines
+2026-10-21 17:48:34,682 INFO TRACE-EC573F00 agent TestImpactAgent 1.2ms - 3 test run(s): failed, skipped, passed; 1/1 changed functions tested
+2026-10-21 17:48:34,683 INFO TRACE-EC573F00 agent Validator 0.0ms - 2 findings kept, 0 dropped; 8/8 tool results valid
+2026-10-21 17:48:34,684 INFO TRACE-EC573F00 agent VerdictAgent 0.0ms - REQUEST_CHANGES (score 72, confidence 1.0)
+2026-10-21 17:48:34,686 INFO TRACE-EC573F00 agent HumanApproval 0.1ms - approve by gate disabled; verdict REQUEST_CHANGES
+2026-10-21 17:48:34,689 INFO TRACE-EC573F00 report {"path": "storage/mcp_logs/runs/TRACE-EC573F00.json", "status": "completed"}
+2026-10-21 17:48:34,689 INFO TRACE-EC573F00 agent Reporter 2.3ms - completed; report TRACE-EC573F00.json
+2026-10-21 17:48:34,692 INFO TRACE-FFB1D156 review_start {"pr_id": "TXT-16", "settings": {"execution_mode": "parallel", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:34,716 INFO TRACE-FFB1D156 TASK-001 get_pull_request@repo success 20.5ms attempt=1
+2026-10-21 17:48:34,723 INFO TRACE-FFB1D156 agent IntakeGuard 28.3ms - TXT-16 'Keyword extraction' - 1 files, +5/-0
+2026-10-21 17:48:34,724 INFO TRACE-FFB1D156 agent Planner 0.1ms - 9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:34,748 INFO TRACE-FFB1D156 agent Supervisor 23.0ms - 18 tools listed; 9 tasks approved, 0 rejected
+2026-10-21 17:48:34,751 INFO TRACE-FFB1D156 agent PolicyGuard 1.3ms - LOW 6, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:34,785 INFO TRACE-FFB1D156 TASK-004 scan_secrets@quality success 27.7ms attempt=1
+2026-10-21 17:48:34,801 INFO TRACE-FFB1D156 TASK-002 get_diff@repo success 46.4ms attempt=1
+2026-10-21 17:48:34,817 INFO TRACE-FFB1D156 TASK-003 compare_versions@analysis success 62.3ms attempt=1
+2026-10-21 17:48:34,825 INFO TRACE-FFB1D156 TASK-005 scan_security@quality success 66.3ms attempt=1
+2026-10-21 17:48:34,832 INFO TRACE-FFB1D156 TASK-006 lint@quality success 72.1ms attempt=1
+2026-10-21 17:48:34,848 INFO TRACE-FFB1D156 TASK-007 find_usages@analysis success 11.6ms attempt=1
+2026-10-21 17:48:35,687 INFO TRACE-FFB1D156 TASK-008 run_tests@quality success 831.9ms attempt=1
+2026-10-21 17:48:35,692 INFO TRACE-FFB1D156 agent Executor 940.5ms - 7 MCP calls in 3 phases, 940 ms wall (DOP 5, speed-up x1.19)
+2026-10-21 17:48:35,694 INFO TRACE-FFB1D156 agent DiffAnalyst 0.0ms - 1 files, +5/-0 (size XS)
+2026-10-21 17:48:35,694 INFO TRACE-FFB1D156 agent QualityReviewer 0.0ms - no quality issues on added lines
+2026-10-21 17:48:35,696 INFO TRACE-FFB1D156 agent SecurityReviewer 0.1ms - no security issues on added lines
+2026-10-21 17:48:35,697 INFO TRACE-FFB1D156 agent TestImpactAgent 1.4ms - 3 test run(s): skipped, passed, skipped; 0/1 changed functions tested
+2026-10-21 17:48:35,699 INFO TRACE-FFB1D156 agent Validator 0.1ms - 1 findings kept, 0 dropped; 7/7 tool results valid
+2026-10-21 17:48:35,700 INFO TRACE-FFB1D156 agent VerdictAgent 0.1ms - COMMENT (score 90, confidence 1.0)
+2026-10-21 17:48:35,701 INFO TRACE-FFB1D156 agent HumanApproval 0.0ms - approve by gate disabled; verdict COMMENT
+2026-10-21 17:48:35,705 INFO TRACE-FFB1D156 report {"path": "storage/mcp_logs/runs/TRACE-FFB1D156.json", "status": "completed"}
+2026-10-21 17:48:35,705 INFO TRACE-FFB1D156 agent Reporter 2.8ms - completed; report TRACE-FFB1D156.json
+2026-10-21 17:48:35,707 INFO TRACE-7C7BD5F7 review_start {"pr_id": "INV-01", "settings": {"execution_mode": "parallel", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:35,730 INFO TRACE-7C7BD5F7 TASK-001 get_pull_request@repo success 18.1ms attempt=1
+2026-10-21 17:48:35,736 INFO TRACE-7C7BD5F7 agent IntakeGuard 26.0ms - INV-01 'Add release() to return reserved stock' - 2 files, +14/-0
+2026-10-21 17:48:35,738 INFO TRACE-7C7BD5F7 agent Planner 0.1ms - 10 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:35,760 INFO TRACE-7C7BD5F7 agent Supervisor 21.1ms - 18 tools listed; 10 tasks approved, 0 rejected
+2026-10-21 17:48:35,763 INFO TRACE-7C7BD5F7 agent PolicyGuard 1.5ms - LOW 7, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:35,797 INFO TRACE-7C7BD5F7 TASK-002 get_diff@repo success 32.1ms attempt=1
+2026-10-21 17:48:35,808 INFO TRACE-7C7BD5F7 TASK-005 scan_secrets@quality success 40.1ms attempt=1
+2026-10-21 17:48:35,815 INFO TRACE-7C7BD5F7 TASK-006 scan_security@quality success 45.5ms attempt=1
+2026-10-21 17:48:35,823 INFO TRACE-7C7BD5F7 TASK-007 lint@quality success 51.1ms attempt=1
+2026-10-21 17:48:35,834 INFO TRACE-7C7BD5F7 TASK-003 compare_versions@analysis success 68.6ms attempt=1
+2026-10-21 17:48:35,849 INFO TRACE-7C7BD5F7 TASK-004 compare_versions@analysis success 82.7ms attempt=1
+2026-10-21 17:48:35,872 INFO TRACE-7C7BD5F7 TASK-008 find_usages@analysis success 13.9ms attempt=1
+2026-10-21 17:48:36,640 INFO TRACE-7C7BD5F7 TASK-009 run_tests@quality success 761.6ms attempt=1
+2026-10-21 17:48:37,478 INFO TRACE-7C7BD5F7 TASK-010 run_tests@quality success 829.9ms attempt=1
+2026-10-21 17:48:37,484 INFO TRACE-7C7BD5F7 agent Executor 1720.5ms - 9 MCP calls in 4 phases, 1720 ms wall (DOP 6, speed-up x1.12)
+2026-10-21 17:48:37,486 INFO TRACE-7C7BD5F7 agent DiffAnalyst 0.0ms - 2 files, +14/-0 (size S), tests touched
+2026-10-21 17:48:37,486 INFO TRACE-7C7BD5F7 agent QualityReviewer 0.0ms - no quality issues on added lines
+2026-10-21 17:48:37,487 INFO TRACE-7C7BD5F7 agent SecurityReviewer 0.1ms - no security issues on added lines
+2026-10-21 17:48:37,489 INFO TRACE-7C7BD5F7 agent TestImpactAgent 1.3ms - 3 test run(s): passed, passed, skipped; 1/1 changed functions tested
+2026-10-21 17:48:37,490 INFO TRACE-7C7BD5F7 agent Validator 0.0ms - 0 findings kept, 0 dropped; 9/9 tool results valid
+2026-10-21 17:48:37,491 INFO TRACE-7C7BD5F7 agent VerdictAgent 0.0ms - APPROVE (score 100, confidence 1.0)
+2026-10-21 17:48:37,492 INFO TRACE-7C7BD5F7 agent HumanApproval 0.0ms - approve by gate disabled; verdict APPROVE
+2026-10-21 17:48:37,495 INFO TRACE-7C7BD5F7 report {"path": "storage/mcp_logs/runs/TRACE-7C7BD5F7.json", "status": "completed"}
+2026-10-21 17:48:37,495 INFO TRACE-7C7BD5F7 agent Reporter 2.2ms - completed; report TRACE-7C7BD5F7.json
+2026-10-21 17:48:37,497 INFO TRACE-00C66198 review_start {"pr_id": "CALC-10", "settings": {"execution_mode": "parallel", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:37,518 INFO TRACE-00C66198 TASK-001 get_pull_request@repo success 17.2ms attempt=1
+2026-10-21 17:48:37,525 INFO TRACE-00C66198 agent IntakeGuard 24.8ms - CALC-10 'Swallow errors in run()' - 1 files, +4/-0
+2026-10-21 17:48:37,526 INFO TRACE-00C66198 agent Planner 0.1ms - 9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:37,548 INFO TRACE-00C66198 agent Supervisor 21.0ms - 18 tools listed; 9 tasks approved, 0 rejected
+2026-10-21 17:48:37,550 INFO TRACE-00C66198 agent PolicyGuard 1.0ms - LOW 6, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:37,585 INFO TRACE-00C66198 TASK-002 get_diff@repo success 32.4ms attempt=1
+2026-10-21 17:48:37,604 INFO TRACE-00C66198 TASK-003 compare_versions@analysis success 50.0ms attempt=1
+2026-10-21 17:48:37,612 INFO TRACE-00C66198 TASK-004 scan_secrets@quality success 56.6ms attempt=1
+2026-10-21 17:48:37,619 INFO TRACE-00C66198 TASK-005 scan_security@quality success 63.1ms attempt=1
+2026-10-21 17:48:37,626 INFO TRACE-00C66198 TASK-006 lint@quality success 68.4ms attempt=1
+2026-10-21 17:48:37,644 INFO TRACE-00C66198 TASK-007 find_usages@analysis success 12.6ms attempt=1
+2026-10-21 17:48:38,565 INFO TRACE-00C66198 TASK-008 run_tests@quality success 914.8ms attempt=1
+2026-10-21 17:48:38,570 INFO TRACE-00C66198 agent Executor 1019.0ms - 7 MCP calls in 3 phases, 1018 ms wall (DOP 5, speed-up x1.18)
+2026-10-21 17:48:38,572 INFO TRACE-00C66198 agent DiffAnalyst 0.0ms - 1 files, +4/-0 (size XS)
+2026-10-21 17:48:38,572 INFO TRACE-00C66198 agent QualityReviewer 0.0ms - QLT002 x1
+2026-10-21 17:48:38,574 INFO TRACE-00C66198 agent SecurityReviewer 0.0ms - no security issues on added lines
+2026-10-21 17:48:38,575 INFO TRACE-00C66198 agent TestImpactAgent 0.9ms - 3 test run(s): skipped, passed, skipped; 0/1 changed functions tested
+2026-10-21 17:48:38,576 INFO TRACE-00C66198 agent Validator 0.0ms - 2 findings kept, 0 dropped; 7/7 tool results valid
+2026-10-21 17:48:38,577 INFO TRACE-00C66198 agent VerdictAgent 0.0ms - COMMENT (score 80, confidence 1.0)
+2026-10-21 17:48:38,578 INFO TRACE-00C66198 agent HumanApproval 0.0ms - approve by gate disabled; verdict COMMENT
+2026-10-21 17:48:38,581 INFO TRACE-00C66198 report {"path": "storage/mcp_logs/runs/TRACE-00C66198.json", "status": "completed"}
+2026-10-21 17:48:38,581 INFO TRACE-00C66198 agent Reporter 2.3ms - completed; report TRACE-00C66198.json
+2026-10-21 17:48:38,602 INFO TRACE-765C7A67 review_start {"pr_id": "CALC-03", "settings": {"execution_mode": "sequential", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:38,621 INFO TRACE-765C7A67 TASK-001 get_pull_request@repo success 14.9ms attempt=1
+2026-10-21 17:48:38,627 INFO TRACE-765C7A67 agent IntakeGuard 22.3ms - CALC-03 'Evaluate expressions from the command line' - 1 files, +5/-0
+2026-10-21 17:48:38,628 INFO TRACE-765C7A67 agent Planner 0.0ms - 9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:38,653 INFO TRACE-765C7A67 agent Supervisor 22.6ms - 18 tools listed; 9 tasks approved, 0 rejected
+2026-10-21 17:48:38,657 INFO TRACE-765C7A67 agent PolicyGuard 3.3ms - LOW 6, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:38,677 INFO TRACE-765C7A67 TASK-002 get_diff@repo success 17.0ms attempt=1
+2026-10-21 17:48:38,706 INFO TRACE-765C7A67 TASK-003 compare_versions@analysis success 21.0ms attempt=1
+2026-10-21 17:48:38,728 INFO TRACE-765C7A67 TASK-004 scan_secrets@quality success 12.6ms attempt=1
+2026-10-21 17:48:38,748 INFO TRACE-765C7A67 TASK-005 scan_security@quality success 15.0ms attempt=1
+2026-10-21 17:48:38,771 INFO TRACE-765C7A67 TASK-006 lint@quality success 18.1ms attempt=1
+2026-10-21 17:48:38,787 INFO TRACE-765C7A67 TASK-007 find_usages@analysis success 11.6ms attempt=1
+2026-10-21 17:48:39,596 INFO TRACE-765C7A67 TASK-008 run_tests@quality success 802.3ms attempt=1
+2026-10-21 17:48:39,602 INFO TRACE-765C7A67 agent Executor 944.4ms - 7 MCP calls in 3 phases, 944 ms wall (DOP 1, speed-up x0.95)
+2026-10-21 17:48:39,604 INFO TRACE-765C7A67 agent DiffAnalyst 0.0ms - 1 files, +5/-0 (size XS)
+2026-10-21 17:48:39,605 INFO TRACE-765C7A67 agent QualityReviewer 0.0ms - no quality issues on added lines
+2026-10-21 17:48:39,606 INFO TRACE-765C7A67 agent SecurityReviewer 0.1ms - SEC002 x1
+2026-10-21 17:48:39,607 INFO TRACE-765C7A67 agent TestImpactAgent 0.8ms - 3 test run(s): skipped, passed, skipped; 0/1 changed functions tested
+2026-10-21 17:48:39,608 INFO TRACE-765C7A67 agent Validator 0.0ms - 2 findings kept, 0 dropped; 7/7 tool results valid
+2026-10-21 17:48:39,609 INFO TRACE-765C7A67 agent VerdictAgent 0.0ms - REQUEST_CHANGES (score 65, confidence 1.0)
+2026-10-21 17:48:39,610 INFO TRACE-765C7A67 agent HumanApproval 0.0ms - approve by gate disabled; verdict REQUEST_CHANGES
+2026-10-21 17:48:39,613 INFO TRACE-765C7A67 report {"path": "storage/mcp_logs/runs/TRACE-765C7A67.json", "status": "completed"}
+2026-10-21 17:48:39,613 INFO TRACE-765C7A67 agent Reporter 2.1ms - completed; report TRACE-765C7A67.json
+2026-10-21 17:48:39,615 INFO TRACE-C37B224C review_start {"pr_id": "INV-03", "settings": {"execution_mode": "sequential", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:39,636 INFO TRACE-C37B224C TASK-001 get_pull_request@repo success 16.4ms attempt=1
+2026-10-21 17:48:39,644 INFO TRACE-C37B224C agent IntakeGuard 26.0ms - INV-03 'Configure the reporting API' - 1 files, +1/-1
+2026-10-21 17:48:39,645 INFO TRACE-C37B224C agent Planner 0.1ms - 9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:39,673 INFO TRACE-C37B224C agent Supervisor 26.4ms - 18 tools listed; 9 tasks approved, 0 rejected
+2026-10-21 17:48:39,676 INFO TRACE-C37B224C agent PolicyGuard 1.6ms - LOW 6, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:39,701 INFO TRACE-C37B224C TASK-002 get_diff@repo success 22.4ms attempt=1
+2026-10-21 17:48:39,733 INFO TRACE-C37B224C TASK-003 compare_versions@analysis success 21.6ms attempt=1
+2026-10-21 17:48:39,756 INFO TRACE-C37B224C TASK-004 scan_secrets@quality success 13.2ms attempt=1
+2026-10-21 17:48:39,776 INFO TRACE-C37B224C TASK-005 scan_security@quality success 12.8ms attempt=1
+2026-10-21 17:48:39,794 INFO TRACE-C37B224C TASK-006 lint@quality success 12.8ms attempt=1
+2026-10-21 17:48:40,789 INFO TRACE-C37B224C TASK-007 run_tests@quality success 989.8ms attempt=1
+2026-10-21 17:48:40,794 INFO TRACE-C37B224C agent Executor 1116.9ms - 6 MCP calls in 2 phases, 1116 ms wall (DOP 1, speed-up x0.96)
+2026-10-21 17:48:40,796 INFO TRACE-C37B224C agent DiffAnalyst 0.0ms - 1 files, +1/-1 (size XS)
+2026-10-21 17:48:40,796 INFO TRACE-C37B224C agent QualityReviewer 0.0ms - no quality issues on added lines
+2026-10-21 17:48:40,798 INFO TRACE-C37B224C agent SecurityReviewer 0.1ms - SEC001 x1
+2026-10-21 17:48:40,799 INFO TRACE-C37B224C agent TestImpactAgent 1.0ms - 3 test run(s): skipped, passed, skipped; 0/0 changed functions tested
+2026-10-21 17:48:40,800 INFO TRACE-C37B224C agent Validator 0.0ms - 1 findings kept, 0 dropped; 6/6 tool results valid
+2026-10-21 17:48:40,800 INFO TRACE-C37B224C agent VerdictAgent 0.0ms - BLOCK (score 40, confidence 1.0)
+2026-10-21 17:48:40,802 INFO TRACE-C37B224C agent HumanApproval 0.1ms - approve by gate disabled; verdict BLOCK
+2026-10-21 17:48:40,804 INFO TRACE-C37B224C report {"path": "storage/mcp_logs/runs/TRACE-C37B224C.json", "status": "completed"}
+2026-10-21 17:48:40,804 INFO TRACE-C37B224C agent Reporter 1.9ms - completed; report TRACE-C37B224C.json
+2026-10-21 17:48:40,806 INFO TRACE-472700F3 review_start {"pr_id": "INV-14", "settings": {"execution_mode": "sequential", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:40,827 INFO TRACE-472700F3 TASK-001 get_pull_request@repo success 17.1ms attempt=1
+2026-10-21 17:48:40,833 INFO TRACE-472700F3 agent IntakeGuard 25.0ms - INV-14 'Restock more safely' - 1 files, +9/-6
+2026-10-21 17:48:40,835 INFO TRACE-472700F3 agent Planner 0.1ms - 9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:40,863 INFO TRACE-472700F3 agent Supervisor 27.0ms - 18 tools listed; 9 tasks approved, 0 rejected
+2026-10-21 17:48:40,865 INFO TRACE-472700F3 agent PolicyGuard 1.5ms - LOW 6, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:40,889 INFO TRACE-472700F3 TASK-002 get_diff@repo success 20.4ms attempt=1
+2026-10-21 17:48:40,932 INFO TRACE-472700F3 TASK-003 compare_versions@analysis success 33.3ms attempt=1
+2026-10-21 17:48:40,954 INFO TRACE-472700F3 TASK-004 scan_secrets@quality success 13.2ms attempt=1
+2026-10-21 17:48:40,973 INFO TRACE-472700F3 TASK-005 scan_security@quality success 14.6ms attempt=1
+2026-10-21 17:48:40,992 INFO TRACE-472700F3 TASK-006 lint@quality success 14.4ms attempt=1
+2026-10-21 17:48:41,011 INFO TRACE-472700F3 TASK-007 find_usages@analysis success 14.0ms attempt=1
+2026-10-21 17:48:41,827 INFO TRACE-472700F3 TASK-008 run_tests@quality success 809.6ms attempt=1
+2026-10-21 17:48:42,691 INFO TRACE-472700F3 TASK-009 run_tests@quality success 856.9ms attempt=1
+2026-10-21 17:48:42,697 INFO TRACE-472700F3 agent Executor 1830.6ms - 8 MCP calls in 4 phases, 1830 ms wall (DOP 1, speed-up x0.97)
+2026-10-21 17:48:42,699 INFO TRACE-472700F3 agent DiffAnalyst 0.0ms - 1 files, +9/-6 (size S)
+2026-10-21 17:48:42,699 INFO TRACE-472700F3 agent QualityReviewer 0.0ms - QLT002 x1
+2026-10-21 17:48:42,700 INFO TRACE-472700F3 agent SecurityReviewer 0.0ms - no security issues on added lines
+2026-10-21 17:48:42,702 INFO TRACE-472700F3 agent TestImpactAgent 1.3ms - 3 test run(s): failed, skipped, passed; 1/1 changed functions tested
+2026-10-21 17:48:42,703 INFO TRACE-472700F3 agent Validator 0.0ms - 2 findings kept, 0 dropped; 8/8 tool results valid
+2026-10-21 17:48:42,704 INFO TRACE-472700F3 agent VerdictAgent 0.0ms - REQUEST_CHANGES (score 65, confidence 1.0)
+2026-10-21 17:48:42,705 INFO TRACE-472700F3 agent HumanApproval 0.0ms - approve by gate disabled; verdict REQUEST_CHANGES
+2026-10-21 17:48:42,708 INFO TRACE-472700F3 report {"path": "storage/mcp_logs/runs/TRACE-472700F3.json", "status": "completed"}
+2026-10-21 17:48:42,708 INFO TRACE-472700F3 agent Reporter 2.6ms - completed; report TRACE-472700F3.json
+2026-10-21 17:48:42,710 INFO TRACE-2F6A443D review_start {"pr_id": "TXT-01", "settings": {"execution_mode": "sequential", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:42,731 INFO TRACE-2F6A443D TASK-001 get_pull_request@repo success 16.5ms attempt=1
+2026-10-21 17:48:42,737 INFO TRACE-2F6A443D agent IntakeGuard 24.7ms - TXT-01 'Add truncate_words' - 2 files, +13/-1
+2026-10-21 17:48:42,739 INFO TRACE-2F6A443D agent Planner 0.1ms - 10 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:42,766 INFO TRACE-2F6A443D agent Supervisor 26.4ms - 18 tools listed; 10 tasks approved, 0 rejected
+2026-10-21 17:48:42,769 INFO TRACE-2F6A443D agent PolicyGuard 1.5ms - LOW 7, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:42,793 INFO TRACE-2F6A443D TASK-002 get_diff@repo success 21.8ms attempt=1
+2026-10-21 17:48:42,827 INFO TRACE-2F6A443D TASK-003 compare_versions@analysis success 25.4ms attempt=1
+2026-10-21 17:48:42,871 INFO TRACE-2F6A443D TASK-004 compare_versions@analysis success 28.4ms attempt=1
+2026-10-21 17:48:42,900 INFO TRACE-2F6A443D TASK-005 scan_secrets@quality success 17.4ms attempt=1
+2026-10-21 17:48:42,929 INFO TRACE-2F6A443D TASK-006 scan_security@quality success 19.8ms attempt=1
+2026-10-21 17:48:42,958 INFO TRACE-2F6A443D TASK-007 lint@quality success 16.6ms attempt=1
+2026-10-21 17:48:42,986 INFO TRACE-2F6A443D TASK-008 find_usages@analysis success 21.1ms attempt=1
+2026-10-21 17:48:43,945 INFO TRACE-2F6A443D TASK-009 run_tests@quality success 948.2ms attempt=1
+2026-10-21 17:48:44,832 INFO TRACE-2F6A443D TASK-010 run_tests@quality success 878.2ms attempt=1
+2026-10-21 17:48:44,838 INFO TRACE-2F6A443D agent Executor 2068.2ms - 9 MCP calls in 4 phases, 2068 ms wall (DOP 1, speed-up x0.96)
+2026-10-21 17:48:44,841 INFO TRACE-2F6A443D agent DiffAnalyst 0.1ms - 2 files, +13/-1 (size S), tests touched
+2026-10-21 17:48:44,841 INFO TRACE-2F6A443D agent QualityReviewer 0.0ms - no quality issues on added lines
+2026-10-21 17:48:44,843 INFO TRACE-2F6A443D agent SecurityReviewer 0.1ms - no security issues on added lines
+2026-10-21 17:48:44,845 INFO TRACE-2F6A443D agent TestImpactAgent 1.1ms - 3 test run(s): passed, passed, skipped; 1/1 changed functions tested
+2026-10-21 17:48:44,846 INFO TRACE-2F6A443D agent Validator 0.1ms - 0 findings kept, 0 dropped; 9/9 tool results valid
+2026-10-21 17:48:44,847 INFO TRACE-2F6A443D agent VerdictAgent 0.0ms - APPROVE (score 100, confidence 1.0)
+2026-10-21 17:48:44,849 INFO TRACE-2F6A443D agent HumanApproval 0.1ms - approve by gate disabled; verdict APPROVE
+2026-10-21 17:48:44,852 INFO TRACE-2F6A443D report {"path": "storage/mcp_logs/runs/TRACE-2F6A443D.json", "status": "completed"}
+2026-10-21 17:48:44,853 INFO TRACE-2F6A443D agent Reporter 2.5ms - completed; report TRACE-2F6A443D.json
+2026-10-21 17:48:44,855 INFO TRACE-9E3192A9 review_start {"pr_id": "TXT-07", "settings": {"execution_mode": "sequential", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:44,878 INFO TRACE-9E3192A9 TASK-001 get_pull_request@repo success 18.2ms attempt=1
+2026-10-21 17:48:44,885 INFO TRACE-9E3192A9 agent IntakeGuard 26.3ms - TXT-07 'Debugging slug lengths' - 1 files, +1/-0
+2026-10-21 17:48:44,886 INFO TRACE-9E3192A9 agent Planner 0.1ms - 9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:44,915 INFO TRACE-9E3192A9 agent Supervisor 27.3ms - 18 tools listed; 9 tasks approved, 0 rejected
+2026-10-21 17:48:44,918 INFO TRACE-9E3192A9 agent PolicyGuard 1.8ms - LOW 6, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:44,946 INFO TRACE-9E3192A9 TASK-002 get_diff@repo success 23.4ms attempt=1
+2026-10-21 17:48:44,977 INFO TRACE-9E3192A9 TASK-003 compare_versions@analysis success 22.1ms attempt=1
+2026-10-21 17:48:44,998 INFO TRACE-9E3192A9 TASK-004 scan_secrets@quality success 11.4ms attempt=1
+2026-10-21 17:48:45,015 INFO TRACE-9E3192A9 TASK-005 scan_security@quality success 12.8ms attempt=1
+2026-10-21 17:48:45,032 INFO TRACE-9E3192A9 TASK-006 lint@quality success 11.5ms attempt=1
+2026-10-21 17:48:45,050 INFO TRACE-9E3192A9 TASK-007 find_usages@analysis success 13.9ms attempt=1
+2026-10-21 17:48:45,972 INFO TRACE-9E3192A9 TASK-008 run_tests@quality success 916.0ms attempt=1
+2026-10-21 17:48:46,855 INFO TRACE-9E3192A9 TASK-009 run_tests@quality success 876.0ms attempt=1
+2026-10-21 17:48:46,861 INFO TRACE-9E3192A9 agent Executor 1941.2ms - 8 MCP calls in 4 phases, 1940 ms wall (DOP 1, speed-up x0.97)
+2026-10-21 17:48:46,863 INFO TRACE-9E3192A9 agent DiffAnalyst 0.0ms - 1 files, +1/-0 (size XS)
+2026-10-21 17:48:46,863 INFO TRACE-9E3192A9 agent QualityReviewer 0.0ms - QLT001 x1
+2026-10-21 17:48:46,864 INFO TRACE-9E3192A9 agent SecurityReviewer 0.0ms - no security issues on added lines
+2026-10-21 17:48:46,866 INFO TRACE-9E3192A9 agent TestImpactAgent 1.1ms - 3 test run(s): failed, skipped, passed; 1/1 changed functions tested
+2026-10-21 17:48:46,867 INFO TRACE-9E3192A9 agent Validator 0.0ms - 2 findings kept, 0 dropped; 8/8 tool results valid
+2026-10-21 17:48:46,867 INFO TRACE-9E3192A9 agent VerdictAgent 0.0ms - REQUEST_CHANGES (score 72, confidence 1.0)
+2026-10-21 17:48:46,868 INFO TRACE-9E3192A9 agent HumanApproval 0.0ms - approve by gate disabled; verdict REQUEST_CHANGES
+2026-10-21 17:48:46,871 INFO TRACE-9E3192A9 report {"path": "storage/mcp_logs/runs/TRACE-9E3192A9.json", "status": "completed"}
+2026-10-21 17:48:46,871 INFO TRACE-9E3192A9 agent Reporter 2.1ms - completed; report TRACE-9E3192A9.json
+2026-10-21 17:48:46,873 INFO TRACE-A5AFDB73 review_start {"pr_id": "TXT-16", "settings": {"execution_mode": "sequential", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:46,897 INFO TRACE-A5AFDB73 TASK-001 get_pull_request@repo success 18.8ms attempt=1
+2026-10-21 17:48:46,904 INFO TRACE-A5AFDB73 agent IntakeGuard 28.4ms - TXT-16 'Keyword extraction' - 1 files, +5/-0
+2026-10-21 17:48:46,905 INFO TRACE-A5AFDB73 agent Planner 0.1ms - 9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:46,933 INFO TRACE-A5AFDB73 agent Supervisor 26.2ms - 18 tools listed; 9 tasks approved, 0 rejected
+2026-10-21 17:48:46,935 INFO TRACE-A5AFDB73 agent PolicyGuard 1.2ms - LOW 6, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:46,955 INFO TRACE-A5AFDB73 TASK-002 get_diff@repo success 17.5ms attempt=1
+2026-10-21 17:48:46,985 INFO TRACE-A5AFDB73 TASK-003 compare_versions@analysis success 23.2ms attempt=1
+2026-10-21 17:48:47,005 INFO TRACE-A5AFDB73 TASK-004 scan_secrets@quality success 11.8ms attempt=1
+2026-10-21 17:48:47,023 INFO TRACE-A5AFDB73 TASK-005 scan_security@quality success 12.8ms attempt=1
+2026-10-21 17:48:47,041 INFO TRACE-A5AFDB73 TASK-006 lint@quality success 13.1ms attempt=1
+2026-10-21 17:48:47,058 INFO TRACE-A5AFDB73 TASK-007 find_usages@analysis success 12.5ms attempt=1
+2026-10-21 17:48:47,831 INFO TRACE-A5AFDB73 TASK-008 run_tests@quality success 766.3ms attempt=1
+2026-10-21 17:48:47,836 INFO TRACE-A5AFDB73 agent Executor 900.4ms - 7 MCP calls in 3 phases, 900 ms wall (DOP 1, speed-up x0.95)
+2026-10-21 17:48:47,839 INFO TRACE-A5AFDB73 agent DiffAnalyst 0.0ms - 1 files, +5/-0 (size XS)
+2026-10-21 17:48:47,840 INFO TRACE-A5AFDB73 agent QualityReviewer 0.0ms - no quality issues on added lines
+2026-10-21 17:48:47,841 INFO TRACE-A5AFDB73 agent SecurityReviewer 0.1ms - no security issues on added lines
+2026-10-21 17:48:47,843 INFO TRACE-A5AFDB73 agent TestImpactAgent 1.6ms - 3 test run(s): skipped, passed, skipped; 0/1 changed functions tested
+2026-10-21 17:48:47,844 INFO TRACE-A5AFDB73 agent Validator 0.0ms - 1 findings kept, 0 dropped; 7/7 tool results valid
+2026-10-21 17:48:47,845 INFO TRACE-A5AFDB73 agent VerdictAgent 0.0ms - COMMENT (score 90, confidence 1.0)
+2026-10-21 17:48:47,848 INFO TRACE-A5AFDB73 agent HumanApproval 0.0ms - approve by gate disabled; verdict COMMENT
+2026-10-21 17:48:47,851 INFO TRACE-A5AFDB73 report {"path": "storage/mcp_logs/runs/TRACE-A5AFDB73.json", "status": "completed"}
+2026-10-21 17:48:47,852 INFO TRACE-A5AFDB73 agent Reporter 3.0ms - completed; report TRACE-A5AFDB73.json
+2026-10-21 17:48:47,855 INFO TRACE-43BDFA14 review_start {"pr_id": "INV-01", "settings": {"execution_mode": "sequential", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:47,880 INFO TRACE-43BDFA14 TASK-001 get_pull_request@repo success 20.7ms attempt=1
+2026-10-21 17:48:47,889 INFO TRACE-43BDFA14 agent IntakeGuard 31.0ms - INV-01 'Add release() to return reserved stock' - 2 files, +14/-0
+2026-10-21 17:48:47,890 INFO TRACE-43BDFA14 agent Planner 0.1ms - 10 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:47,921 INFO TRACE-43BDFA14 agent Supervisor 28.6ms - 18 tools listed; 10 tasks approved, 0 rejected
+2026-10-21 17:48:47,924 INFO TRACE-43BDFA14 agent PolicyGuard 2.1ms - LOW 7, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:47,947 INFO TRACE-43BDFA14 TASK-002 get_diff@repo success 19.7ms attempt=1
+2026-10-21 17:48:47,991 INFO TRACE-43BDFA14 TASK-003 compare_versions@analysis success 35.0ms attempt=1
+2026-10-21 17:48:48,035 INFO TRACE-43BDFA14 TASK-004 compare_versions@analysis success 34.6ms attempt=1
+2026-10-21 17:48:48,058 INFO TRACE-43BDFA14 TASK-005 scan_secrets@quality success 13.7ms attempt=1
+2026-10-21 17:48:48,078 INFO TRACE-43BDFA14 TASK-006 scan_security@quality success 15.0ms attempt=1
+2026-10-21 17:48:48,100 INFO TRACE-43BDFA14 TASK-007 lint@quality success 16.5ms attempt=1
+2026-10-21 17:48:48,121 INFO TRACE-43BDFA14 TASK-008 find_usages@analysis success 14.8ms attempt=1
+2026-10-21 17:48:48,956 INFO TRACE-43BDFA14 TASK-009 run_tests@quality success 828.9ms attempt=1
+2026-10-21 17:48:49,763 INFO TRACE-43BDFA14 TASK-010 run_tests@quality success 797.5ms attempt=1
+2026-10-21 17:48:49,769 INFO TRACE-43BDFA14 agent Executor 1843.3ms - 9 MCP calls in 4 phases, 1843 ms wall (DOP 1, speed-up x0.96)
+2026-10-21 17:48:49,771 INFO TRACE-43BDFA14 agent DiffAnalyst 0.0ms - 2 files, +14/-0 (size S), tests touched
+2026-10-21 17:48:49,771 INFO TRACE-43BDFA14 agent QualityReviewer 0.0ms - no quality issues on added lines
+2026-10-21 17:48:49,772 INFO TRACE-43BDFA14 agent SecurityReviewer 0.1ms - no security issues on added lines
+2026-10-21 17:48:49,774 INFO TRACE-43BDFA14 agent TestImpactAgent 1.1ms - 3 test run(s): passed, passed, skipped; 1/1 changed functions tested
+2026-10-21 17:48:49,775 INFO TRACE-43BDFA14 agent Validator 0.0ms - 0 findings kept, 0 dropped; 9/9 tool results valid
+2026-10-21 17:48:49,775 INFO TRACE-43BDFA14 agent VerdictAgent 0.0ms - APPROVE (score 100, confidence 1.0)
+2026-10-21 17:48:49,777 INFO TRACE-43BDFA14 agent HumanApproval 0.0ms - approve by gate disabled; verdict APPROVE
+2026-10-21 17:48:49,780 INFO TRACE-43BDFA14 report {"path": "storage/mcp_logs/runs/TRACE-43BDFA14.json", "status": "completed"}
+2026-10-21 17:48:49,780 INFO TRACE-43BDFA14 agent Reporter 2.2ms - completed; report TRACE-43BDFA14.json
+2026-10-21 17:48:49,782 INFO TRACE-A5D43D2E review_start {"pr_id": "CALC-10", "settings": {"execution_mode": "sequential", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "off", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}}
+2026-10-21 17:48:49,803 INFO TRACE-A5D43D2E TASK-001 get_pull_request@repo success 17.8ms attempt=1
+2026-10-21 17:48:49,811 INFO TRACE-A5D43D2E agent IntakeGuard 27.3ms - CALC-10 'Swallow errors in run()' - 1 files, +4/-0
+2026-10-21 17:48:49,812 INFO TRACE-A5D43D2E agent Planner 0.0ms - 9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-21 17:48:49,844 INFO TRACE-A5D43D2E agent Supervisor 30.8ms - 18 tools listed; 9 tasks approved, 0 rejected
+2026-10-21 17:48:49,846 INFO TRACE-A5D43D2E agent PolicyGuard 1.1ms - LOW 6, MEDIUM 3, HIGH 0; 0 denied
+2026-10-21 17:48:49,865 INFO TRACE-A5D43D2E TASK-002 get_diff@repo success 16.3ms attempt=1
+2026-10-21 17:48:49,893 INFO TRACE-A5D43D2E TASK-003 compare_versions@analysis success 21.0ms attempt=1
+2026-10-21 17:48:49,913 INFO TRACE-A5D43D2E TASK-004 scan_secrets@quality success 11.9ms attempt=1
+2026-10-21 17:48:49,932 INFO TRACE-A5D43D2E TASK-005 scan_security@quality success 13.7ms attempt=1
+2026-10-21 17:48:49,952 INFO TRACE-A5D43D2E TASK-006 lint@quality success 13.8ms attempt=1
+2026-10-21 17:48:49,971 INFO TRACE-A5D43D2E TASK-007 find_usages@analysis success 13.4ms attempt=1
+2026-10-21 17:48:50,784 INFO TRACE-A5D43D2E TASK-008 run_tests@quality success 806.8ms attempt=1
+2026-10-21 17:48:50,790 INFO TRACE-A5D43D2E agent Executor 942.9ms - 7 MCP calls in 3 phases, 942 ms wall (DOP 1, speed-up x0.95)
+2026-10-21 17:48:50,792 INFO TRACE-A5D43D2E agent DiffAnalyst 0.0ms - 1 files, +4/-0 (size XS)
+2026-10-21 17:48:50,792 INFO TRACE-A5D43D2E agent QualityReviewer 0.0ms - QLT002 x1
+2026-10-21 17:48:50,794 INFO TRACE-A5D43D2E agent SecurityReviewer 0.0ms - no security issues on added lines
+2026-10-21 17:48:50,795 INFO TRACE-A5D43D2E agent TestImpactAgent 0.8ms - 3 test run(s): skipped, passed, skipped; 0/1 changed functions tested
+2026-10-21 17:48:50,796 INFO TRACE-A5D43D2E agent Validator 0.0ms - 2 findings kept, 0 dropped; 7/7 tool results valid
+2026-10-21 17:48:50,797 INFO TRACE-A5D43D2E agent VerdictAgent 0.0ms - COMMENT (score 80, confidence 1.0)
+2026-10-21 17:48:50,799 INFO TRACE-A5D43D2E agent HumanApproval 0.0ms - approve by gate disabled; verdict COMMENT
+2026-10-21 17:48:50,802 INFO TRACE-A5D43D2E report {"path": "storage/mcp_logs/runs/TRACE-A5D43D2E.json", "status": "completed"}
+2026-10-21 17:48:50,802 INFO TRACE-A5D43D2E agent Reporter 2.2ms - completed; report TRACE-A5D43D2E.json
+2026-10-21 23:21:56,494 INFO MCP hub connected: repo (6 tools, 1297.2 ms), analysis (3 tools, 1287.8 ms), quality (4 tools, 1303.6 ms), automation (5 tools, 1293.3 ms)
+2026-10-21 23:23:36,331 INFO TRACE-00C5504F workbench_start {"request": "Find all function definitions"}
+2026-10-21 23:23:36,357 INFO TRACE-00C5504F agent RequestGuard 0.0ms - request accepted
+2026-10-21 23:23:38,705 INFO TRACE-00C5504F agent TaskPlanner 2347.6ms - intents search -> 1 task(s) on Chief-Ayush/AAIEA-Exp6
+2026-10-21 23:23:38,735 INFO TRACE-00C5504F agent Supervisor 28.3ms - 1/1 tasks valid
+2026-10-21 23:23:38,736 INFO TRACE-00C5504F agent PolicyGuard 0.0ms - 1 allowed, 0 denied
+2026-10-21 23:23:39,791 INFO TRACE-00C5504F TASK-001 search_code@repo success 1046.1ms attempt=1
+2026-10-21 23:23:39,816 INFO TRACE-00C5504F agent Executor 1078.4ms - 1 calls, 1 phase(s), 1078 ms
+2026-10-21 23:23:39,818 INFO TRACE-00C5504F agent ResultValidator 0.0ms - 1/1 results valid
+2026-10-21 23:23:39,821 INFO TRACE-00C5504F agent Summarizer 0.0ms - 1/1 tasks succeeded
+2026-10-21 23:24:07,960 INFO TRACE-B95F1234 workbench_start {"request": "What is the entire codebase about?"}
+2026-10-21 23:24:07,965 INFO TRACE-B95F1234 agent RequestGuard 0.0ms - request accepted
+2026-10-21 23:24:08,330 INFO TRACE-B95F1234 agent TaskPlanner 364.5ms - request not understood - try: 'Analyze calculator.py and run its tests'
+2026-10-21 23:24:08,333 INFO TRACE-B95F1234 agent Summarizer 0.0ms - not_understood

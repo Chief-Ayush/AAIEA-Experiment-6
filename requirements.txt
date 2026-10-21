@@ -1,0 +1,11 @@
+mcp>=1.20,<2          # MCP Python SDK 1.x (FastMCP server + ClientSession / stdio client)
+langgraph>=1.0
+langchain-core>=1.0
+streamlit>=1.50
+altair>=5
+pandas>=2.0
+numpy>=1.26
+jsonschema>=4.20
+anyio>=4
+typing_extensions>=4.12  # TypedDict for tool output schemas on Python 3.10 / 3.11
+pytest>=8             # also used by the quality server's run_tests tool

@@ -1,0 +1,35 @@
+experiment,run,mode,wall_ms,calls,ok,dop,dos,busy_ms
+Variation 9 (4 independent calls),1,sequential,96.0,4,4,,,
+Variation 9 (4 independent calls),1,parallel,75.0,4,4,,,
+Variation 9 (4 independent calls),2,sequential,95.6,4,4,,,
+Variation 9 (4 independent calls),2,parallel,66.2,4,4,,,
+Variation 9 (4 independent calls),3,sequential,92.7,4,4,,,
+Variation 9 (4 independent calls),3,parallel,97.4,4,4,,,
+Variation 9 (4 independent calls),4,sequential,94.2,4,4,,,
+Variation 9 (4 independent calls),4,parallel,68.4,4,4,,,
+Variation 9 (4 independent calls),5,sequential,97.5,4,4,,,
+Variation 9 (4 independent calls),5,parallel,76.0,4,4,,,
+4 independent pytest runs,1,sequential,3515.1,4,4,,,
+4 independent pytest runs,1,parallel,1966.5,4,4,,,
+4 independent pytest runs,2,sequential,3444.2,4,4,,,
+4 independent pytest runs,2,parallel,1931.2,4,4,,,
+4 independent pytest runs,3,sequential,3856.3,4,4,,,
+4 independent pytest runs,3,parallel,1943.5,4,4,,,
+Review workflow,CALC-01,sequential,1928.9,9,9,1.0,9.0,1870.5
+Review workflow,CALC-01,parallel,1899.3,9,9,6.0,4.0,2117.5
+Review workflow,CALC-03,sequential,963.1,7,7,1.0,7.0,922.0
+Review workflow,CALC-03,parallel,962.1,7,7,5.0,3.0,1083.0
+Review workflow,INV-01,sequential,2026.3,9,9,1.0,9.0,1967.7
+Review workflow,INV-01,parallel,2007.9,9,9,6.0,4.0,2184.7
+Review workflow,INV-09,sequential,1076.2,8,8,1.0,8.0,1020.2
+Review workflow,INV-09,parallel,1061.9,8,8,6.0,3.0,1372.6
+Review workflow,INV-14,sequential,1168.5,7,7,1.0,7.0,1113.6
+Review workflow,INV-14,parallel,1049.6,7,7,5.0,3.0,1239.2
+Review workflow,TXT-01,sequential,1945.2,9,9,1.0,9.0,1890.4
+Review workflow,TXT-01,parallel,2117.4,9,9,6.0,4.0,2348.3
+Review workflow,TXT-04,sequential,1208.6,7,7,1.0,7.0,1157.8
+Review workflow,TXT-04,parallel,1078.6,7,7,5.0,3.0,1286.5
+Review workflow,TXT-07,sequential,1153.7,7,7,1.0,7.0,1104.5
+Review workflow,TXT-07,parallel,1041.6,7,7,5.0,3.0,1215.3
+Connection reuse (4 calls),1,reused sessions,105.8,4,4,,,
+Connection reuse (4 calls),1,new session per call,2879.2,4,4,,,

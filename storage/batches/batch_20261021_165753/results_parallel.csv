@@ -1,0 +1,9 @@
+pr_id,repo,status,verdict,score,confidence,findings,rules,tool_calls,retries,failed_calls,wall_ms,busy_ms,phases,dop,speedup,tools_valid,tools_total,dropped,trace_id,category,expected_verdict,verdict_ok,tp,fp,fn,missed,extra,expected_rules,tests_fail,tst001_found,elapsed_s,mode
+CALC-03,calculator,completed,REQUEST_CHANGES,65,1.0,2,SEC002 TST003,9,0,0,939.0,1117.2,3,5,1.19,7,7,0,TRACE-F31CCC72,dangerous call,REQUEST_CHANGES,True,2,0,0,,,SEC002 TST003,False,False,2.227,parallel
+INV-03,inventory,completed,BLOCK,40,1.0,1,SEC001,8,0,0,986.8,1125.9,2,5,1.14,6,6,0,TRACE-10E07A85,hardcoded secret,BLOCK,True,1,0,0,,,SEC001,False,False,1.066,parallel
+INV-14,inventory,completed,REQUEST_CHANGES,65,1.0,2,QLT002 TST001,9,0,0,1139.8,1284.9,3,5,1.13,7,7,0,TRACE-F78605D2,bug caught by tests,REQUEST_CHANGES,True,2,0,0,,,QLT002 TST001,True,True,1.219,parallel
+TXT-01,textkit,completed,APPROVE,100,1.0,0,,11,0,0,2002.4,2334.7,4,6,1.17,9,9,0,TRACE-DCD5FBB1,clean feature,APPROVE,True,0,0,0,,,,False,False,2.099,parallel
+TXT-07,textkit,completed,REQUEST_CHANGES,72,1.0,2,QLT001 TST001,9,0,0,1080.9,1308.0,3,5,1.21,7,7,0,TRACE-30C5766E,debug leftover,REQUEST_CHANGES,True,2,0,0,,,QLT001 TST001,True,True,1.171,parallel
+TXT-16,textkit,completed,COMMENT,90,1.0,1,TST003,9,0,0,1002.4,1183.8,3,5,1.18,7,7,0,TRACE-B275C02A,prompt injection,REQUEST_CHANGES,False,1,0,1,SEC003@PR description,,SEC003 TST003,False,False,1.088,parallel
+INV-01,inventory,completed,APPROVE,100,1.0,0,,11,0,0,1970.5,2158.7,4,6,1.1,9,9,0,TRACE-5CADBA9E,clean feature,APPROVE,True,0,0,0,,,,False,False,2.05,parallel
+CALC-10,calculator,completed,COMMENT,80,1.0,2,QLT002 TST003,9,0,0,915.8,1050.4,3,5,1.15,7,7,0,TRACE-22AD2269,bare except,COMMENT,True,2,0,0,,,QLT002 TST003,False,False,0.99,parallel

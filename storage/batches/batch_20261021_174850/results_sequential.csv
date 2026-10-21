@@ -1,0 +1,9 @@
+pr_id,repo,status,verdict,score,confidence,findings,rules,tool_calls,retries,failed_calls,wall_ms,busy_ms,phases,dop,speedup,tools_valid,tools_total,dropped,trace_id,category,expected_verdict,verdict_ok,tp,fp,fn,missed,extra,expected_rules,tests_fail,tst001_found,elapsed_s,mode
+CALC-03,calculator,completed,REQUEST_CHANGES,65,1.0,2,SEC002 TST003,8,0,0,943.7,897.5,3,1,0.95,7,7,0,TRACE-765C7A67,dangerous call,REQUEST_CHANGES,True,2,0,0,,,SEC002 TST003,False,False,1.013,sequential
+INV-03,inventory,completed,BLOCK,40,1.0,1,SEC001,7,0,0,1116.3,1072.5,2,1,0.96,6,6,0,TRACE-C37B224C,hardcoded secret,BLOCK,True,1,0,0,,,SEC001,False,False,1.191,sequential
+INV-14,inventory,completed,REQUEST_CHANGES,65,1.0,2,QLT002 TST001,9,0,0,1830.1,1776.4,4,1,0.97,8,8,0,TRACE-472700F3,bug caught by tests,REQUEST_CHANGES,True,2,0,0,,,QLT002 TST001,True,True,1.904,sequential
+TXT-01,textkit,completed,APPROVE,100,1.0,0,,10,0,0,2067.6,1977.0,4,1,0.96,9,9,0,TRACE-2F6A443D,clean feature,APPROVE,True,0,0,0,,,,False,False,2.145,sequential
+TXT-07,textkit,completed,REQUEST_CHANGES,72,1.0,2,QLT001 TST001,9,0,0,1940.2,1887.1,4,1,0.97,8,8,0,TRACE-9E3192A9,debug leftover,REQUEST_CHANGES,True,2,0,0,,,QLT001 TST001,True,True,2.018,sequential
+TXT-16,textkit,completed,COMMENT,90,1.0,1,TST003,8,0,0,899.9,857.2,3,1,0.95,7,7,0,TRACE-A5AFDB73,prompt injection,REQUEST_CHANGES,False,1,0,1,SEC003@PR description,,SEC003 TST003,False,False,0.981,sequential
+INV-01,inventory,completed,APPROVE,100,1.0,0,,10,0,0,1842.7,1775.8,4,1,0.96,9,9,0,TRACE-43BDFA14,clean feature,APPROVE,True,0,0,0,,,,False,False,1.927,sequential
+CALC-10,calculator,completed,COMMENT,80,1.0,2,QLT002 TST003,8,0,0,942.4,896.9,3,1,0.95,7,7,0,TRACE-A5D43D2E,bare except,COMMENT,True,2,0,0,,,QLT002 TST003,False,False,1.022,sequential

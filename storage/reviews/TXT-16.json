@@ -1,0 +1,15 @@
+{
+ "pr_id": "TXT-16",
+ "verdict": "COMMENT",
+ "summary": "Mergeable, with suggestions worth addressing. Findings: 1 medium.",
+ "comments": [
+  {
+   "path": "textkit/stats.py",
+   "line": 18,
+   "severity": "medium",
+   "rule": "TST003",
+   "message": "keywords() is new or changed but no test references it"
+  }
+ ],
+ "posted_at": "2026-10-21T16:57:50+00:00"
+}

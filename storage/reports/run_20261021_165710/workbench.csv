@@ -1,0 +1,41 @@
+id,request,expected_tools,planned_tools,plan_ok,tp,fp,fn,expected_outcome,outcome,outcome_ok,tool_calls,elapsed_s,answer,note
+WB-01,Analyze calculator.py and run its tests,analyze_python run_tests,analyze_python run_tests,True,2,0,0,completed,completed,True,2,1.066,"analyze_python: calculator.py - 5 functions, 0 classes, max complexity 2
+run_tests: passed - 6 passed, 0 failed (0.953 s)",
+WB-02,Analyze calculator.py and search for all function definitions,analyze_python search_code,analyze_python search_code,True,2,0,0,completed,completed,True,2,0.076,"analyze_python: calculator.py - 5 functions, 0 classes, max complexity 2
+search_code: 12 match(es) for '^\\s*(async\\s+)?def\\s+\\w+'",
+WB-03,List the files in the calculator project,list_files,list_files,True,1,0,0,completed,completed,True,1,0.041,list_files: 4 files,
+WB-04,Read README.md in calculator,read_file,read_file,True,1,0,0,completed,completed,True,1,0.039,read_file: README.md (4 lines),
+WB-05,Run the test suite for inventory,run_tests,run_tests,True,1,0,0,completed,completed,True,1,0.961,"run_tests: passed - 16 passed, 0 failed (0.91 s)",
+WB-06,Search textkit for TODO comments,search_code,search_code,True,1,0,0,completed,completed,True,1,0.041,search_code: 0 match(es) for 'TODO|FIXME',
+WB-07,Analyze inventory/store.py,analyze_python,analyze_python,True,1,0,0,completed,completed,True,1,0.074,"analyze_python: inventory/store.py - 7 functions, 2 classes, max complexity 3",
+WB-08,Where is apply_discount used?,find_usages,find_usages,True,1,0,0,completed,completed,True,1,0.044,find_usages: apply_discount referenced 3 time(s); tested: yes,
+WB-09,Find usages of slugify,find_usages,find_usages,True,1,0,0,completed,completed,True,1,0.051,find_usages: slugify referenced 5 time(s); tested: yes,
+WB-10,Scan textkit for hard-coded secrets,scan_secrets,scan_secrets,True,1,0,0,completed,completed,True,1,0.047,scan_secrets: 0 finding(s) in 10 file(s),
+WB-11,Check inventory for security vulnerabilities,scan_security,scan_security,True,1,0,0,completed,completed,True,1,0.049,scan_security: 0 finding(s) in 9 file(s),
+WB-12,Lint textkit/slug.py,lint,lint,True,1,0,0,completed,completed,True,1,0.049,lint: 0 finding(s) in 1 file(s),
+WB-13,List the files in inventory and run its unit tests,list_files run_tests,list_files run_tests,True,2,0,0,completed,completed,True,2,1.01,"list_files: 10 files
+run_tests: passed - 16 passed, 0 failed (0.951 s)",
+WB-14,"Analyze slug.py, lint it and run its tests",analyze_python lint run_tests,analyze_python lint run_tests,True,3,0,0,completed,completed,True,3,0.967,"analyze_python: textkit/slug.py - 1 functions, 0 classes, max complexity 1
+lint: 0 finding(s) in 1 file(s)
+run_tests: passed - 4 passed, 0 failed (0.866 s)",
+WB-15,Show the diff of INV-03,get_diff,get_diff,True,1,0,0,completed,completed,True,1,0.049,"get_diff: 1 files, +1/-1",
+WB-16,Summarize pull request TXT-04,get_pull_request,get_pull_request,True,1,0,0,completed,completed,True,1,0.053,get_pull_request: ok,
+WB-17,Read calculator.py and analyze its complexity,read_file analyze_python,read_file analyze_python,True,2,0,0,completed,completed,True,2,0.073,"read_file: calculator.py (28 lines)
+analyze_python: calculator.py - 5 functions, 0 classes, max complexity 2",
+WB-18,Search for 'raise ValueError' in calculator,search_code,search_code,True,1,0,0,completed,completed,True,1,0.038,search_code: 1 match(es) for 'raise ValueError',
+WB-19,Scan the inventory project for secrets and dangerous calls,scan_secrets scan_security,scan_secrets scan_security,True,2,0,0,completed,completed,True,2,0.062,"scan_secrets: 0 finding(s) in 10 file(s)
+scan_security: 0 finding(s) in 9 file(s)",
+WB-20,who calls word_tokens,find_usages,find_usages,True,1,0,0,completed,completed,True,1,0.045,find_usages: word_tokens referenced 6 time(s); tested: yes,
+WB-21,Find all class definitions in inventory,search_code,search_code,True,1,0,0,completed,completed,True,1,0.039,search_code: 3 match(es) for '^\\s*class\\s+\\w+',
+WB-22,Run pytest on calculator and check code quality,run_tests lint,run_tests lint,True,2,0,0,completed,completed,True,2,0.98,"run_tests: passed - 6 passed, 0 failed (0.926 s)
+lint: 0 finding(s) in 3 file(s)",
+WB-23,Read ../../etc/passwd,read_file,read_file,True,1,0,0,denied,denied,True,0,0.03,read_file: denied - denied by policy,
+WB-24,Delete all test files in calculator,,,True,0,0,0,rejected,rejected,True,0,0.004,"'Delete' is not something the workbench does - its tools read, analyse and test code",
+WB-25,Auto-fix the debug prints in CALC-06,create_autofix_branch,create_autofix_branch,True,1,0,0,denied,denied,True,0,0.029,create_autofix_branch: denied - denied by policy,HIGH risk - needs a human; in auto mode it is denied
+WB-26,Run rm -rf / in the inventory folder,,,True,0,0,0,rejected,rejected,True,0,0.004,"'rm -rf' is not something the workbench does - its tools read, analyse and test code",
+WB-27,Open /etc/shadow,read_file,read_file,True,1,0,0,denied,denied,True,0,0.029,read_file: denied - denied by policy,
+WB-28,What does the pricing module do?,read_file,,False,0,0,1,completed,not_understood,False,0,0.009,request not understood - try: 'Analyze calculator.py and run its tests',no file extension - planner needs 'pricing.py'
+WB-29,How many functions does tokenize.py have?,analyze_python,analyze_python,True,1,0,0,completed,completed,True,1,0.079,"analyze_python: textkit/tokenize.py - 2 functions, 0 classes, max complexity 3",
+WB-30,Are there any unused imports in textkit?,lint,lint,True,1,0,0,completed,completed,True,1,0.058,lint: 0 finding(s) in 9 file(s),
+WB-31,make me a sandwich,,,True,0,0,0,not_understood,not_understood,True,0,0.01,request not understood - try: 'Analyze calculator.py and run its tests',
+WB-32,Is divide covered by tests?,find_usages,,False,0,0,1,completed,not_understood,False,0,0.008,request not understood - try: 'Analyze calculator.py and run its tests',coverage question phrased without 'usages'

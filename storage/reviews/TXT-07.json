@@ -1,0 +1,22 @@
+{
+ "pr_id": "TXT-07",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high, 1 low.",
+ "comments": [
+  {
+   "path": "tests/test_slug.py",
+   "line": 0,
+   "severity": "high",
+   "rule": "TST001",
+   "message": "tests.test_slug::test_basic_slug fails on the PR head"
+  },
+  {
+   "path": "textkit/slug.py",
+   "line": 10,
+   "severity": "low",
+   "rule": "QLT001",
+   "message": "breakpoint() left in code"
+  }
+ ],
+ "posted_at": "2026-10-21T16:57:48+00:00"
+}

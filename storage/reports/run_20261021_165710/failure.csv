@@ -1,0 +1,17 @@
+id,failure_type,scenario,expected,observed,result,detail
+FL-01,Execution error,Transient lint failure,"retried once, then succeeds","ok=True, attempts=2",PASS,EXECUTION is retryable
+FL-02,Execution error,Persistent failure,gives up after 3 attempts,"ok=False, attempts=3, EXECUTION",PASS,retry limit respected
+FL-03,Timeout,Tool hangs past its timeout,"TIMEOUT, retried, second attempt succeeds","ok=True, attempts=2",PASS,first call timed out after 1 s
+FL-04,Execution error,MCP server process crashes mid-call,client reconnects (new stdio session) and retries,"ok=True, attempts=2, reconnects +1",PASS,
+FL-05,Tool error,Tool reports an error,"stop and report, no retry","ok=False, attempts=1, TOOL",PASS,TOOL errors are reported
+FL-06,Input error,File does not exist,"INPUT, no retry","INPUT, attempts=1",PASS,
+FL-07,Security error,Path outside the project,"SECURITY, stop immediately","SECURITY, attempts=1",PASS,
+FL-08,Input error,Required argument missing,rejected before the call,"INPUT, attempts=0",PASS,missing required argument caught by the client
+FL-09,Tool error,Security scan unavailable during a review,review completes and reports the gap,"completed, verdict COMMENT, gaps: scan_security (TOOL)",PASS,"partial evidence is reported, not hidden"
+FL-10,Tool error,Tests cannot run on a clean PR,verdict downgraded APPROVE -> COMMENT,verdict COMMENT (clean PR would be APPROVE),PASS,no approval without test evidence
+FL-11,Dependency failure,All compare_versions calls fail,"dependent find_usages skipped, full test suite still runs","find_usages skipped, full suite success",PASS,
+FL-12,Execution error,Retry disabled,"single attempt, failure surfaced","ok=False, attempts=1",PASS,retry policy 'none' for comparison
+FL-13,Security error,Naive retry on a security error,naive policy retries 5x (shows why classification matters),attempts=5,PASS,naive retry wastes 4 calls on a non-retryable error
+FL-14,Execution error,Automation server crashes while posting,reconnect and retry,"ok=True, attempts=2",PASS,automation server restarted
+FL-15,Timeout,Diff tool keeps timing out,"limited retries, workflow completes with a reported gap","get_diff failed (TIMEOUT), verdict COMMENT",PASS,"without the diff, added-line evidence is missing; the gap is listed in the report"
+FL-16,Input error,Unreasonable pytest timeout,INPUT error,INPUT,PASS,timeout must be 1-120 s

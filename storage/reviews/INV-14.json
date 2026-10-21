@@ -1,0 +1,22 @@
+{
+ "pr_id": "INV-14",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high, 1 medium.",
+ "comments": [
+  {
+   "path": "tests/test_store.py",
+   "line": 0,
+   "severity": "high",
+   "rule": "TST001",
+   "message": "tests.test_store::test_restock_rejects_non_positive fails on the PR head"
+  },
+  {
+   "path": "inventory/store.py",
+   "line": 35,
+   "severity": "medium",
+   "rule": "QLT002",
+   "message": "broad except that swallows the error"
+  }
+ ],
+ "posted_at": "2026-10-21T16:57:45+00:00"
+}

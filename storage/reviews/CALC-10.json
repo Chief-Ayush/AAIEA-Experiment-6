@@ -1,0 +1,22 @@
+{
+ "pr_id": "CALC-10",
+ "verdict": "COMMENT",
+ "summary": "Mergeable, with suggestions worth addressing. Findings: 2 medium.",
+ "comments": [
+  {
+   "path": "app.py",
+   "line": 9,
+   "severity": "medium",
+   "rule": "QLT002",
+   "message": "bare except"
+  },
+  {
+   "path": "app.py",
+   "line": 5,
+   "severity": "medium",
+   "rule": "TST003",
+   "message": "run() is new or changed but no test references it"
+  }
+ ],
+ "posted_at": "2026-10-21T16:57:53+00:00"
+}

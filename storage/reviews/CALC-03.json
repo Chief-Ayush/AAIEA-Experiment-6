@@ -1,0 +1,22 @@
+{
+ "pr_id": "CALC-03",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high, 1 medium.",
+ "comments": [
+  {
+   "path": "app.py",
+   "line": 17,
+   "severity": "high",
+   "rule": "SEC002",
+   "message": "eval() executes arbitrary code"
+  },
+  {
+   "path": "app.py",
+   "line": 15,
+   "severity": "medium",
+   "rule": "TST003",
+   "message": "evaluate() is new or changed but no test references it"
+  }
+ ],
+ "posted_at": "2026-10-21T16:57:43+00:00"
+}

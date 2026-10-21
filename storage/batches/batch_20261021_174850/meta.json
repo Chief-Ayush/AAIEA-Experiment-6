@@ -1,0 +1,55 @@
+{
+ "name": "batch_20261021_174850",
+ "created": "2026-10-21T17:48:50",
+ "type": "pull_requests",
+ "source": "Pick pull requests",
+ "items": 8,
+ "summaries": {
+  "parallel": {
+   "prs": 8,
+   "verdicts": {
+    "REQUEST_CHANGES": 3,
+    "APPROVE": 2,
+    "COMMENT": 2,
+    "BLOCK": 1
+   },
+   "avg_time_s": 1.684,
+   "p95_time_s": 2.232,
+   "total_time_s": 13.47,
+   "avg_tool_calls": 8.6,
+   "retries": 0,
+   "failed_calls": 0,
+   "avg_dop": 5.25,
+   "avg_executor_ms": 1460.9,
+   "tool_validity_pct": 100.0,
+   "verdict_accuracy_pct": 87.5,
+   "labelled": 8,
+   "finding_precision_pct": 100.0,
+   "finding_recall_pct": 90.9,
+   "finding_f1_pct": 95.2
+  },
+  "sequential": {
+   "prs": 8,
+   "verdicts": {
+    "REQUEST_CHANGES": 3,
+    "APPROVE": 2,
+    "COMMENT": 2,
+    "BLOCK": 1
+   },
+   "avg_time_s": 1.525,
+   "p95_time_s": 2.101,
+   "total_time_s": 12.2,
+   "avg_tool_calls": 8.6,
+   "retries": 0,
+   "failed_calls": 0,
+   "avg_dop": 1.0,
+   "avg_executor_ms": 1447.9,
+   "tool_validity_pct": 100.0,
+   "verdict_accuracy_pct": 87.5,
+   "labelled": 8,
+   "finding_precision_pct": 100.0,
+   "finding_recall_pct": 90.9,
+   "finding_f1_pct": 95.2
+  }
+ }
+}
