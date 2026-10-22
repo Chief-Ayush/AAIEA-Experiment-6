@@ -1,0 +1,317 @@
+{
+ "trace_id": "TRACE-D79A05B4",
+ "pr_id": "INV-12",
+ "repo": "inventory",
+ "title": "Explain the reports module",
+ "status": "completed",
+ "generated": "2026-10-22T07:32:35+00:00",
+ "settings": {
+  "execution_mode": "parallel",
+  "dependency_aware": true,
+  "max_parallel": 8,
+  "retry_policy": "controlled",
+  "max_retries": 2,
+  "retry_backoff_s": 0.05,
+  "tool_timeout_s": 20.0,
+  "test_timeout_s": 30.0,
+  "validate_arguments": true,
+  "reuse_connections": true,
+  "enforce_policy": true,
+  "require_approval_for": "HIGH",
+  "approval_mode": "auto",
+  "interactive": false,
+  "complexity_threshold": 10,
+  "large_pr_lines": 400,
+  "full_suite_after_affected": true
+ },
+ "guard": {
+  "ok": true,
+  "injection": [],
+  "quarantined": false,
+  "note": "PR text treated as untrusted data; it is never used as an instruction"
+ },
+ "plan": [
+  {
+   "id": "T01",
+   "tool": "get_diff",
+   "args": {
+    "pr_id": "INV-12"
+   },
+   "purpose": "added and removed lines of every changed file",
+   "depends_on": [],
+   "agent": "DiffAnalyst",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T02",
+   "tool": "scan_secrets",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-12",
+    "paths": [
+     "README.md"
+    ]
+   },
+   "purpose": "hard-coded credentials in changed files",
+   "depends_on": [],
+   "agent": "SecurityReviewer",
+   "resolver": null,
+   "condition": null
+  }
+ ],
+ "supervisor": {
+  "checks": [
+   {
+    "task": "T01",
+    "tool": "get_diff",
+    "result": "valid",
+    "detail": "repo server, schema ok"
+   },
+   {
+    "task": "T02",
+    "tool": "scan_secrets",
+    "result": "valid",
+    "detail": "quality server, schema ok"
+   }
+  ],
+  "tools_listed": 18,
+  "rejected": 0
+ },
+ "policy": {
+  "decisions": [
+   {
+    "task": "T01",
+    "tool": "get_diff",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T02",
+    "tool": "scan_secrets",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   }
+  ],
+  "denied": [],
+  "risk_counts": {
+   "LOW": 2,
+   "MEDIUM": 0,
+   "HIGH": 0
+  }
+ },
+ "execution": {
+  "timeline": [
+   {
+    "phase": 1,
+    "tasks": [
+     "T01",
+     "T02"
+    ],
+    "calls": 2,
+    "start_ms": 0.0,
+    "wall_ms": 28.6,
+    "busy_ms": 33.0
+   }
+  ],
+  "metrics": {
+   "mode": "parallel",
+   "dependency_aware": true,
+   "phases": 1,
+   "tool_calls": 2,
+   "wall_ms": 28.6,
+   "busy_ms": 33.0,
+   "dop": 2,
+   "avg_dop": 2.0,
+   "dos": 1,
+   "speedup": 1.15,
+   "retries": 0,
+   "skipped": 0,
+   "failed": 0
+  },
+  "tasks": [
+   {
+    "id": "T01",
+    "tool": "get_diff",
+    "agent": "DiffAnalyst",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 22.03,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-002"
+    ]
+   },
+   {
+    "id": "T02",
+    "tool": "scan_secrets",
+    "agent": "SecurityReviewer",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 10.98,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-003"
+    ]
+   }
+  ]
+ },
+ "diff": {
+  "available": true,
+  "files": [
+   {
+    "path": "README.md",
+    "status": "modified",
+    "additions": 4,
+    "deletions": 0,
+    "kind": "docs/other"
+   }
+  ],
+  "additions": 4,
+  "deletions": 0,
+  "size": "XS",
+  "touches_tests": false,
+  "code_only": false,
+  "docs_only": true
+ },
+ "tests": {
+  "runs": [],
+  "affected_tests": [],
+  "functions_checked": 0,
+  "functions_tested": 0,
+  "known_test_files": [],
+  "preexisting_failures": [],
+  "environment_problem": null
+ },
+ "validation": {
+  "tool_checks": [
+   {
+    "task": "TASK-002",
+    "tool": "get_diff",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-003",
+    "tool": "scan_secrets",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   }
+  ],
+  "dropped": [],
+  "gaps": [],
+  "tools_valid": 2,
+  "tools_total": 2
+ },
+ "verdict": {
+  "verdict": "APPROVE",
+  "score": 100,
+  "top_severity": null,
+  "confidence": 1.0,
+  "counts": {
+   "critical": 0,
+   "high": 0,
+   "medium": 0,
+   "low": 0,
+   "info": 0
+  },
+  "notes": [],
+  "summary": "Looks good to merge. No findings.",
+  "fixable_rules": []
+ },
+ "human": {
+  "action": "approve",
+  "by": "auto (no reviewer present)",
+  "note": "",
+  "final_verdict": "APPROVE",
+  "dismissed": [],
+  "autofix_approved": [],
+  "overridden": false,
+  "at": "2026-10-22T07:32:35+00:00"
+ },
+ "final_verdict": "APPROVE",
+ "findings": [],
+ "fix": null,
+ "posted": {
+  "pr_id": "INV-12",
+  "verdict": "APPROVE",
+  "comments": 0,
+  "posted_at": "2026-10-22T07:32:35+00:00",
+  "location": "storage/reviews/INV-12.json",
+  "url": "",
+  "event": "APPROVE",
+  "inline_comments": 0
+ },
+ "agents": [
+  {
+   "agent": "IntakeGuard",
+   "ms": 24.6,
+   "summary": "INV-12 'Explain the reports module' - 1 files, +4/-0"
+  },
+  {
+   "agent": "Planner",
+   "ms": 0.0,
+   "summary": "2 tasks: get_diff, scan_secrets"
+  },
+  {
+   "agent": "Supervisor",
+   "ms": 10.5,
+   "summary": "18 tools listed; 2 tasks approved, 0 rejected"
+  },
+  {
+   "agent": "PolicyGuard",
+   "ms": 0.5,
+   "summary": "LOW 2, MEDIUM 0, HIGH 0; 0 denied"
+  },
+  {
+   "agent": "Executor",
+   "ms": 28.9,
+   "summary": "2 MCP calls in 1 phases, 29 ms wall (DOP 2, speed-up x1.15)"
+  },
+  {
+   "agent": "DiffAnalyst",
+   "ms": 0.0,
+   "summary": "1 files, +4/-0 (size XS)"
+  },
+  {
+   "agent": "QualityReviewer",
+   "ms": 0.0,
+   "summary": "no quality issues on added lines"
+  },
+  {
+   "agent": "SecurityReviewer",
+   "ms": 0.0,
+   "summary": "no security issues on added lines"
+  },
+  {
+   "agent": "TestImpactAgent",
+   "ms": 1.9,
+   "summary": "0 test run(s): ; 0/0 changed functions tested"
+  },
+  {
+   "agent": "Validator",
+   "ms": 0.0,
+   "summary": "0 findings kept, 0 dropped; 2/2 tool results valid"
+  },
+  {
+   "agent": "VerdictAgent",
+   "ms": 0.0,
+   "summary": "APPROVE (score 100, confidence 1.0)"
+  },
+  {
+   "agent": "HumanApproval",
+   "ms": 0.0,
+   "summary": "approve by auto (no reviewer present); verdict APPROVE"
+  }
+ ]
+}

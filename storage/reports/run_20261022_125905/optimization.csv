@@ -1,0 +1,14 @@
+technique,metric,basic_approach,optimised_approach,basic_value,optimised_value,improvement_pct
+Parallel execution,Variation 9 wall time (ms),await each call,asyncio.gather per phase,73.5,59.1,19.6
+Parallel execution,4 independent pytest runs (ms),await each call,asyncio.gather,4613.8,1652.3,64.2
+Parallel execution,review workflow executor time (ms),sequential executor,phased parallel executor,1964.0,1902.9,3.1
+Dependency-aware scheduling,pytest runs on 3 failing PRs,"linear chain, full suite always",phases + skip full suite when affected tests fail,9.0,6.0,33.3
+Dependency-aware scheduling,avg executor time on failing PRs (ms),linear chain,phased DAG,3567.1,2288.4,35.8
+Tool-level validation,server round trips for 5 malformed calls,send and let the server fail,JSON-schema check against tools/list first,5.0,0.0,100.0
+Controlled retry,calls spent on 4 failure scenarios,retry every error 5x,"retry only TIMEOUT / EXECUTION, max 2",17.0,5.0,70.6
+Timeout protection,time to a result when a tool hangs 3 s (ms),wait for the tool,1 s timeout + retry,3015.0,1074.2,64.4
+Path security,traversal attempts stopped before reaching a server (of 6),server-side check only,PolicyGuard + safe_project_path,0.0,6.0,
+Structured logging,required trace fields per call (of 8),free-text log line,JSON record per call,0.0,8.0,
+Persistent tracing,records of one review readable after a restart,in-memory list,append-only mcp_traces.jsonl,0.0,10.0,
+Performance monitoring,metrics captured per workflow,none,"wall, busy, DOP, DOS, speed-up, retries, skipped, failed",0.0,8.0,
+Connection reuse (extra),4 calls (ms),new stdio session per call,persistent sessions,3510.2,98.8,97.2

@@ -1,0 +1,24 @@
+{
+ "pr_id": "TXT-04",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high, 1 medium.",
+ "comments": [
+  {
+   "path": "textkit/plugins.py",
+   "line": 6,
+   "severity": "high",
+   "rule": "SEC002",
+   "message": "exec() executes arbitrary code"
+  },
+  {
+   "path": "textkit/plugins.py",
+   "line": 4,
+   "severity": "medium",
+   "rule": "TST003",
+   "message": "run_plugin() is new or changed but no test references it"
+  }
+ ],
+ "posted_at": "2026-10-22T07:34:51+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
+}

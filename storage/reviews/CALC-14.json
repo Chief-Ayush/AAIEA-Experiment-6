@@ -1,0 +1,24 @@
+{
+ "pr_id": "CALC-14",
+ "verdict": "BLOCK",
+ "summary": "Do not merge - a critical problem must be fixed first. Findings: 1 critical, 1 high.",
+ "comments": [
+  {
+   "path": "app.py",
+   "line": 2,
+   "severity": "critical",
+   "rule": "SEC001",
+   "message": "github_token committed in source (high confidence)"
+  },
+  {
+   "path": "test_calculator.py",
+   "line": 0,
+   "severity": "high",
+   "rule": "TST002",
+   "message": "1 test(s) removed - coverage of existing behaviour drops"
+  }
+ ],
+ "posted_at": "2026-10-22T07:33:59+00:00",
+ "url": "",
+ "event": "BLOCK"
+}

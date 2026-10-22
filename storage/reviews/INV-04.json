@@ -1,0 +1,24 @@
+{
+ "pr_id": "INV-04",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high, 1 medium.",
+ "comments": [
+  {
+   "path": "inventory/db.py",
+   "line": 6,
+   "severity": "high",
+   "rule": "SEC004",
+   "message": "conn.execute() with SQL built by string formatting"
+  },
+  {
+   "path": "inventory/db.py",
+   "line": 4,
+   "severity": "medium",
+   "rule": "TST003",
+   "message": "find_item() is new or changed but no test references it"
+  }
+ ],
+ "posted_at": "2026-10-22T07:34:07+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
+}

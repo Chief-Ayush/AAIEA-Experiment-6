@@ -1,0 +1,32 @@
+{
+ "name": "batch_20261022_130529",
+ "created": "2026-10-22T13:05:29",
+ "type": "pull_requests",
+ "source": "Benchmark set",
+ "items": 62,
+ "summaries": {
+  "parallel": {
+   "prs": 62,
+   "verdicts": {
+    "REQUEST_CHANGES": 26,
+    "APPROVE": 25,
+    "COMMENT": 6,
+    "BLOCK": 5
+   },
+   "avg_time_s": 1.88,
+   "p95_time_s": 2.521,
+   "total_time_s": 116.54,
+   "avg_tool_calls": 9.4,
+   "retries": 0,
+   "failed_calls": 0,
+   "avg_dop": 5.06,
+   "avg_executor_ms": 1807.8,
+   "tool_validity_pct": 100.0,
+   "verdict_accuracy_pct": 95.2,
+   "labelled": 62,
+   "finding_precision_pct": 100.0,
+   "finding_recall_pct": 95.5,
+   "finding_f1_pct": 97.7
+  }
+ }
+}

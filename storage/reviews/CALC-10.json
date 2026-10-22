@@ -5,7 +5,7 @@
  "comments": [
   {
    "path": "app.py",
-   "line": 9,
+   "line": 11,
    "severity": "medium",
    "rule": "QLT002",
    "message": "bare except"
@@ -18,5 +18,7 @@
    "message": "run() is new or changed but no test references it"
   }
  ],
- "posted_at": "2026-10-21T16:57:53+00:00"
+ "posted_at": "2026-10-22T07:33:50+00:00",
+ "url": "",
+ "event": "COMMENT"
 }

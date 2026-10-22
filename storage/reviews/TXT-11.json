@@ -1,0 +1,17 @@
+{
+ "pr_id": "TXT-11",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high.",
+ "comments": [
+  {
+   "path": "tests/test_validate.py",
+   "line": 0,
+   "severity": "high",
+   "rule": "TST001",
+   "message": "tests.test_validate::test_is_email fails on the PR head (passes on the base)"
+  }
+ ],
+ "posted_at": "2026-10-22T07:35:06+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
+}

@@ -1,0 +1,17 @@
+{
+ "pr_id": "INV-20",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high.",
+ "comments": [
+  {
+   "path": "PR description",
+   "line": 0,
+   "severity": "high",
+   "rule": "SEC003",
+   "message": "reviewer targeting in the pull-request text - ignored, flagged for a human"
+  }
+ ],
+ "posted_at": "2026-10-22T07:34:34+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
+}

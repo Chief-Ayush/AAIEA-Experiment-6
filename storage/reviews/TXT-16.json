@@ -5,11 +5,13 @@
  "comments": [
   {
    "path": "textkit/stats.py",
-   "line": 18,
+   "line": 22,
    "severity": "medium",
    "rule": "TST003",
    "message": "keywords() is new or changed but no test references it"
   }
  ],
- "posted_at": "2026-10-21T16:57:50+00:00"
+ "posted_at": "2026-10-22T07:35:16+00:00",
+ "url": "",
+ "event": "COMMENT"
 }

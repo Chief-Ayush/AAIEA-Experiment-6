@@ -1,0 +1,17 @@
+{
+ "pr_id": "TXT-09",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high.",
+ "comments": [
+  {
+   "path": "tests/test_tokenize_stats.py",
+   "line": 0,
+   "severity": "high",
+   "rule": "TST001",
+   "message": "tests.test_tokenize_stats::test_sentences_split_on_marks fails on the PR head (passes on the base)"
+  }
+ ],
+ "posted_at": "2026-10-22T07:35:02+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
+}

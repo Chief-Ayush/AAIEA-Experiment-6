@@ -1,0 +1,24 @@
+{
+ "pr_id": "TXT-17",
+ "verdict": "BLOCK",
+ "summary": "Do not merge - a critical problem must be fixed first. Findings: 1 critical, 1 medium.",
+ "comments": [
+  {
+   "path": "textkit/notify.py",
+   "line": 3,
+   "severity": "critical",
+   "rule": "SEC001",
+   "message": "slack_token committed in source (high confidence)"
+  },
+  {
+   "path": "textkit/notify.py",
+   "line": 6,
+   "severity": "medium",
+   "rule": "TST003",
+   "message": "format_message() is new or changed but no test references it"
+  }
+ ],
+ "posted_at": "2026-10-22T07:35:17+00:00",
+ "url": "",
+ "event": "BLOCK"
+}

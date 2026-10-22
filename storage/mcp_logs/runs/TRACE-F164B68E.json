@@ -1,0 +1,728 @@
+{
+ "trace_id": "TRACE-F164B68E",
+ "pr_id": "INV-03",
+ "repo": "inventory",
+ "title": "Configure the reporting API",
+ "status": "completed",
+ "generated": "2026-10-22T07:34:06+00:00",
+ "settings": {
+  "execution_mode": "parallel",
+  "dependency_aware": true,
+  "max_parallel": 8,
+  "retry_policy": "controlled",
+  "max_retries": 2,
+  "retry_backoff_s": 0.05,
+  "tool_timeout_s": 20.0,
+  "test_timeout_s": 30.0,
+  "validate_arguments": true,
+  "reuse_connections": true,
+  "enforce_policy": true,
+  "require_approval_for": "HIGH",
+  "approval_mode": "auto",
+  "interactive": false,
+  "complexity_threshold": 10,
+  "large_pr_lines": 400,
+  "full_suite_after_affected": true
+ },
+ "guard": {
+  "ok": true,
+  "injection": [],
+  "quarantined": false,
+  "note": "PR text treated as untrusted data; it is never used as an instruction"
+ },
+ "plan": [
+  {
+   "id": "T01",
+   "tool": "get_diff",
+   "args": {
+    "pr_id": "INV-03"
+   },
+   "purpose": "added and removed lines of every changed file",
+   "depends_on": [],
+   "agent": "DiffAnalyst",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T02",
+   "tool": "compare_versions",
+   "args": {
+    "pr_id": "INV-03",
+    "path": "inventory/config.py"
+   },
+   "purpose": "functions, complexity and imports of inventory/config.py: main vs PR",
+   "depends_on": [],
+   "agent": "QualityReviewer",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T03",
+   "tool": "scan_secrets",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-03",
+    "paths": [
+     "inventory/config.py"
+    ]
+   },
+   "purpose": "hard-coded credentials in changed files",
+   "depends_on": [],
+   "agent": "SecurityReviewer",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T04",
+   "tool": "scan_security",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-03",
+    "paths": [
+     "inventory/config.py"
+    ]
+   },
+   "purpose": "dangerous calls in changed Python files",
+   "depends_on": [],
+   "agent": "SecurityReviewer",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T05",
+   "tool": "lint",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-03",
+    "paths": [
+     "inventory/config.py"
+    ]
+   },
+   "purpose": "static checks of changed Python files",
+   "depends_on": [],
+   "agent": "QualityReviewer",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T06",
+   "tool": "find_usages",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-03",
+    "symbol": "<changed public functions>"
+   },
+   "purpose": "tests that reference each changed public function",
+   "depends_on": [
+    "T02"
+   ],
+   "agent": "TestImpactAgent",
+   "resolver": "usages_of_changed",
+   "condition": null
+  },
+  {
+   "id": "T07",
+   "tool": "run_tests",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-03",
+    "targets": "<affected tests>"
+   },
+   "purpose": "run the tests affected by the change",
+   "depends_on": [
+    "T06"
+   ],
+   "agent": "TestImpactAgent",
+   "resolver": "affected_tests",
+   "condition": null
+  },
+  {
+   "id": "T08",
+   "tool": "run_tests",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-03",
+    "targets": []
+   },
+   "purpose": "full test suite (only after the affected tests pass)",
+   "depends_on": [
+    "T07"
+   ],
+   "agent": "TestImpactAgent",
+   "resolver": null,
+   "condition": "affected_tests_passed"
+  },
+  {
+   "id": "T09",
+   "tool": "run_tests",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-03",
+    "ref": "base",
+    "targets": "<failing tests>"
+   },
+   "purpose": "re-run failing tests on the base branch (new failure or already broken?)",
+   "depends_on": [
+    "T07",
+    "T08"
+   ],
+   "agent": "TestImpactAgent",
+   "resolver": "baseline_tests",
+   "condition": "head_tests_failed"
+  }
+ ],
+ "supervisor": {
+  "checks": [
+   {
+    "task": "T01",
+    "tool": "get_diff",
+    "result": "valid",
+    "detail": "repo server, schema ok"
+   },
+   {
+    "task": "T02",
+    "tool": "compare_versions",
+    "result": "valid",
+    "detail": "analysis server, schema ok"
+   },
+   {
+    "task": "T03",
+    "tool": "scan_secrets",
+    "result": "valid",
+    "detail": "quality server, schema ok"
+   },
+   {
+    "task": "T04",
+    "tool": "scan_security",
+    "result": "valid",
+    "detail": "quality server, schema ok"
+   },
+   {
+    "task": "T05",
+    "tool": "lint",
+    "result": "valid",
+    "detail": "quality server, schema ok"
+   },
+   {
+    "task": "T06",
+    "tool": "find_usages",
+    "result": "deferred",
+    "detail": "arguments resolved at run time (usages_of_changed); validated before the call"
+   },
+   {
+    "task": "T07",
+    "tool": "run_tests",
+    "result": "deferred",
+    "detail": "arguments resolved at run time (affected_tests); validated before the call"
+   },
+   {
+    "task": "T08",
+    "tool": "run_tests",
+    "result": "valid",
+    "detail": "quality server, schema ok"
+   },
+   {
+    "task": "T09",
+    "tool": "run_tests",
+    "result": "deferred",
+    "detail": "arguments resolved at run time (baseline_tests); validated before the call"
+   }
+  ],
+  "tools_listed": 18,
+  "rejected": 0
+ },
+ "policy": {
+  "decisions": [
+   {
+    "task": "T01",
+    "tool": "get_diff",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T02",
+    "tool": "compare_versions",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T03",
+    "tool": "scan_secrets",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T04",
+    "tool": "scan_security",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T05",
+    "tool": "lint",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T06",
+    "tool": "find_usages",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T07",
+    "tool": "run_tests",
+    "risk": "MEDIUM",
+    "decision": "allow",
+    "reason": "MEDIUM risk - allowed with timeout protection and an isolated checkout"
+   },
+   {
+    "task": "T08",
+    "tool": "run_tests",
+    "risk": "MEDIUM",
+    "decision": "allow",
+    "reason": "MEDIUM risk - allowed with timeout protection and an isolated checkout"
+   },
+   {
+    "task": "T09",
+    "tool": "run_tests",
+    "risk": "MEDIUM",
+    "decision": "allow",
+    "reason": "MEDIUM risk - allowed with timeout protection and an isolated checkout"
+   }
+  ],
+  "denied": [],
+  "risk_counts": {
+   "LOW": 6,
+   "MEDIUM": 3,
+   "HIGH": 0
+  }
+ },
+ "execution": {
+  "timeline": [
+   {
+    "phase": 1,
+    "tasks": [
+     "T01",
+     "T02",
+     "T03",
+     "T04",
+     "T05"
+    ],
+    "calls": 5,
+    "start_ms": 0.0,
+    "wall_ms": 63.4,
+    "busy_ms": 205.1
+   },
+   {
+    "phase": 2,
+    "tasks": [
+     "T06"
+    ],
+    "calls": 0,
+    "start_ms": 63.4,
+    "wall_ms": 0.0,
+    "busy_ms": 0
+   },
+   {
+    "phase": 3,
+    "tasks": [
+     "T07"
+    ],
+    "calls": 0,
+    "start_ms": 63.4,
+    "wall_ms": 0.0,
+    "busy_ms": 0
+   },
+   {
+    "phase": 4,
+    "tasks": [
+     "T08"
+    ],
+    "calls": 1,
+    "start_ms": 63.4,
+    "wall_ms": 1028.6,
+    "busy_ms": 1021.5
+   },
+   {
+    "phase": 5,
+    "tasks": [
+     "T09"
+    ],
+    "calls": 0,
+    "start_ms": 1092.0,
+    "wall_ms": 0.0,
+    "busy_ms": 0
+   }
+  ],
+  "metrics": {
+   "mode": "parallel",
+   "dependency_aware": true,
+   "phases": 2,
+   "tool_calls": 6,
+   "wall_ms": 1092.0,
+   "busy_ms": 1226.6,
+   "dop": 5,
+   "avg_dop": 3.0,
+   "dos": 2,
+   "speedup": 1.12,
+   "retries": 0,
+   "skipped": 3,
+   "failed": 0
+  },
+  "tasks": [
+   {
+    "id": "T01",
+    "tool": "get_diff",
+    "agent": "DiffAnalyst",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 25.32,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-002"
+    ]
+   },
+   {
+    "id": "T02",
+    "tool": "compare_versions",
+    "agent": "QualityReviewer",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 35.97,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-003"
+    ]
+   },
+   {
+    "id": "T03",
+    "tool": "scan_secrets",
+    "agent": "SecurityReviewer",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 43.65,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-004"
+    ]
+   },
+   {
+    "id": "T04",
+    "tool": "scan_security",
+    "agent": "SecurityReviewer",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 53.64,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-005"
+    ]
+   },
+   {
+    "id": "T05",
+    "tool": "lint",
+    "agent": "QualityReviewer",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 46.53,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-006"
+    ]
+   },
+   {
+    "id": "T06",
+    "tool": "find_usages",
+    "agent": "TestImpactAgent",
+    "phase": 2,
+    "status": "skipped",
+    "duration_ms": null,
+    "attempts": null,
+    "error": null,
+    "category": null,
+    "reason": "nothing to resolve (no changed public functions / no affected tests)",
+    "task_ids": null
+   },
+   {
+    "id": "T07",
+    "tool": "run_tests",
+    "agent": "TestImpactAgent",
+    "phase": 3,
+    "status": "skipped",
+    "duration_ms": null,
+    "attempts": null,
+    "error": null,
+    "category": null,
+    "reason": "nothing to resolve (no changed public functions / no affected tests)",
+    "task_ids": null
+   },
+   {
+    "id": "T08",
+    "tool": "run_tests",
+    "agent": "TestImpactAgent",
+    "phase": 4,
+    "status": "success",
+    "duration_ms": 1021.53,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-007"
+    ]
+   },
+   {
+    "id": "T09",
+    "tool": "run_tests",
+    "agent": "TestImpactAgent",
+    "phase": 5,
+    "status": "skipped",
+    "duration_ms": null,
+    "attempts": null,
+    "error": null,
+    "category": null,
+    "reason": "all tests passed - no baseline needed",
+    "task_ids": null
+   }
+  ]
+ },
+ "diff": {
+  "available": true,
+  "files": [
+   {
+    "path": "inventory/config.py",
+    "status": "modified",
+    "additions": 1,
+    "deletions": 1,
+    "kind": "code"
+   }
+  ],
+  "additions": 1,
+  "deletions": 1,
+  "size": "XS",
+  "touches_tests": false,
+  "code_only": true,
+  "docs_only": false
+ },
+ "tests": {
+  "runs": [
+   {
+    "task": "T07",
+    "on": "PR",
+    "status": "skipped",
+    "reason": "nothing to resolve (no changed public functions / no affected tests)",
+    "targets": null
+   },
+   {
+    "task": "T08",
+    "on": "PR",
+    "status": "passed",
+    "targets": "full suite",
+    "passed": 13,
+    "failed": 0,
+    "errors": 0,
+    "duration_s": 1.001
+   },
+   {
+    "task": "T09",
+    "on": "base",
+    "status": "skipped",
+    "reason": "all tests passed - no baseline needed",
+    "targets": null
+   }
+  ],
+  "affected_tests": [],
+  "functions_checked": 0,
+  "functions_tested": 0,
+  "known_test_files": [],
+  "preexisting_failures": [],
+  "environment_problem": null
+ },
+ "validation": {
+  "tool_checks": [
+   {
+    "task": "TASK-002",
+    "tool": "get_diff",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-003",
+    "tool": "compare_versions",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-004",
+    "tool": "scan_secrets",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-005",
+    "tool": "scan_security",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-006",
+    "tool": "lint",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-007",
+    "tool": "run_tests",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   }
+  ],
+  "dropped": [],
+  "gaps": [],
+  "tools_valid": 6,
+  "tools_total": 6
+ },
+ "verdict": {
+  "verdict": "BLOCK",
+  "score": 40,
+  "top_severity": "critical",
+  "confidence": 1.0,
+  "counts": {
+   "critical": 1,
+   "high": 0,
+   "medium": 0,
+   "low": 0,
+   "info": 0
+  },
+  "notes": [],
+  "summary": "Do not merge - a critical problem must be fixed first. Findings: 1 critical.",
+  "fixable_rules": [
+   "SEC001"
+  ]
+ },
+ "human": {
+  "action": "approve",
+  "by": "auto (no reviewer present)",
+  "note": "",
+  "final_verdict": "BLOCK",
+  "dismissed": [],
+  "autofix_approved": [],
+  "overridden": false,
+  "at": "2026-10-22T07:34:06+00:00"
+ },
+ "final_verdict": "BLOCK",
+ "findings": [
+  {
+   "rule": "SEC001",
+   "severity": "critical",
+   "title": "Hard-coded secret",
+   "path": "inventory/config.py",
+   "line": 6,
+   "message": "stripe_live_key committed in source (high confidence)",
+   "evidence": "stripe_live_key: sk_l*************************3dRe",
+   "agent": "SecurityReviewer",
+   "autofix": true
+  }
+ ],
+ "fix": null,
+ "posted": {
+  "pr_id": "INV-03",
+  "verdict": "BLOCK",
+  "comments": 1,
+  "posted_at": "2026-10-22T07:34:06+00:00",
+  "location": "storage/reviews/INV-03.json",
+  "url": "",
+  "event": "BLOCK",
+  "inline_comments": 0
+ },
+ "agents": [
+  {
+   "agent": "IntakeGuard",
+   "ms": 25.1,
+   "summary": "INV-03 'Configure the reporting API' - 1 files, +1/-1"
+  },
+  {
+   "agent": "Planner",
+   "ms": 0.0,
+   "summary": "9 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security"
+  },
+  {
+   "agent": "Supervisor",
+   "ms": 12.5,
+   "summary": "18 tools listed; 9 tasks approved, 0 rejected"
+  },
+  {
+   "agent": "PolicyGuard",
+   "ms": 1.2,
+   "summary": "LOW 6, MEDIUM 3, HIGH 0; 0 denied"
+  },
+  {
+   "agent": "Executor",
+   "ms": 1092.4,
+   "summary": "6 MCP calls in 2 phases, 1092 ms wall (DOP 5, speed-up x1.12)"
+  },
+  {
+   "agent": "DiffAnalyst",
+   "ms": 0.0,
+   "summary": "1 files, +1/-1 (size XS)"
+  },
+  {
+   "agent": "QualityReviewer",
+   "ms": 0.0,
+   "summary": "no quality issues on added lines"
+  },
+  {
+   "agent": "SecurityReviewer",
+   "ms": 0.0,
+   "summary": "SEC001 x1"
+  },
+  {
+   "agent": "TestImpactAgent",
+   "ms": 2.2,
+   "summary": "3 test run(s): skipped, passed, skipped; 0/0 changed functions tested"
+  },
+  {
+   "agent": "Validator",
+   "ms": 0.0,
+   "summary": "1 findings kept, 0 dropped; 6/6 tool results valid"
+  },
+  {
+   "agent": "VerdictAgent",
+   "ms": 0.0,
+   "summary": "BLOCK (score 40, confidence 1.0)"
+  },
+  {
+   "agent": "HumanApproval",
+   "ms": 0.0,
+   "summary": "approve by auto (no reviewer present); verdict BLOCK"
+  }
+ ]
+}

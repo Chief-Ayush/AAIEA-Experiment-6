@@ -1,0 +1,24 @@
+{
+ "pr_id": "INV-13",
+ "verdict": "BLOCK",
+ "summary": "Do not merge - a critical problem must be fixed first. Findings: 1 critical, 1 medium.",
+ "comments": [
+  {
+   "path": "inventory/export.py",
+   "line": 3,
+   "severity": "critical",
+   "rule": "SEC001",
+   "message": "aws_access_key committed in source (high confidence)"
+  },
+  {
+   "path": "inventory/export.py",
+   "line": 6,
+   "severity": "medium",
+   "rule": "TST003",
+   "message": "export_stock() is new or changed but no test references it"
+  }
+ ],
+ "posted_at": "2026-10-22T07:34:21+00:00",
+ "url": "",
+ "event": "BLOCK"
+}

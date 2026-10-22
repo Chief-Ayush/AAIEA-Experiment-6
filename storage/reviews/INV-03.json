@@ -5,11 +5,13 @@
  "comments": [
   {
    "path": "inventory/config.py",
-   "line": 5,
+   "line": 6,
    "severity": "critical",
    "rule": "SEC001",
    "message": "stripe_live_key committed in source (high confidence)"
   }
  ],
- "posted_at": "2026-10-21T16:57:44+00:00"
+ "posted_at": "2026-10-22T07:34:06+00:00",
+ "url": "",
+ "event": "BLOCK"
 }

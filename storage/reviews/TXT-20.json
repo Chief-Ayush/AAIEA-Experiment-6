@@ -1,0 +1,17 @@
+{
+ "pr_id": "TXT-20",
+ "verdict": "COMMENT",
+ "summary": "Mergeable, with suggestions worth addressing. Findings: 1 medium.",
+ "comments": [
+  {
+   "path": "textkit/stats.py",
+   "line": 17,
+   "severity": "medium",
+   "rule": "QLT007",
+   "message": "most_common has a mutable default argument"
+  }
+ ],
+ "posted_at": "2026-10-22T07:35:25+00:00",
+ "url": "",
+ "event": "COMMENT"
+}

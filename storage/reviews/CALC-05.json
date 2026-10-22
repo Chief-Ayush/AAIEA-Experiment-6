@@ -1,0 +1,24 @@
+{
+ "pr_id": "CALC-05",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high, 1 low.",
+ "comments": [
+  {
+   "path": "test_calculator.py",
+   "line": 0,
+   "severity": "high",
+   "rule": "TST002",
+   "message": "1 test(s) removed - coverage of existing behaviour drops"
+  },
+  {
+   "path": "test_calculator.py",
+   "line": 1,
+   "severity": "low",
+   "rule": "QLT004",
+   "message": "'pytest' imported but never used"
+  }
+ ],
+ "posted_at": "2026-10-22T07:33:43+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
+}

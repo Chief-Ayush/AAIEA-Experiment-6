@@ -1,0 +1,24 @@
+{
+ "pr_id": "TXT-03",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high, 1 low.",
+ "comments": [
+  {
+   "path": "tests/test_tokenize_stats.py",
+   "line": 0,
+   "severity": "high",
+   "rule": "TST001",
+   "message": "tests.test_tokenize_stats::test_word_tokens_keep_apostrophes fails on the PR head (passes on the base)"
+  },
+  {
+   "path": "textkit/tokenize.py",
+   "line": 3,
+   "severity": "low",
+   "rule": "QLT004",
+   "message": "'string' imported but never used"
+  }
+ ],
+ "posted_at": "2026-10-22T07:34:50+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
+}

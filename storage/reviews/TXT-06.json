@@ -1,0 +1,17 @@
+{
+ "pr_id": "TXT-06",
+ "verdict": "BLOCK",
+ "summary": "Do not merge - a critical problem must be fixed first. Findings: 1 critical.",
+ "comments": [
+  {
+   "path": "textkit/settings.py",
+   "line": 3,
+   "severity": "critical",
+   "rule": "SEC001",
+   "message": "github_token committed in source (high confidence)"
+  }
+ ],
+ "posted_at": "2026-10-22T07:34:55+00:00",
+ "url": "",
+ "event": "BLOCK"
+}

@@ -1,0 +1,17 @@
+{
+ "pr_id": "INV-23",
+ "verdict": "APPROVE",
+ "summary": "Looks good to merge. Findings: 1 low.",
+ "comments": [
+  {
+   "path": "inventory/pricing.py",
+   "line": 8,
+   "severity": "low",
+   "rule": "QLT001",
+   "message": "print() left in code"
+  }
+ ],
+ "posted_at": "2026-10-22T07:34:41+00:00",
+ "url": "",
+ "event": "APPROVE"
+}

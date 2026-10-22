@@ -1,0 +1,63 @@
+pr_id,repo,status,verdict,score,confidence,findings,rules,tool_calls,retries,failed_calls,wall_ms,busy_ms,phases,dop,speedup,tools_valid,tools_total,dropped,trace_id,category,expected_verdict,verdict_ok,tp,fp,fn,missed,extra,expected_rules,tests_fail,tst001_found,elapsed_s
+CALC-01,calculator,completed,APPROVE,100,1.0,0,,10,0,0,2174.2,2315.0,4,6,1.06,9,9,0,TRACE-D16BDB37,clean feature,APPROVE,True,0,0,0,,,,False,False,2.238
+CALC-02,calculator,completed,REQUEST_CHANGES,75,1.0,1,TST001,9,0,0,2232.1,2314.8,4,5,1.04,8,8,0,TRACE-C8A5A691,bug caught by tests,REQUEST_CHANGES,True,1,0,0,,,TST001,True,True,2.268
+CALC-03,calculator,completed,REQUEST_CHANGES,65,1.0,2,SEC002 TST003,8,0,0,1007.2,1109.7,3,5,1.1,7,7,0,TRACE-25B08C56,dangerous call,REQUEST_CHANGES,True,2,0,0,,,SEC002 TST003,False,False,1.046
+CALC-04,calculator,completed,APPROVE,100,1.0,0,,9,0,0,1993.5,2099.0,4,5,1.05,8,8,0,TRACE-97EF84B6,safe refactor,APPROVE,True,0,0,0,,,,False,False,2.031
+CALC-05,calculator,completed,REQUEST_CHANGES,72,1.0,2,QLT004 TST002,8,0,0,2329.1,2439.4,3,5,1.05,7,7,0,TRACE-D087918C,tests removed,REQUEST_CHANGES,True,2,0,0,,,QLT004 TST002,False,False,2.367
+CALC-06,calculator,completed,APPROVE,97,1.0,1,QLT001,9,0,0,2081.9,2153.2,4,5,1.03,8,8,0,TRACE-8FD4698D,debug leftover,APPROVE,True,1,0,0,,,QLT001,False,False,2.12
+CALC-07,calculator,completed,REQUEST_CHANGES,65,1.0,2,SEC003 TST003,8,0,0,1172.5,1267.8,3,5,1.08,7,7,0,TRACE-912A95A0,prompt injection,REQUEST_CHANGES,True,2,0,0,,,SEC003 TST003,False,False,1.211
+CALC-08,calculator,completed,REQUEST_CHANGES,75,1.0,1,TST001,9,0,0,2246.6,2326.7,4,5,1.04,8,8,0,TRACE-9E1AE58B,bug caught by tests,REQUEST_CHANGES,True,1,0,0,,,TST001,True,True,2.288
+CALC-09,calculator,completed,APPROVE,100,1.0,0,,3,0,0,27.0,33.4,1,2,1.24,2,2,0,TRACE-DD9941F2,docs,APPROVE,True,0,0,0,,,,False,False,0.063
+CALC-10,calculator,completed,COMMENT,80,1.0,2,QLT002 TST003,8,0,0,1032.5,1128.0,3,5,1.09,7,7,0,TRACE-A16264B0,bare except,COMMENT,True,2,0,0,,,QLT002 TST003,False,False,1.075
+CALC-11,calculator,completed,APPROVE,100,1.0,0,,10,0,0,2422.4,2577.5,4,6,1.06,9,9,0,TRACE-9A3BEEA2,clean feature,APPROVE,True,0,0,0,,,,False,False,2.469
+CALC-12,calculator,completed,APPROVE,100,1.0,0,,9,0,0,2518.2,2614.9,4,5,1.04,8,8,0,TRACE-EA976FB8,safe refactor,APPROVE,True,0,0,0,,,,False,False,2.56
+CALC-13,calculator,completed,REQUEST_CHANGES,65,1.0,2,SEC002 TST003,8,0,0,1130.7,1225.5,3,5,1.08,7,7,0,TRACE-FDB5BE04,dangerous call,REQUEST_CHANGES,True,2,0,0,,,SEC002 TST003,False,False,1.18
+CALC-14,calculator,completed,BLOCK,15,1.0,2,SEC001 TST002,9,0,0,2447.2,2590.9,3,6,1.06,8,8,0,TRACE-1410C6DB,mixed,BLOCK,True,2,0,0,,,SEC001 TST002,False,False,2.498
+CALC-15,calculator,completed,REQUEST_CHANGES,65,1.0,2,SEC003 TST003,8,0,0,1222.5,1317.1,3,5,1.08,7,7,0,TRACE-025BA508,prompt injection,REQUEST_CHANGES,True,2,0,0,,,SEC003 TST003,False,False,1.267
+INV-01,inventory,completed,APPROVE,100,1.0,0,,10,0,0,2332.4,2463.4,4,6,1.06,9,9,0,TRACE-161E44B1,clean feature,APPROVE,True,0,0,0,,,,False,False,2.378
+INV-02,inventory,completed,REQUEST_CHANGES,75,1.0,1,TST001,9,0,0,2493.5,2590.9,4,5,1.04,8,8,0,TRACE-7D362D39,bug caught by tests,REQUEST_CHANGES,True,1,0,0,,,TST001,True,True,2.539
+INV-03,inventory,completed,BLOCK,40,1.0,1,SEC001,7,0,0,1233.2,1349.9,2,5,1.09,6,6,0,TRACE-C8DA8490,hardcoded secret,BLOCK,True,1,0,0,,,SEC001,False,False,1.285
+INV-04,inventory,completed,REQUEST_CHANGES,65,1.0,2,SEC004 TST003,8,0,0,1276.6,1376.2,3,5,1.08,7,7,0,TRACE-34DABAAE,sql injection,REQUEST_CHANGES,True,2,0,0,,,SEC004 TST003,False,False,1.322
+INV-05,inventory,completed,REQUEST_CHANGES,75,1.0,1,TST001,9,0,0,2519.7,2611.8,4,5,1.04,8,8,0,TRACE-1E0D8E77,bug caught by tests,REQUEST_CHANGES,True,1,0,0,,,TST001,True,True,2.562
+INV-06,inventory,completed,REQUEST_CHANGES,65,1.0,2,SEC002 TST003,8,0,0,1136.5,1247.5,3,5,1.1,7,7,0,TRACE-77274A1E,dangerous call,REQUEST_CHANGES,True,2,0,0,,,SEC002 TST003,False,False,1.18
+INV-07,inventory,completed,COMMENT,80,1.0,2,QLT007 TST003,8,0,0,1175.9,1271.3,3,5,1.08,7,7,0,TRACE-D6F690C1,mutable default,COMMENT,True,2,0,0,,,QLT007 TST003,False,False,1.219
+INV-08,inventory,completed,REQUEST_CHANGES,75,1.0,1,TST002,8,0,0,2222.5,2327.7,3,5,1.05,7,7,0,TRACE-283574CF,tests removed,REQUEST_CHANGES,True,1,0,0,,,TST002,False,False,2.268
+INV-09,inventory,completed,REQUEST_CHANGES,62,1.0,3,QLT004 SEC002 TST003,9,0,0,1119.2,1288.6,3,6,1.15,8,8,0,TRACE-AD5F416B,dangerous call,REQUEST_CHANGES,True,3,0,0,,,QLT004 SEC002 TST003,False,False,1.163
+INV-10,inventory,completed,APPROVE,100,1.0,0,,9,0,0,2291.0,2389.0,4,5,1.04,8,8,0,TRACE-F2EB7AC7,safe refactor,APPROVE,True,0,0,0,,,,False,False,2.333
+INV-11,inventory,completed,COMMENT,90,1.0,1,QLT003,9,0,0,2139.8,2255.5,4,5,1.05,8,8,0,TRACE-0E19FB2C,complexity,COMMENT,True,1,0,0,,,QLT003,False,False,2.183
+INV-12,inventory,completed,APPROVE,100,1.0,0,,3,0,0,21.5,25.2,1,2,1.17,2,2,0,TRACE-B58EC1F3,docs,APPROVE,True,0,0,0,,,,False,False,0.057
+INV-13,inventory,completed,BLOCK,30,1.0,2,SEC001 TST003,8,0,0,1156.3,1260.7,3,5,1.09,7,7,0,TRACE-E8912B8A,hardcoded secret,BLOCK,True,2,0,0,,,SEC001 TST003,False,False,1.2
+INV-14,inventory,completed,REQUEST_CHANGES,65,1.0,2,QLT002 TST001,9,0,0,2305.8,2378.5,4,5,1.03,8,8,0,TRACE-077239C5,bug caught by tests,REQUEST_CHANGES,True,2,0,0,,,QLT002 TST001,True,True,2.353
+INV-15,inventory,completed,APPROVE,100,1.0,0,,9,0,0,2175.7,2265.8,4,5,1.04,8,8,0,TRACE-7372064A,untested behaviour change,COMMENT,False,0,0,1,TST003@inventory/reports.py,,TST003,False,False,2.228
+INV-16,inventory,completed,APPROVE,100,1.0,0,,10,0,0,2205.5,2378.0,4,6,1.08,9,9,0,TRACE-2D6A7BF7,clean feature,APPROVE,True,0,0,0,,,,False,False,2.252
+INV-17,inventory,completed,REQUEST_CHANGES,75,1.0,1,TST002,4,0,0,1086.1,1084.9,2,2,1.0,3,3,0,TRACE-8F956DF6,tests removed,REQUEST_CHANGES,True,1,0,0,,,TST002,False,False,1.126
+INV-18,inventory,completed,REQUEST_CHANGES,65,1.0,2,SEC002 TST003,8,0,0,1143.7,1237.6,3,5,1.08,7,7,0,TRACE-ED15AD32,dangerous call,REQUEST_CHANGES,True,2,0,0,,,SEC002 TST003,False,False,1.185
+INV-19,inventory,completed,APPROVE,97,1.0,1,QLT004,7,0,0,1111.4,1231.7,2,5,1.11,6,6,0,TRACE-E1F9BF14,unused import,APPROVE,True,1,0,0,,,QLT004,False,False,1.158
+INV-20,inventory,completed,REQUEST_CHANGES,75,1.0,1,SEC003,9,0,0,2193.8,2288.0,4,5,1.04,8,8,0,TRACE-08721970,prompt injection,REQUEST_CHANGES,True,1,0,0,,,SEC003,False,False,2.237
+INV-21,inventory,completed,APPROVE,100,1.0,0,,10,0,0,2203.9,2353.5,4,6,1.07,9,9,0,TRACE-957A720E,clean feature,APPROVE,True,0,0,0,,,,False,False,2.253
+INV-22,inventory,completed,APPROVE,100,1.0,0,,10,0,0,2243.7,2393.2,4,6,1.07,9,9,0,TRACE-55D68BF9,clean feature,APPROVE,True,0,0,0,,,,False,False,2.291
+INV-23,inventory,completed,APPROVE,97,1.0,1,QLT001,9,0,0,2157.5,2264.4,4,5,1.05,8,8,0,TRACE-EAD08DFC,debug leftover,APPROVE,True,1,0,0,,,QLT001,False,False,2.199
+INV-24,inventory,completed,APPROVE,100,1.0,0,,8,0,0,2176.4,2279.6,3,5,1.05,7,7,0,TRACE-84943946,tests only,APPROVE,True,0,0,0,,,,False,False,2.232
+TXT-01,textkit,completed,APPROVE,100,1.0,0,,10,0,0,2212.4,2349.0,4,6,1.06,9,9,0,TRACE-717A03DD,clean feature,APPROVE,True,0,0,0,,,,False,False,2.257
+TXT-02,textkit,completed,REQUEST_CHANGES,75,1.0,1,TST001,9,0,0,2267.2,2355.1,4,5,1.04,8,8,0,TRACE-AC756034,bug caught by tests,REQUEST_CHANGES,True,1,0,0,,,TST001,True,True,2.309
+TXT-03,textkit,completed,REQUEST_CHANGES,72,1.0,2,QLT004 TST001,9,0,0,2466.4,2560.6,4,5,1.04,8,8,0,TRACE-8ED885CE,bug caught by tests,REQUEST_CHANGES,True,2,0,0,,,QLT004 TST001,True,True,2.509
+TXT-04,textkit,completed,REQUEST_CHANGES,65,1.0,2,SEC002 TST003,8,0,0,1114.4,1226.0,3,5,1.1,7,7,0,TRACE-558A5EFE,dangerous call,REQUEST_CHANGES,True,2,0,0,,,SEC002 TST003,False,False,1.156
+TXT-05,textkit,completed,APPROVE,100,1.0,0,,10,0,0,2478.9,2620.6,4,6,1.06,9,9,0,TRACE-8DCA8412,clean feature,APPROVE,True,0,0,0,,,,False,False,2.524
+TXT-06,textkit,completed,BLOCK,40,1.0,1,SEC001,7,0,0,1118.5,1218.4,2,5,1.09,6,6,0,TRACE-335AA477,hardcoded secret,BLOCK,True,1,0,0,,,SEC001,False,False,1.161
+TXT-07,textkit,completed,REQUEST_CHANGES,72,1.0,2,QLT001 TST001,9,0,0,2552.8,2654.7,4,5,1.04,8,8,0,TRACE-2DB3624E,debug leftover,REQUEST_CHANGES,True,2,0,0,,,QLT001 TST001,True,True,2.606
+TXT-08,textkit,completed,APPROVE,100,1.0,0,,10,0,0,2216.0,2335.4,4,6,1.05,9,9,0,TRACE-704F85D9,clean feature,APPROVE,True,0,0,0,,,,False,False,2.262
+TXT-09,textkit,completed,REQUEST_CHANGES,75,1.0,1,TST001,9,0,0,2275.4,2372.7,4,5,1.04,8,8,0,TRACE-E14B07F8,bug caught by tests,REQUEST_CHANGES,True,1,0,0,,,TST001,True,True,2.32
+TXT-10,textkit,completed,APPROVE,100,1.0,0,,7,0,0,1114.1,1225.4,2,5,1.1,6,6,0,TRACE-BB034A21,docs,APPROVE,True,0,0,0,,,,False,False,1.158
+TXT-11,textkit,completed,REQUEST_CHANGES,75,1.0,1,TST001,8,0,0,2274.7,2368.4,3,5,1.04,7,7,0,TRACE-2F56774A,bug caught by tests,REQUEST_CHANGES,True,1,0,0,,,TST001,True,True,2.318
+TXT-12,textkit,completed,APPROVE,100,1.0,0,,9,0,0,2242.1,2347.0,4,5,1.05,8,8,0,TRACE-4E4D7384,untested behaviour change,COMMENT,False,0,0,1,TST003@textkit/validate.py,,TST003,False,False,2.282
+TXT-13,textkit,completed,REQUEST_CHANGES,65,1.0,2,SEC002 TST003,8,0,0,1137.0,1255.2,3,5,1.1,7,7,0,TRACE-CB6F12BD,dangerous call,REQUEST_CHANGES,True,2,0,0,,,SEC002 TST003,False,False,1.181
+TXT-14,textkit,completed,APPROVE,97,1.0,2,QLT005 QLT006,10,0,0,2219.3,2432.7,4,6,1.1,9,9,0,TRACE-F36AD12C,nits,APPROVE,True,2,0,0,,,QLT005 QLT006,False,False,2.271
+TXT-15,textkit,completed,COMMENT,90,1.0,1,QLT002,9,0,0,2223.5,2313.5,4,5,1.04,8,8,0,TRACE-6910D792,bare except,COMMENT,True,1,0,0,,,QLT002,False,False,2.267
+TXT-16,textkit,completed,COMMENT,90,1.0,1,TST003,8,0,0,1136.0,1242.5,3,5,1.09,7,7,0,TRACE-B80E2B87,prompt injection,REQUEST_CHANGES,False,1,0,1,SEC003@PR description,,SEC003 TST003,False,False,1.183
+TXT-17,textkit,completed,BLOCK,30,1.0,2,SEC001 TST003,8,0,0,1101.9,1194.4,3,5,1.08,7,7,0,TRACE-B0608A1B,hardcoded secret,BLOCK,True,2,0,0,,,SEC001 TST003,False,False,1.146
+TXT-18,textkit,completed,APPROVE,100,1.0,0,,10,0,0,2317.5,2453.5,4,6,1.06,9,9,0,TRACE-5612646D,clean feature,APPROVE,True,0,0,0,,,,False,False,2.366
+TXT-19,textkit,completed,REQUEST_CHANGES,75,1.0,1,TST002,8,0,0,2245.8,2342.5,3,5,1.04,7,7,0,TRACE-5BC04499,tests removed,REQUEST_CHANGES,True,1,0,0,,,TST002,False,False,2.286
+TXT-20,textkit,completed,COMMENT,90,1.0,1,QLT007,9,0,0,2466.9,2576.9,4,5,1.04,8,8,0,TRACE-49B21EAA,mutable default,COMMENT,True,1,0,0,,,QLT007,False,False,2.51
+TXT-21,textkit,completed,REQUEST_CHANGES,65,1.0,2,SEC004 TST003,8,0,0,1423.9,1532.4,3,5,1.08,7,7,0,TRACE-70B98341,sql injection,REQUEST_CHANGES,True,2,0,0,,,SEC004 TST003,False,False,1.467
+TXT-22,textkit,completed,APPROVE,100,1.0,0,,9,0,0,2464.4,2573.9,4,5,1.04,8,8,0,TRACE-787035EC,safe refactor,APPROVE,True,0,0,0,,,,False,False,2.519
+TXT-23,textkit,completed,APPROVE,100,1.0,0,,7,0,0,1112.6,1229.9,2,5,1.11,6,6,0,TRACE-7DBB2343,placeholder (not a secret),APPROVE,True,0,0,0,,,,False,False,1.158

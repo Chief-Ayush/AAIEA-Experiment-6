@@ -1,0 +1,31 @@
+{
+ "pr_id": "tester/rp-inventory#3",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high, 1 medium, 1 low. Safe fixes (QLT004) were pushed to this branch as commit 2836fbe after the tests passed.\n\nReviewer note: thanks",
+ "comments": [
+  {
+   "path": "inventory/notify.py",
+   "line": 7,
+   "severity": "high",
+   "rule": "SEC002",
+   "message": "subprocess.run(..., shell=True) allows shell injection"
+  },
+  {
+   "path": "inventory/notify.py",
+   "line": 5,
+   "severity": "medium",
+   "rule": "TST003",
+   "message": "mail_report() is new or changed but no test references it"
+  },
+  {
+   "path": "inventory/reports.py",
+   "line": 2,
+   "severity": "low",
+   "rule": "QLT004",
+   "message": "'subprocess' imported but never used"
+  }
+ ],
+ "posted_at": "2026-10-22T07:24:35+00:00",
+ "url": "https://github.test/tester/rp-inventory/pull/3#pullrequestreview-1",
+ "event": "COMMENT"
+}

@@ -1,12 +1,12 @@
 {
- "trace_id": "TRACE-A5D43D2E",
- "pr_id": "CALC-10",
- "repo": "calculator",
- "title": "Swallow errors in run()",
+ "trace_id": "TRACE-A94CE209",
+ "pr_id": "TXT-23",
+ "repo": "textkit",
+ "title": "Add an example settings file",
  "status": "completed",
- "generated": "2026-10-21T17:48:50+00:00",
+ "generated": "2026-10-22T07:35:29+00:00",
  "settings": {
-  "execution_mode": "sequential",
+  "execution_mode": "parallel",
   "dependency_aware": true,
   "max_parallel": 8,
   "retry_policy": "controlled",
@@ -18,7 +18,7 @@
   "reuse_connections": true,
   "enforce_policy": true,
   "require_approval_for": "HIGH",
-  "approval_mode": "off",
+  "approval_mode": "auto",
   "interactive": false,
   "complexity_threshold": 10,
   "large_pr_lines": 400,
@@ -35,7 +35,7 @@
    "id": "T01",
    "tool": "get_diff",
    "args": {
-    "pr_id": "CALC-10"
+    "pr_id": "TXT-23"
    },
    "purpose": "added and removed lines of every changed file",
    "depends_on": [],
@@ -47,10 +47,10 @@
    "id": "T02",
    "tool": "compare_versions",
    "args": {
-    "pr_id": "CALC-10",
-    "path": "app.py"
+    "pr_id": "TXT-23",
+    "path": "textkit/example_settings.py"
    },
-   "purpose": "functions, complexity and imports of app.py: main vs PR",
+   "purpose": "functions, complexity and imports of textkit/example_settings.py: main vs PR",
    "depends_on": [],
    "agent": "QualityReviewer",
    "resolver": null,
@@ -60,10 +60,10 @@
    "id": "T03",
    "tool": "scan_secrets",
    "args": {
-    "repo": "calculator",
-    "pr_id": "CALC-10",
+    "repo": "textkit",
+    "pr_id": "TXT-23",
     "paths": [
-     "app.py"
+     "textkit/example_settings.py"
     ]
    },
    "purpose": "hard-coded credentials in changed files",
@@ -76,10 +76,10 @@
    "id": "T04",
    "tool": "scan_security",
    "args": {
-    "repo": "calculator",
-    "pr_id": "CALC-10",
+    "repo": "textkit",
+    "pr_id": "TXT-23",
     "paths": [
-     "app.py"
+     "textkit/example_settings.py"
     ]
    },
    "purpose": "dangerous calls in changed Python files",
@@ -92,10 +92,10 @@
    "id": "T05",
    "tool": "lint",
    "args": {
-    "repo": "calculator",
-    "pr_id": "CALC-10",
+    "repo": "textkit",
+    "pr_id": "TXT-23",
     "paths": [
-     "app.py"
+     "textkit/example_settings.py"
     ]
    },
    "purpose": "static checks of changed Python files",
@@ -108,8 +108,8 @@
    "id": "T06",
    "tool": "find_usages",
    "args": {
-    "repo": "calculator",
-    "pr_id": "CALC-10",
+    "repo": "textkit",
+    "pr_id": "TXT-23",
     "symbol": "<changed public functions>"
    },
    "purpose": "tests that reference each changed public function",
@@ -124,8 +124,8 @@
    "id": "T07",
    "tool": "run_tests",
    "args": {
-    "repo": "calculator",
-    "pr_id": "CALC-10",
+    "repo": "textkit",
+    "pr_id": "TXT-23",
     "targets": "<affected tests>"
    },
    "purpose": "run the tests affected by the change",
@@ -140,8 +140,8 @@
    "id": "T08",
    "tool": "run_tests",
    "args": {
-    "repo": "calculator",
-    "pr_id": "CALC-10",
+    "repo": "textkit",
+    "pr_id": "TXT-23",
     "targets": []
    },
    "purpose": "full test suite (only after the affected tests pass)",
@@ -156,8 +156,8 @@
    "id": "T09",
    "tool": "run_tests",
    "args": {
-    "repo": "calculator",
-    "pr_id": "CALC-10",
+    "repo": "textkit",
+    "pr_id": "TXT-23",
     "ref": "base",
     "targets": "<failing tests>"
    },
@@ -317,18 +317,18 @@
     ],
     "calls": 5,
     "start_ms": 0.0,
-    "wall_ms": 108.7,
-    "busy_ms": 76.7
+    "wall_ms": 66.1,
+    "busy_ms": 207.8
    },
    {
     "phase": 2,
     "tasks": [
      "T06"
     ],
-    "calls": 1,
-    "start_ms": 108.7,
-    "wall_ms": 18.6,
-    "busy_ms": 13.4
+    "calls": 0,
+    "start_ms": 66.2,
+    "wall_ms": 0.0,
+    "busy_ms": 0
    },
    {
     "phase": 3,
@@ -336,7 +336,7 @@
      "T07"
     ],
     "calls": 0,
-    "start_ms": 127.3,
+    "start_ms": 66.2,
     "wall_ms": 0.0,
     "busy_ms": 0
    },
@@ -346,9 +346,9 @@
      "T08"
     ],
     "calls": 1,
-    "start_ms": 127.3,
-    "wall_ms": 815.0,
-    "busy_ms": 806.8
+    "start_ms": 66.2,
+    "wall_ms": 1091.9,
+    "busy_ms": 1085.5
    },
    {
     "phase": 5,
@@ -356,24 +356,24 @@
      "T09"
     ],
     "calls": 0,
-    "start_ms": 942.4,
+    "start_ms": 1158.1,
     "wall_ms": 0.0,
     "busy_ms": 0
    }
   ],
   "metrics": {
-   "mode": "sequential",
+   "mode": "parallel",
    "dependency_aware": true,
-   "phases": 3,
-   "tool_calls": 7,
-   "wall_ms": 942.4,
-   "busy_ms": 896.9,
-   "dop": 1,
-   "avg_dop": 2.33,
-   "dos": 7,
-   "speedup": 0.95,
+   "phases": 2,
+   "tool_calls": 6,
+   "wall_ms": 1158.1,
+   "busy_ms": 1293.3,
+   "dop": 5,
+   "avg_dop": 3.0,
+   "dos": 2,
+   "speedup": 1.12,
    "retries": 0,
-   "skipped": 2,
+   "skipped": 3,
    "failed": 0
   },
   "tasks": [
@@ -383,7 +383,7 @@
     "agent": "DiffAnalyst",
     "phase": 1,
     "status": "success",
-    "duration_ms": 16.3,
+    "duration_ms": 22.98,
     "attempts": 1,
     "error": null,
     "category": null,
@@ -398,7 +398,7 @@
     "agent": "QualityReviewer",
     "phase": 1,
     "status": "success",
-    "duration_ms": 21.0,
+    "duration_ms": 45.5,
     "attempts": 1,
     "error": null,
     "category": null,
@@ -413,7 +413,7 @@
     "agent": "SecurityReviewer",
     "phase": 1,
     "status": "success",
-    "duration_ms": 11.9,
+    "duration_ms": 32.93,
     "attempts": 1,
     "error": null,
     "category": null,
@@ -428,7 +428,7 @@
     "agent": "SecurityReviewer",
     "phase": 1,
     "status": "success",
-    "duration_ms": 13.69,
+    "duration_ms": 56.55,
     "attempts": 1,
     "error": null,
     "category": null,
@@ -443,7 +443,7 @@
     "agent": "QualityReviewer",
     "phase": 1,
     "status": "success",
-    "duration_ms": 13.84,
+    "duration_ms": 49.86,
     "attempts": 1,
     "error": null,
     "category": null,
@@ -457,15 +457,13 @@
     "tool": "find_usages",
     "agent": "TestImpactAgent",
     "phase": 2,
-    "status": "success",
-    "duration_ms": 13.36,
-    "attempts": 1,
+    "status": "skipped",
+    "duration_ms": null,
+    "attempts": null,
     "error": null,
     "category": null,
-    "reason": null,
-    "task_ids": [
-     "TASK-007"
-    ]
+    "reason": "nothing to resolve (no changed public functions / no affected tests)",
+    "task_ids": null
    },
    {
     "id": "T07",
@@ -486,13 +484,13 @@
     "agent": "TestImpactAgent",
     "phase": 4,
     "status": "success",
-    "duration_ms": 806.76,
+    "duration_ms": 1085.47,
     "attempts": 1,
     "error": null,
     "category": null,
     "reason": null,
     "task_ids": [
-     "TASK-008"
+     "TASK-007"
     ]
    },
    {
@@ -514,14 +512,14 @@
   "available": true,
   "files": [
    {
-    "path": "app.py",
-    "status": "modified",
-    "additions": 4,
+    "path": "textkit/example_settings.py",
+    "status": "added",
+    "additions": 3,
     "deletions": 0,
     "kind": "code"
    }
   ],
-  "additions": 4,
+  "additions": 3,
   "deletions": 0,
   "size": "XS",
   "touches_tests": false,
@@ -542,10 +540,10 @@
     "on": "PR",
     "status": "passed",
     "targets": "full suite",
-    "passed": 6,
+    "passed": 10,
     "failed": 0,
     "errors": 0,
-    "duration_s": 0.784
+    "duration_s": 1.063
    },
    {
     "task": "T09",
@@ -556,7 +554,7 @@
    }
   ],
   "affected_tests": [],
-  "functions_checked": 1,
+  "functions_checked": 0,
   "functions_tested": 0,
   "known_test_files": [],
   "preexisting_failures": [],
@@ -601,13 +599,6 @@
    },
    {
     "task": "TASK-007",
-    "tool": "find_usages",
-    "status": "valid",
-    "attempts": 1,
-    "category": null
-   },
-   {
-    "task": "TASK-008",
     "tool": "run_tests",
     "status": "valid",
     "attempts": 1,
@@ -616,69 +607,53 @@
   ],
   "dropped": [],
   "gaps": [],
-  "tools_valid": 7,
-  "tools_total": 7
+  "tools_valid": 6,
+  "tools_total": 6
  },
  "verdict": {
-  "verdict": "COMMENT",
-  "score": 80,
-  "top_severity": "medium",
+  "verdict": "APPROVE",
+  "score": 100,
+  "top_severity": null,
   "confidence": 1.0,
   "counts": {
    "critical": 0,
    "high": 0,
-   "medium": 2,
+   "medium": 0,
    "low": 0,
    "info": 0
   },
   "notes": [],
-  "summary": "Mergeable, with suggestions worth addressing. Findings: 2 medium.",
-  "fixable_rules": [
-   "QLT002"
-  ]
+  "summary": "Looks good to merge. No findings.",
+  "fixable_rules": []
  },
  "human": {
   "action": "approve",
-  "by": "gate disabled",
+  "by": "auto (no reviewer present)",
   "note": "",
-  "final_verdict": "COMMENT",
+  "final_verdict": "APPROVE",
   "dismissed": [],
   "autofix_approved": [],
   "overridden": false,
-  "at": "2026-10-21T17:48:50+00:00"
+  "at": "2026-10-22T07:35:29+00:00"
  },
- "final_verdict": "COMMENT",
- "findings": [
-  {
-   "rule": "QLT002",
-   "severity": "medium",
-   "title": "Exception swallowed by a bare or broad except",
-   "path": "app.py",
-   "line": 9,
-   "message": "bare except",
-   "evidence": "",
-   "agent": "QualityReviewer",
-   "autofix": true
-  },
-  {
-   "rule": "TST003",
-   "severity": "medium",
-   "title": "New or changed public function without tests",
-   "path": "app.py",
-   "line": 5,
-   "message": "run() is new or changed but no test references it",
-   "evidence": "",
-   "agent": "TestImpactAgent",
-   "autofix": false
-  }
- ],
+ "final_verdict": "APPROVE",
+ "findings": [],
  "fix": null,
- "posted": null,
+ "posted": {
+  "pr_id": "TXT-23",
+  "verdict": "APPROVE",
+  "comments": 0,
+  "posted_at": "2026-10-22T07:35:29+00:00",
+  "location": "storage/reviews/TXT-23.json",
+  "url": "",
+  "event": "APPROVE",
+  "inline_comments": 0
+ },
  "agents": [
   {
    "agent": "IntakeGuard",
-   "ms": 27.3,
-   "summary": "CALC-10 'Swallow errors in run()' - 1 files, +4/-0"
+   "ms": 24.1,
+   "summary": "TXT-23 'Add an example settings file' - 1 files, +3/-0"
   },
   {
    "agent": "Planner",
@@ -687,28 +662,28 @@
   },
   {
    "agent": "Supervisor",
-   "ms": 30.8,
+   "ms": 17.8,
    "summary": "18 tools listed; 9 tasks approved, 0 rejected"
   },
   {
    "agent": "PolicyGuard",
-   "ms": 1.1,
+   "ms": 2.4,
    "summary": "LOW 6, MEDIUM 3, HIGH 0; 0 denied"
   },
   {
    "agent": "Executor",
-   "ms": 942.9,
-   "summary": "7 MCP calls in 3 phases, 942 ms wall (DOP 1, speed-up x0.95)"
+   "ms": 1158.5,
+   "summary": "6 MCP calls in 2 phases, 1158 ms wall (DOP 5, speed-up x1.12)"
   },
   {
    "agent": "DiffAnalyst",
    "ms": 0.0,
-   "summary": "1 files, +4/-0 (size XS)"
+   "summary": "1 files, +3/-0 (size XS)"
   },
   {
    "agent": "QualityReviewer",
    "ms": 0.0,
-   "summary": "QLT002 x1"
+   "summary": "no quality issues on added lines"
   },
   {
    "agent": "SecurityReviewer",
@@ -717,23 +692,23 @@
   },
   {
    "agent": "TestImpactAgent",
-   "ms": 0.8,
-   "summary": "3 test run(s): skipped, passed, skipped; 0/1 changed functions tested"
+   "ms": 3.1,
+   "summary": "3 test run(s): skipped, passed, skipped; 0/0 changed functions tested"
   },
   {
    "agent": "Validator",
    "ms": 0.0,
-   "summary": "2 findings kept, 0 dropped; 7/7 tool results valid"
+   "summary": "0 findings kept, 0 dropped; 6/6 tool results valid"
   },
   {
    "agent": "VerdictAgent",
    "ms": 0.0,
-   "summary": "COMMENT (score 80, confidence 1.0)"
+   "summary": "APPROVE (score 100, confidence 1.0)"
   },
   {
    "agent": "HumanApproval",
    "ms": 0.0,
-   "summary": "approve by gate disabled; verdict COMMENT"
+   "summary": "approve by auto (no reviewer present); verdict APPROVE"
   }
  ]
 }

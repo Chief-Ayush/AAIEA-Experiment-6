@@ -1,0 +1,135 @@
+   0% running benchmark ...
+   0% reviewed CALC-01
+   0% reviewed CALC-02
+   1% reviewed CALC-03
+   1% reviewed CALC-04
+   1% reviewed CALC-05
+   1% reviewed CALC-06
+   2% reviewed CALC-07
+   2% reviewed CALC-08
+   2% reviewed CALC-09
+   2% reviewed CALC-10
+   3% reviewed CALC-11
+   3% reviewed CALC-12
+   3% reviewed CALC-13
+   3% reviewed CALC-14
+   3% reviewed CALC-15
+   4% reviewed INV-01
+   4% reviewed INV-02
+   4% reviewed INV-03
+   4% reviewed INV-04
+   5% reviewed INV-05
+   5% reviewed INV-06
+   5% reviewed INV-07
+   5% reviewed INV-08
+   6% reviewed INV-09
+   6% reviewed INV-10
+   6% reviewed INV-11
+   6% reviewed INV-12
+   6% reviewed INV-13
+   7% reviewed INV-14
+   7% reviewed INV-15
+   7% reviewed INV-16
+   7% reviewed INV-17
+   8% reviewed INV-18
+   8% reviewed INV-19
+   8% reviewed INV-20
+   8% reviewed INV-21
+   9% reviewed INV-22
+   9% reviewed INV-23
+   9% reviewed INV-24
+   9% reviewed TXT-01
+   9% reviewed TXT-02
+  10% reviewed TXT-03
+  10% reviewed TXT-04
+  10% reviewed TXT-05
+  10% reviewed TXT-06
+  11% reviewed TXT-07
+  11% reviewed TXT-08
+  11% reviewed TXT-09
+  11% reviewed TXT-10
+  12% reviewed TXT-11
+  12% reviewed TXT-12
+  12% reviewed TXT-13
+  12% reviewed TXT-14
+  12% reviewed TXT-15
+  13% reviewed TXT-16
+  13% reviewed TXT-17
+  13% reviewed TXT-18
+  13% reviewed TXT-19
+  14% reviewed TXT-20
+  14% reviewed TXT-21
+  14% reviewed TXT-22
+  14% reviewed TXT-23
+  14% running workbench ...
+  15% WB-01
+  15% WB-02
+  16% WB-03
+  16% WB-04
+  17% WB-05
+  17% WB-06
+  17% WB-07
+  18% WB-08
+  18% WB-09
+  19% WB-10
+  19% WB-11
+  20% WB-12
+  20% WB-13
+  21% WB-14
+  21% WB-15
+  21% WB-16
+  22% WB-17
+  22% WB-18
+  23% WB-19
+  23% WB-20
+  24% WB-21
+  24% WB-22
+  25% WB-23
+  25% WB-24
+  25% WB-25
+  26% WB-26
+  26% WB-27
+  27% WB-28
+  27% WB-29
+  28% WB-30
+  28% WB-31
+  29% WB-32
+  29% running security ...
+  43% running failure ...
+  57% running hitl ...
+  71% running performance ...
+  74% variation 9 done
+  75% performance CALC-01
+  76% performance CALC-03
+  78% performance INV-01
+  79% performance INV-09
+  80% performance INV-14
+  81% performance TXT-01
+  82% performance TXT-04
+  83% performance TXT-07
+  86% running optimization ...
+{
+ "verdict_accuracy_pct": 95.2,
+ "finding_precision_pct": 100.0,
+ "finding_recall_pct": 95.5,
+ "finding_f1_pct": 97.7,
+ "clean_pr_false_alarm_pct": 0.0,
+ "block_recall_pct": 100.0,
+ "unsafe_merge_rate_pct": 0.0,
+ "failing_tests_caught_pct": 100.0,
+ "tool_validity_pct": 100.0,
+ "avg_latency_s": 1.856,
+ "p95_latency_s": 2.538,
+ "avg_tool_calls": 8.4,
+ "avg_dop": 5.06,
+ "workbench_plan_accuracy_pct": 93.8,
+ "workbench_outcome_accuracy_pct": 93.8,
+ "workbench_tool_f1_pct": 97.2,
+ "security_pass_pct": 96.2,
+ "failure_pass_pct": 100.0,
+ "hitl_pass_pct": 100.0,
+ "var9_speedup": 1.24,
+ "review_speedup": 1.03,
+ "quality_index": 97.1
+}
+report: storage/reports/run_20261022_125905

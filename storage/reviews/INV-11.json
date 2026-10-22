@@ -1,0 +1,17 @@
+{
+ "pr_id": "INV-11",
+ "verdict": "COMMENT",
+ "summary": "Mergeable, with suggestions worth addressing. Findings: 1 medium.",
+ "comments": [
+  {
+   "path": "inventory/pricing.py",
+   "line": 16,
+   "severity": "medium",
+   "rule": "QLT003",
+   "message": "bulk_price has cyclomatic complexity 12"
+  }
+ ],
+ "posted_at": "2026-10-22T07:34:20+00:00",
+ "url": "",
+ "event": "COMMENT"
+}

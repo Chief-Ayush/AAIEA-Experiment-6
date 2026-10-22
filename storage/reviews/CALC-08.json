@@ -1,0 +1,17 @@
+{
+ "pr_id": "CALC-08",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high.",
+ "comments": [
+  {
+   "path": "test_calculator.py",
+   "line": 0,
+   "severity": "high",
+   "rule": "TST001",
+   "message": "test_calculator::test_calculate_square fails on the PR head (passes on the base)"
+  }
+ ],
+ "posted_at": "2026-10-22T07:33:49+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
+}

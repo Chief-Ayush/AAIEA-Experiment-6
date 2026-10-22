@@ -8,7 +8,7 @@
    "line": 0,
    "severity": "high",
    "rule": "TST001",
-   "message": "tests.test_slug::test_basic_slug fails on the PR head"
+   "message": "pytest fails on the PR head (passes on the base)"
   },
   {
    "path": "textkit/slug.py",
@@ -18,5 +18,7 @@
    "message": "breakpoint() left in code"
   }
  ],
- "posted_at": "2026-10-21T16:57:48+00:00"
+ "posted_at": "2026-10-22T07:34:58+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
 }

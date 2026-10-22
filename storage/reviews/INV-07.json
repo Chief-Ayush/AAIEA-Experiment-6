@@ -1,0 +1,24 @@
+{
+ "pr_id": "INV-07",
+ "verdict": "COMMENT",
+ "summary": "Mergeable, with suggestions worth addressing. Findings: 2 medium.",
+ "comments": [
+  {
+   "path": "inventory/store.py",
+   "line": 40,
+   "severity": "medium",
+   "rule": "QLT007",
+   "message": "Store.reserve_many has a mutable default argument"
+  },
+  {
+   "path": "inventory/store.py",
+   "line": 40,
+   "severity": "medium",
+   "rule": "TST003",
+   "message": "reserve_many() is new or changed but no test references it"
+  }
+ ],
+ "posted_at": "2026-10-22T07:34:12+00:00",
+ "url": "",
+ "event": "COMMENT"
+}

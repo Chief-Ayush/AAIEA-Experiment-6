@@ -1,0 +1,17 @@
+{
+ "pr_id": "TXT-02",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high.",
+ "comments": [
+  {
+   "path": "tests/test_slug.py",
+   "line": 0,
+   "severity": "high",
+   "rule": "TST001",
+   "message": "tests.test_slug::test_max_length fails on the PR head (passes on the base)"
+  }
+ ],
+ "posted_at": "2026-10-22T07:34:48+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
+}

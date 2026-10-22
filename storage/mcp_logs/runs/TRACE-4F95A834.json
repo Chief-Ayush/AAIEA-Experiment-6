@@ -1,0 +1,572 @@
+{
+ "trace_id": "TRACE-4F95A834",
+ "pr_id": "INV-17",
+ "repo": "inventory",
+ "title": "Remove obsolete report tests",
+ "status": "completed",
+ "generated": "2026-10-22T07:34:29+00:00",
+ "settings": {
+  "execution_mode": "parallel",
+  "dependency_aware": true,
+  "max_parallel": 8,
+  "retry_policy": "controlled",
+  "max_retries": 2,
+  "retry_backoff_s": 0.05,
+  "tool_timeout_s": 20.0,
+  "test_timeout_s": 30.0,
+  "validate_arguments": true,
+  "reuse_connections": true,
+  "enforce_policy": true,
+  "require_approval_for": "HIGH",
+  "approval_mode": "auto",
+  "interactive": false,
+  "complexity_threshold": 10,
+  "large_pr_lines": 400,
+  "full_suite_after_affected": true
+ },
+ "guard": {
+  "ok": true,
+  "injection": [],
+  "quarantined": false,
+  "note": "PR text treated as untrusted data; it is never used as an instruction"
+ },
+ "plan": [
+  {
+   "id": "T01",
+   "tool": "get_diff",
+   "args": {
+    "pr_id": "INV-17"
+   },
+   "purpose": "added and removed lines of every changed file",
+   "depends_on": [],
+   "agent": "DiffAnalyst",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T02",
+   "tool": "compare_versions",
+   "args": {
+    "pr_id": "INV-17",
+    "path": "tests/test_reports.py"
+   },
+   "purpose": "functions, complexity and imports of tests/test_reports.py: main vs PR",
+   "depends_on": [],
+   "agent": "QualityReviewer",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T03",
+   "tool": "find_usages",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-17",
+    "symbol": "<changed public functions>"
+   },
+   "purpose": "tests that reference each changed public function",
+   "depends_on": [
+    "T02"
+   ],
+   "agent": "TestImpactAgent",
+   "resolver": "usages_of_changed",
+   "condition": null
+  },
+  {
+   "id": "T04",
+   "tool": "run_tests",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-17",
+    "targets": "<affected tests>"
+   },
+   "purpose": "run the tests affected by the change",
+   "depends_on": [
+    "T03"
+   ],
+   "agent": "TestImpactAgent",
+   "resolver": "affected_tests",
+   "condition": null
+  },
+  {
+   "id": "T05",
+   "tool": "run_tests",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-17",
+    "targets": []
+   },
+   "purpose": "full test suite (only after the affected tests pass)",
+   "depends_on": [
+    "T04"
+   ],
+   "agent": "TestImpactAgent",
+   "resolver": null,
+   "condition": "affected_tests_passed"
+  },
+  {
+   "id": "T06",
+   "tool": "run_tests",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-17",
+    "ref": "base",
+    "targets": "<failing tests>"
+   },
+   "purpose": "re-run failing tests on the base branch (new failure or already broken?)",
+   "depends_on": [
+    "T04",
+    "T05"
+   ],
+   "agent": "TestImpactAgent",
+   "resolver": "baseline_tests",
+   "condition": "head_tests_failed"
+  }
+ ],
+ "supervisor": {
+  "checks": [
+   {
+    "task": "T01",
+    "tool": "get_diff",
+    "result": "valid",
+    "detail": "repo server, schema ok"
+   },
+   {
+    "task": "T02",
+    "tool": "compare_versions",
+    "result": "valid",
+    "detail": "analysis server, schema ok"
+   },
+   {
+    "task": "T03",
+    "tool": "find_usages",
+    "result": "deferred",
+    "detail": "arguments resolved at run time (usages_of_changed); validated before the call"
+   },
+   {
+    "task": "T04",
+    "tool": "run_tests",
+    "result": "deferred",
+    "detail": "arguments resolved at run time (affected_tests); validated before the call"
+   },
+   {
+    "task": "T05",
+    "tool": "run_tests",
+    "result": "valid",
+    "detail": "quality server, schema ok"
+   },
+   {
+    "task": "T06",
+    "tool": "run_tests",
+    "result": "deferred",
+    "detail": "arguments resolved at run time (baseline_tests); validated before the call"
+   }
+  ],
+  "tools_listed": 18,
+  "rejected": 0
+ },
+ "policy": {
+  "decisions": [
+   {
+    "task": "T01",
+    "tool": "get_diff",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T02",
+    "tool": "compare_versions",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T03",
+    "tool": "find_usages",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T04",
+    "tool": "run_tests",
+    "risk": "MEDIUM",
+    "decision": "allow",
+    "reason": "MEDIUM risk - allowed with timeout protection and an isolated checkout"
+   },
+   {
+    "task": "T05",
+    "tool": "run_tests",
+    "risk": "MEDIUM",
+    "decision": "allow",
+    "reason": "MEDIUM risk - allowed with timeout protection and an isolated checkout"
+   },
+   {
+    "task": "T06",
+    "tool": "run_tests",
+    "risk": "MEDIUM",
+    "decision": "allow",
+    "reason": "MEDIUM risk - allowed with timeout protection and an isolated checkout"
+   }
+  ],
+  "denied": [],
+  "risk_counts": {
+   "LOW": 3,
+   "MEDIUM": 3,
+   "HIGH": 0
+  }
+ },
+ "execution": {
+  "timeline": [
+   {
+    "phase": 1,
+    "tasks": [
+     "T01",
+     "T02"
+    ],
+    "calls": 2,
+    "start_ms": 0.0,
+    "wall_ms": 41.4,
+    "busy_ms": 53.7
+   },
+   {
+    "phase": 2,
+    "tasks": [
+     "T03"
+    ],
+    "calls": 0,
+    "start_ms": 41.4,
+    "wall_ms": 0.0,
+    "busy_ms": 0
+   },
+   {
+    "phase": 3,
+    "tasks": [
+     "T04"
+    ],
+    "calls": 0,
+    "start_ms": 41.4,
+    "wall_ms": 0.0,
+    "busy_ms": 0
+   },
+   {
+    "phase": 4,
+    "tasks": [
+     "T05"
+    ],
+    "calls": 1,
+    "start_ms": 41.4,
+    "wall_ms": 1060.5,
+    "busy_ms": 1053.4
+   },
+   {
+    "phase": 5,
+    "tasks": [
+     "T06"
+    ],
+    "calls": 0,
+    "start_ms": 1102.0,
+    "wall_ms": 0.0,
+    "busy_ms": 0
+   }
+  ],
+  "metrics": {
+   "mode": "parallel",
+   "dependency_aware": true,
+   "phases": 2,
+   "tool_calls": 3,
+   "wall_ms": 1102.0,
+   "busy_ms": 1107.1,
+   "dop": 2,
+   "avg_dop": 1.5,
+   "dos": 2,
+   "speedup": 1.0,
+   "retries": 0,
+   "skipped": 3,
+   "failed": 0
+  },
+  "tasks": [
+   {
+    "id": "T01",
+    "tool": "get_diff",
+    "agent": "DiffAnalyst",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 21.28,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-002"
+    ]
+   },
+   {
+    "id": "T02",
+    "tool": "compare_versions",
+    "agent": "QualityReviewer",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 32.41,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-003"
+    ]
+   },
+   {
+    "id": "T03",
+    "tool": "find_usages",
+    "agent": "TestImpactAgent",
+    "phase": 2,
+    "status": "skipped",
+    "duration_ms": null,
+    "attempts": null,
+    "error": null,
+    "category": null,
+    "reason": "nothing to resolve (no changed public functions / no affected tests)",
+    "task_ids": null
+   },
+   {
+    "id": "T04",
+    "tool": "run_tests",
+    "agent": "TestImpactAgent",
+    "phase": 3,
+    "status": "skipped",
+    "duration_ms": null,
+    "attempts": null,
+    "error": null,
+    "category": null,
+    "reason": "nothing to resolve (no changed public functions / no affected tests)",
+    "task_ids": null
+   },
+   {
+    "id": "T05",
+    "tool": "run_tests",
+    "agent": "TestImpactAgent",
+    "phase": 4,
+    "status": "success",
+    "duration_ms": 1053.41,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-004"
+    ]
+   },
+   {
+    "id": "T06",
+    "tool": "run_tests",
+    "agent": "TestImpactAgent",
+    "phase": 5,
+    "status": "skipped",
+    "duration_ms": null,
+    "attempts": null,
+    "error": null,
+    "category": null,
+    "reason": "all tests passed - no baseline needed",
+    "task_ids": null
+   }
+  ]
+ },
+ "diff": {
+  "available": true,
+  "files": [
+   {
+    "path": "tests/test_reports.py",
+    "status": "deleted",
+    "additions": 0,
+    "deletions": 18,
+    "kind": "test"
+   }
+  ],
+  "additions": 0,
+  "deletions": 18,
+  "size": "S",
+  "touches_tests": true,
+  "code_only": false,
+  "docs_only": false
+ },
+ "tests": {
+  "runs": [
+   {
+    "task": "T04",
+    "on": "PR",
+    "status": "skipped",
+    "reason": "nothing to resolve (no changed public functions / no affected tests)",
+    "targets": null
+   },
+   {
+    "task": "T05",
+    "on": "PR",
+    "status": "passed",
+    "targets": "full suite",
+    "passed": 11,
+    "failed": 0,
+    "errors": 0,
+    "duration_s": 1.032
+   },
+   {
+    "task": "T06",
+    "on": "base",
+    "status": "skipped",
+    "reason": "all tests passed - no baseline needed",
+    "targets": null
+   }
+  ],
+  "affected_tests": [],
+  "functions_checked": 0,
+  "functions_tested": 0,
+  "known_test_files": [
+   "tests/test_reports.py"
+  ],
+  "preexisting_failures": [],
+  "environment_problem": null
+ },
+ "validation": {
+  "tool_checks": [
+   {
+    "task": "TASK-002",
+    "tool": "get_diff",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-003",
+    "tool": "compare_versions",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-004",
+    "tool": "run_tests",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   }
+  ],
+  "dropped": [],
+  "gaps": [],
+  "tools_valid": 3,
+  "tools_total": 3
+ },
+ "verdict": {
+  "verdict": "REQUEST_CHANGES",
+  "score": 75,
+  "top_severity": "high",
+  "confidence": 1.0,
+  "counts": {
+   "critical": 0,
+   "high": 1,
+   "medium": 0,
+   "low": 0,
+   "info": 0
+  },
+  "notes": [],
+  "summary": "Changes are needed before this can merge. Findings: 1 high.",
+  "fixable_rules": []
+ },
+ "human": {
+  "action": "approve",
+  "by": "auto (no reviewer present)",
+  "note": "",
+  "final_verdict": "REQUEST_CHANGES",
+  "dismissed": [],
+  "autofix_approved": [],
+  "overridden": false,
+  "at": "2026-10-22T07:34:29+00:00"
+ },
+ "final_verdict": "REQUEST_CHANGES",
+ "findings": [
+  {
+   "rule": "TST002",
+   "severity": "high",
+   "title": "Tests removed or skipped",
+   "path": "tests/test_reports.py",
+   "line": null,
+   "message": "2 test(s) removed - coverage of existing behaviour drops",
+   "evidence": "",
+   "agent": "TestImpactAgent",
+   "autofix": false
+  }
+ ],
+ "fix": null,
+ "posted": {
+  "pr_id": "INV-17",
+  "verdict": "REQUEST_CHANGES",
+  "comments": 1,
+  "posted_at": "2026-10-22T07:34:29+00:00",
+  "location": "storage/reviews/INV-17.json",
+  "url": "",
+  "event": "REQUEST_CHANGES",
+  "inline_comments": 0
+ },
+ "agents": [
+  {
+   "agent": "IntakeGuard",
+   "ms": 23.2,
+   "summary": "INV-17 'Remove obsolete report tests' - 1 files, +0/-18"
+  },
+  {
+   "agent": "Planner",
+   "ms": 0.0,
+   "summary": "6 tasks: compare_versions, find_usages, get_diff, run_tests"
+  },
+  {
+   "agent": "Supervisor",
+   "ms": 11.0,
+   "summary": "18 tools listed; 6 tasks approved, 0 rejected"
+  },
+  {
+   "agent": "PolicyGuard",
+   "ms": 0.6,
+   "summary": "LOW 3, MEDIUM 3, HIGH 0; 0 denied"
+  },
+  {
+   "agent": "Executor",
+   "ms": 1102.4,
+   "summary": "3 MCP calls in 2 phases, 1102 ms wall (DOP 2, speed-up x1.0)"
+  },
+  {
+   "agent": "DiffAnalyst",
+   "ms": 0.0,
+   "summary": "1 files, +0/-18 (size S), tests touched"
+  },
+  {
+   "agent": "QualityReviewer",
+   "ms": 0.0,
+   "summary": "no quality issues on added lines"
+  },
+  {
+   "agent": "SecurityReviewer",
+   "ms": 0.0,
+   "summary": "no security issues on added lines"
+  },
+  {
+   "agent": "TestImpactAgent",
+   "ms": 1.9,
+   "summary": "3 test run(s): skipped, passed, skipped; 0/0 changed functions tested"
+  },
+  {
+   "agent": "Validator",
+   "ms": 0.0,
+   "summary": "1 findings kept, 0 dropped; 3/3 tool results valid"
+  },
+  {
+   "agent": "VerdictAgent",
+   "ms": 0.0,
+   "summary": "REQUEST_CHANGES (score 75, confidence 1.0)"
+  },
+  {
+   "agent": "HumanApproval",
+   "ms": 0.0,
+   "summary": "approve by auto (no reviewer present); verdict REQUEST_CHANGES"
+  }
+ ]
+}

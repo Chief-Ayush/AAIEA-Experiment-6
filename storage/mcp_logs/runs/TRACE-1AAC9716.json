@@ -1,0 +1,801 @@
+{
+ "trace_id": "TRACE-1AAC9716",
+ "pr_id": "INV-01",
+ "repo": "inventory",
+ "title": "Add release() to return reserved stock",
+ "status": "completed",
+ "generated": "2026-10-22T07:34:02+00:00",
+ "settings": {
+  "execution_mode": "parallel",
+  "dependency_aware": true,
+  "max_parallel": 8,
+  "retry_policy": "controlled",
+  "max_retries": 2,
+  "retry_backoff_s": 0.05,
+  "tool_timeout_s": 20.0,
+  "test_timeout_s": 30.0,
+  "validate_arguments": true,
+  "reuse_connections": true,
+  "enforce_policy": true,
+  "require_approval_for": "HIGH",
+  "approval_mode": "auto",
+  "interactive": false,
+  "complexity_threshold": 10,
+  "large_pr_lines": 400,
+  "full_suite_after_affected": true
+ },
+ "guard": {
+  "ok": true,
+  "injection": [],
+  "quarantined": false,
+  "note": "PR text treated as untrusted data; it is never used as an instruction"
+ },
+ "plan": [
+  {
+   "id": "T01",
+   "tool": "get_diff",
+   "args": {
+    "pr_id": "INV-01"
+   },
+   "purpose": "added and removed lines of every changed file",
+   "depends_on": [],
+   "agent": "DiffAnalyst",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T02",
+   "tool": "compare_versions",
+   "args": {
+    "pr_id": "INV-01",
+    "path": "inventory/store.py"
+   },
+   "purpose": "functions, complexity and imports of inventory/store.py: main vs PR",
+   "depends_on": [],
+   "agent": "QualityReviewer",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T03",
+   "tool": "compare_versions",
+   "args": {
+    "pr_id": "INV-01",
+    "path": "tests/test_store.py"
+   },
+   "purpose": "functions, complexity and imports of tests/test_store.py: main vs PR",
+   "depends_on": [],
+   "agent": "QualityReviewer",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T04",
+   "tool": "scan_secrets",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-01",
+    "paths": [
+     "inventory/store.py",
+     "tests/test_store.py"
+    ]
+   },
+   "purpose": "hard-coded credentials in changed files",
+   "depends_on": [],
+   "agent": "SecurityReviewer",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T05",
+   "tool": "scan_security",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-01",
+    "paths": [
+     "inventory/store.py",
+     "tests/test_store.py"
+    ]
+   },
+   "purpose": "dangerous calls in changed Python files",
+   "depends_on": [],
+   "agent": "SecurityReviewer",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T06",
+   "tool": "lint",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-01",
+    "paths": [
+     "inventory/store.py",
+     "tests/test_store.py"
+    ]
+   },
+   "purpose": "static checks of changed Python files",
+   "depends_on": [],
+   "agent": "QualityReviewer",
+   "resolver": null,
+   "condition": null
+  },
+  {
+   "id": "T07",
+   "tool": "find_usages",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-01",
+    "symbol": "<changed public functions>"
+   },
+   "purpose": "tests that reference each changed public function",
+   "depends_on": [
+    "T02",
+    "T03"
+   ],
+   "agent": "TestImpactAgent",
+   "resolver": "usages_of_changed",
+   "condition": null
+  },
+  {
+   "id": "T08",
+   "tool": "run_tests",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-01",
+    "targets": "<affected tests>"
+   },
+   "purpose": "run the tests affected by the change",
+   "depends_on": [
+    "T07"
+   ],
+   "agent": "TestImpactAgent",
+   "resolver": "affected_tests",
+   "condition": null
+  },
+  {
+   "id": "T09",
+   "tool": "run_tests",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-01",
+    "targets": []
+   },
+   "purpose": "full test suite (only after the affected tests pass)",
+   "depends_on": [
+    "T08"
+   ],
+   "agent": "TestImpactAgent",
+   "resolver": null,
+   "condition": "affected_tests_passed"
+  },
+  {
+   "id": "T10",
+   "tool": "run_tests",
+   "args": {
+    "repo": "inventory",
+    "pr_id": "INV-01",
+    "ref": "base",
+    "targets": "<failing tests>"
+   },
+   "purpose": "re-run failing tests on the base branch (new failure or already broken?)",
+   "depends_on": [
+    "T08",
+    "T09"
+   ],
+   "agent": "TestImpactAgent",
+   "resolver": "baseline_tests",
+   "condition": "head_tests_failed"
+  }
+ ],
+ "supervisor": {
+  "checks": [
+   {
+    "task": "T01",
+    "tool": "get_diff",
+    "result": "valid",
+    "detail": "repo server, schema ok"
+   },
+   {
+    "task": "T02",
+    "tool": "compare_versions",
+    "result": "valid",
+    "detail": "analysis server, schema ok"
+   },
+   {
+    "task": "T03",
+    "tool": "compare_versions",
+    "result": "valid",
+    "detail": "analysis server, schema ok"
+   },
+   {
+    "task": "T04",
+    "tool": "scan_secrets",
+    "result": "valid",
+    "detail": "quality server, schema ok"
+   },
+   {
+    "task": "T05",
+    "tool": "scan_security",
+    "result": "valid",
+    "detail": "quality server, schema ok"
+   },
+   {
+    "task": "T06",
+    "tool": "lint",
+    "result": "valid",
+    "detail": "quality server, schema ok"
+   },
+   {
+    "task": "T07",
+    "tool": "find_usages",
+    "result": "deferred",
+    "detail": "arguments resolved at run time (usages_of_changed); validated before the call"
+   },
+   {
+    "task": "T08",
+    "tool": "run_tests",
+    "result": "deferred",
+    "detail": "arguments resolved at run time (affected_tests); validated before the call"
+   },
+   {
+    "task": "T09",
+    "tool": "run_tests",
+    "result": "valid",
+    "detail": "quality server, schema ok"
+   },
+   {
+    "task": "T10",
+    "tool": "run_tests",
+    "result": "deferred",
+    "detail": "arguments resolved at run time (baseline_tests); validated before the call"
+   }
+  ],
+  "tools_listed": 18,
+  "rejected": 0
+ },
+ "policy": {
+  "decisions": [
+   {
+    "task": "T01",
+    "tool": "get_diff",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T02",
+    "tool": "compare_versions",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T03",
+    "tool": "compare_versions",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T04",
+    "tool": "scan_secrets",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T05",
+    "tool": "scan_security",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T06",
+    "tool": "lint",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T07",
+    "tool": "find_usages",
+    "risk": "LOW",
+    "decision": "allow",
+    "reason": "LOW risk - read-only"
+   },
+   {
+    "task": "T08",
+    "tool": "run_tests",
+    "risk": "MEDIUM",
+    "decision": "allow",
+    "reason": "MEDIUM risk - allowed with timeout protection and an isolated checkout"
+   },
+   {
+    "task": "T09",
+    "tool": "run_tests",
+    "risk": "MEDIUM",
+    "decision": "allow",
+    "reason": "MEDIUM risk - allowed with timeout protection and an isolated checkout"
+   },
+   {
+    "task": "T10",
+    "tool": "run_tests",
+    "risk": "MEDIUM",
+    "decision": "allow",
+    "reason": "MEDIUM risk - allowed with timeout protection and an isolated checkout"
+   }
+  ],
+  "denied": [],
+  "risk_counts": {
+   "LOW": 7,
+   "MEDIUM": 3,
+   "HIGH": 0
+  }
+ },
+ "execution": {
+  "timeline": [
+   {
+    "phase": 1,
+    "tasks": [
+     "T01",
+     "T02",
+     "T03",
+     "T04",
+     "T05",
+     "T06"
+    ],
+    "calls": 6,
+    "start_ms": 0.0,
+    "wall_ms": 80.7,
+    "busy_ms": 253.3
+   },
+   {
+    "phase": 2,
+    "tasks": [
+     "T07"
+    ],
+    "calls": 1,
+    "start_ms": 80.7,
+    "wall_ms": 18.1,
+    "busy_ms": 13.1
+   },
+   {
+    "phase": 3,
+    "tasks": [
+     "T08"
+    ],
+    "calls": 1,
+    "start_ms": 98.8,
+    "wall_ms": 1116.7,
+    "busy_ms": 1108.6
+   },
+   {
+    "phase": 4,
+    "tasks": [
+     "T09"
+    ],
+    "calls": 1,
+    "start_ms": 1215.5,
+    "wall_ms": 1085.1,
+    "busy_ms": 1076.5
+   },
+   {
+    "phase": 5,
+    "tasks": [
+     "T10"
+    ],
+    "calls": 0,
+    "start_ms": 2300.7,
+    "wall_ms": 0.0,
+    "busy_ms": 0
+   }
+  ],
+  "metrics": {
+   "mode": "parallel",
+   "dependency_aware": true,
+   "phases": 4,
+   "tool_calls": 9,
+   "wall_ms": 2300.7,
+   "busy_ms": 2451.5,
+   "dop": 6,
+   "avg_dop": 2.25,
+   "dos": 4,
+   "speedup": 1.07,
+   "retries": 0,
+   "skipped": 1,
+   "failed": 0
+  },
+  "tasks": [
+   {
+    "id": "T01",
+    "tool": "get_diff",
+    "agent": "DiffAnalyst",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 24.42,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-002"
+    ]
+   },
+   {
+    "id": "T02",
+    "tool": "compare_versions",
+    "agent": "QualityReviewer",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 70.59,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-003"
+    ]
+   },
+   {
+    "id": "T03",
+    "tool": "compare_versions",
+    "agent": "QualityReviewer",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 54.44,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-004"
+    ]
+   },
+   {
+    "id": "T04",
+    "tool": "scan_secrets",
+    "agent": "SecurityReviewer",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 36.4,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-005"
+    ]
+   },
+   {
+    "id": "T05",
+    "tool": "scan_security",
+    "agent": "SecurityReviewer",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 28.53,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-006"
+    ]
+   },
+   {
+    "id": "T06",
+    "tool": "lint",
+    "agent": "QualityReviewer",
+    "phase": 1,
+    "status": "success",
+    "duration_ms": 38.96,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-007"
+    ]
+   },
+   {
+    "id": "T07",
+    "tool": "find_usages",
+    "agent": "TestImpactAgent",
+    "phase": 2,
+    "status": "success",
+    "duration_ms": 13.08,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-008"
+    ]
+   },
+   {
+    "id": "T08",
+    "tool": "run_tests",
+    "agent": "TestImpactAgent",
+    "phase": 3,
+    "status": "success",
+    "duration_ms": 1108.56,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-009"
+    ]
+   },
+   {
+    "id": "T09",
+    "tool": "run_tests",
+    "agent": "TestImpactAgent",
+    "phase": 4,
+    "status": "success",
+    "duration_ms": 1076.45,
+    "attempts": 1,
+    "error": null,
+    "category": null,
+    "reason": null,
+    "task_ids": [
+     "TASK-010"
+    ]
+   },
+   {
+    "id": "T10",
+    "tool": "run_tests",
+    "agent": "TestImpactAgent",
+    "phase": 5,
+    "status": "skipped",
+    "duration_ms": null,
+    "attempts": null,
+    "error": null,
+    "category": null,
+    "reason": "all tests passed - no baseline needed",
+    "task_ids": null
+   }
+  ]
+ },
+ "diff": {
+  "available": true,
+  "files": [
+   {
+    "path": "inventory/store.py",
+    "status": "modified",
+    "additions": 6,
+    "deletions": 0,
+    "kind": "code"
+   },
+   {
+    "path": "tests/test_store.py",
+    "status": "modified",
+    "additions": 7,
+    "deletions": 0,
+    "kind": "test"
+   }
+  ],
+  "additions": 13,
+  "deletions": 0,
+  "size": "S",
+  "touches_tests": true,
+  "code_only": false,
+  "docs_only": false
+ },
+ "tests": {
+  "runs": [
+   {
+    "task": "T08",
+    "on": "PR",
+    "status": "passed",
+    "targets": [
+     "tests/test_store.py"
+    ],
+    "passed": 8,
+    "failed": 0,
+    "errors": 0,
+    "duration_s": 1.085
+   },
+   {
+    "task": "T09",
+    "on": "PR",
+    "status": "passed",
+    "targets": "full suite",
+    "passed": 14,
+    "failed": 0,
+    "errors": 0,
+    "duration_s": 1.053
+   },
+   {
+    "task": "T10",
+    "on": "base",
+    "status": "skipped",
+    "reason": "all tests passed - no baseline needed",
+    "targets": null
+   }
+  ],
+  "affected_tests": [
+   "tests/test_store.py"
+  ],
+  "functions_checked": 1,
+  "functions_tested": 1,
+  "known_test_files": [
+   "tests/test_store.py"
+  ],
+  "preexisting_failures": [],
+  "environment_problem": null
+ },
+ "validation": {
+  "tool_checks": [
+   {
+    "task": "TASK-002",
+    "tool": "get_diff",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-003",
+    "tool": "compare_versions",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-004",
+    "tool": "compare_versions",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-005",
+    "tool": "scan_secrets",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-006",
+    "tool": "scan_security",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-007",
+    "tool": "lint",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-008",
+    "tool": "find_usages",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-009",
+    "tool": "run_tests",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   },
+   {
+    "task": "TASK-010",
+    "tool": "run_tests",
+    "status": "valid",
+    "attempts": 1,
+    "category": null
+   }
+  ],
+  "dropped": [],
+  "gaps": [],
+  "tools_valid": 9,
+  "tools_total": 9
+ },
+ "verdict": {
+  "verdict": "APPROVE",
+  "score": 100,
+  "top_severity": null,
+  "confidence": 1.0,
+  "counts": {
+   "critical": 0,
+   "high": 0,
+   "medium": 0,
+   "low": 0,
+   "info": 0
+  },
+  "notes": [],
+  "summary": "Looks good to merge. No findings.",
+  "fixable_rules": []
+ },
+ "human": {
+  "action": "approve",
+  "by": "auto (no reviewer present)",
+  "note": "",
+  "final_verdict": "APPROVE",
+  "dismissed": [],
+  "autofix_approved": [],
+  "overridden": false,
+  "at": "2026-10-22T07:34:02+00:00"
+ },
+ "final_verdict": "APPROVE",
+ "findings": [],
+ "fix": null,
+ "posted": {
+  "pr_id": "INV-01",
+  "verdict": "APPROVE",
+  "comments": 0,
+  "posted_at": "2026-10-22T07:34:02+00:00",
+  "location": "storage/reviews/INV-01.json",
+  "url": "",
+  "event": "APPROVE",
+  "inline_comments": 0
+ },
+ "agents": [
+  {
+   "agent": "IntakeGuard",
+   "ms": 25.9,
+   "summary": "INV-01 'Add release() to return reserved stock' - 2 files, +13/-0"
+  },
+  {
+   "agent": "Planner",
+   "ms": 0.0,
+   "summary": "10 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security"
+  },
+  {
+   "agent": "Supervisor",
+   "ms": 17.0,
+   "summary": "18 tools listed; 10 tasks approved, 0 rejected"
+  },
+  {
+   "agent": "PolicyGuard",
+   "ms": 3.3,
+   "summary": "LOW 7, MEDIUM 3, HIGH 0; 0 denied"
+  },
+  {
+   "agent": "Executor",
+   "ms": 2301.2,
+   "summary": "9 MCP calls in 4 phases, 2301 ms wall (DOP 6, speed-up x1.07)"
+  },
+  {
+   "agent": "DiffAnalyst",
+   "ms": 0.0,
+   "summary": "2 files, +13/-0 (size S), tests touched"
+  },
+  {
+   "agent": "QualityReviewer",
+   "ms": 0.0,
+   "summary": "no quality issues on added lines"
+  },
+  {
+   "agent": "SecurityReviewer",
+   "ms": 0.0,
+   "summary": "no security issues on added lines"
+  },
+  {
+   "agent": "TestImpactAgent",
+   "ms": 2.4,
+   "summary": "3 test run(s): passed, passed, skipped; 1/1 changed functions tested"
+  },
+  {
+   "agent": "Validator",
+   "ms": 0.0,
+   "summary": "0 findings kept, 0 dropped; 9/9 tool results valid"
+  },
+  {
+   "agent": "VerdictAgent",
+   "ms": 0.0,
+   "summary": "APPROVE (score 100, confidence 1.0)"
+  },
+  {
+   "agent": "HumanApproval",
+   "ms": 0.0,
+   "summary": "approve by auto (no reviewer present); verdict APPROVE"
+  }
+ ]
+}

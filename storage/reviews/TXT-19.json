@@ -1,0 +1,17 @@
+{
+ "pr_id": "TXT-19",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high.",
+ "comments": [
+  {
+   "path": "tests/test_slug.py",
+   "line": 0,
+   "severity": "high",
+   "rule": "TST002",
+   "message": "1 test(s) removed - coverage of existing behaviour drops"
+  }
+ ],
+ "posted_at": "2026-10-22T07:35:22+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
+}

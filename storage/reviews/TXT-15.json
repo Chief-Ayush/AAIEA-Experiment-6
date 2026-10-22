@@ -1,0 +1,17 @@
+{
+ "pr_id": "TXT-15",
+ "verdict": "COMMENT",
+ "summary": "Mergeable, with suggestions worth addressing. Findings: 1 medium.",
+ "comments": [
+  {
+   "path": "textkit/validate.py",
+   "line": 11,
+   "severity": "medium",
+   "rule": "QLT002",
+   "message": "bare except"
+  }
+ ],
+ "posted_at": "2026-10-22T07:35:15+00:00",
+ "url": "",
+ "event": "COMMENT"
+}

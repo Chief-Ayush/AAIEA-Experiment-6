@@ -8,15 +8,17 @@
    "line": 0,
    "severity": "high",
    "rule": "TST001",
-   "message": "tests.test_store::test_restock_rejects_non_positive fails on the PR head"
+   "message": "tests.test_store::test_restock_rejects_non_positive fails on the PR head (passes on the base)"
   },
   {
    "path": "inventory/store.py",
-   "line": 35,
+   "line": 40,
    "severity": "medium",
    "rule": "QLT002",
    "message": "broad except that swallows the error"
   }
  ],
- "posted_at": "2026-10-21T16:57:45+00:00"
+ "posted_at": "2026-10-22T07:34:23+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
 }

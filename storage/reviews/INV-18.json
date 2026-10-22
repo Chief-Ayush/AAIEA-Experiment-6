@@ -1,0 +1,24 @@
+{
+ "pr_id": "INV-18",
+ "verdict": "REQUEST_CHANGES",
+ "summary": "Changes are needed before this can merge. Findings: 1 high, 1 medium.",
+ "comments": [
+  {
+   "path": "inventory/settings.py",
+   "line": 7,
+   "severity": "high",
+   "rule": "SEC002",
+   "message": "yaml.load() without a safe Loader"
+  },
+  {
+   "path": "inventory/settings.py",
+   "line": 5,
+   "severity": "medium",
+   "rule": "TST003",
+   "message": "load_settings() is new or changed but no test references it"
+  }
+ ],
+ "posted_at": "2026-10-22T07:34:30+00:00",
+ "url": "",
+ "event": "REQUEST_CHANGES"
+}
