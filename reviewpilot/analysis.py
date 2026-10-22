@@ -6,8 +6,10 @@ from __future__ import annotations
 
 import ast
 import difflib
+import io
 import math
 import re
+import tokenize
 from collections import Counter
 
 # ----------------------------------------------------------------------------------------------------------- diff
@@ -55,6 +57,19 @@ def _mutable_default(d: ast.AST) -> bool:
     return isinstance(d, (ast.List, ast.Dict, ast.Set)) or (isinstance(d, ast.Call) and isinstance(d.func, ast.Name) and d.func.id in {"list", "dict", "set"})
 
 
+def _comments(source: str):
+    """(line, text) of every real comment - '# TODO' inside a string literal is data, not a comment."""
+    try:
+        for tok in tokenize.generate_tokens(io.StringIO(source).readline):
+            if tok.type == tokenize.COMMENT:
+                yield tok.start[0], tok.string
+    except (tokenize.TokenError, IndentationError, SyntaxError):
+        for i, line in enumerate(source.splitlines(), 1):
+            j = line.find("#")
+            if j >= 0:
+                yield i, line[j:]
+
+
 def analyze_source(source: str, path: str = "") -> dict:
     """Functions (with complexity, docstring, arguments), classes, imports, unused imports, TODOs and debug calls."""
     out = {"path": path, "lines": len(source.splitlines()), "functions": [], "classes": [], "imports": [], "unused_imports": [],
@@ -64,8 +79,8 @@ def analyze_source(source: str, path: str = "") -> dict:
     except SyntaxError as exc:
         out["syntax_error"] = f"{exc.msg} (line {exc.lineno})"
         return out
-    for i, line in enumerate(source.splitlines(), 1):
-        m = re.search(r"#\s*(TODO|FIXME|XXX)\b(.*)", line)
+    for i, comment in _comments(source):
+        m = re.match(r"#\s*(TODO|FIXME|XXX)\b(.*)", comment)
         if m:
             out["todos"].append({"line": i, "text": (m.group(1) + m.group(2)).strip()})
     main_ranges = []
@@ -108,6 +123,8 @@ def analyze_source(source: str, path: str = "") -> dict:
                 out["imports"].append({"module": a.name, "name": nm, "line": node.lineno})
         elif isinstance(node, ast.ImportFrom):
             for a in node.names:
+                if node.module == "__future__":
+                    continue
                 nm = a.asname or a.name
                 imported[nm] = node.lineno
                 out["imports"].append({"module": f"{'.' * node.level}{node.module or ''}", "name": nm, "line": node.lineno})
@@ -124,7 +141,8 @@ def analyze_source(source: str, path: str = "") -> dict:
         if isinstance(node, ast.Call):
             f = node.func
             fname = f.id if isinstance(f, ast.Name) else (f"{ast.unparse(f.value)}.{f.attr}" if isinstance(f, ast.Attribute) else "")
-            if fname in ("print", "breakpoint", "pdb.set_trace", "ipdb.set_trace") and not in_main(node.lineno):
+            is_script = bool(main_ranges)                     # a module with an `if __name__ == "__main__"` block is a script: print() is its output
+            if fname in ("print", "breakpoint", "pdb.set_trace", "ipdb.set_trace") and not in_main(node.lineno) and not (fname == "print" and is_script):
                 out["debug_calls"].append({"line": node.lineno, "call": fname})
     return out
 
@@ -176,6 +194,23 @@ SECRET_PATTERNS = [
 ]
 _GENERIC = re.compile(r"(?i)\b([A-Z0-9_]*(?:api_?key|secret|token|passw(?:or)?d|access_key)[A-Z0-9_]*)\s*[:=]\s*['\"]([^'\"\s]{12,})['\"]")
 PLACEHOLDER = re.compile(r"(?i)(your[-_ ]|example\.|changeme|placeholder|dummy|<[^>]+>|x{6,}|\*{4,}|fake|test[-_]?key|here$)")
+DOC_KEY = re.compile(r"EXAMPLE|(?i:dummy|fake|placeholder|sample[-_]?key)")             # AKIAIOSFODNN7EXAMPLE and friends are documentation values
+INTERPOLATION = re.compile(r"^\{.*\}$|^\$\{|^\$\(|^%[sd(]|^\{\{|^<.*>$")               # {TOKEN}, ${TOKEN}, %s: a template, not a value
+FIXTURE_PATH = re.compile(r"(^|/)(tests?|fixtures?|mocks?|samples?|examples?|docs?|testdata|benchmark|__snapshots__)(/|$)|(^|/)(test_[^/]*|conftest\.py)$|\.(md|rst)$")
+
+
+def _string_lines(source: str) -> set[int]:
+    """Lines that lie inside a multi-line string literal (triple-quoted data, templates, docstrings) of a Python file."""
+    try:
+        tree = ast.parse(source)
+    except SyntaxError:
+        return set()
+    out: set[int] = set()
+    for n in ast.walk(tree):
+        if isinstance(n, (ast.Constant, ast.JoinedStr)) and (isinstance(n, ast.JoinedStr) or isinstance(n.value, str)) \
+                and getattr(n, "end_lineno", None) and n.end_lineno > n.lineno:
+            out.update(range(n.lineno, n.end_lineno + 1))
+    return out
 
 
 def entropy(s: str) -> float:
@@ -189,21 +224,27 @@ def mask(value: str) -> str:
     return value[:4] + "*" * max(4, len(value) - 8) + value[-4:] if len(value) > 10 else "****"
 
 
-def scan_secrets_text(text: str) -> list[dict]:
+def scan_secrets_text(text: str, path: str = "") -> list[dict]:
+    """Hard-coded credentials.  Each hit carries a `context`: 'code' (a real assignment), 'fixture' (test / sample / docs file) or 'embedded'
+    (inside a multi-line string literal: generated code, templates, test data) - only 'code' is a leaked secret."""
     out = []
+    fixture = bool(FIXTURE_PATH.search(path.replace("\\", "/")))
+    embedded = _string_lines(text) if path.endswith(".py") or not path else set()
     for i, line in enumerate(text.splitlines(), 1):
+        ctx = "fixture" if fixture else ("embedded" if i in embedded else "code")
         hit = False
         for kind, rx in SECRET_PATTERNS:
             m = rx.search(line)
             if m:
-                out.append({"line": i, "kind": kind, "match": mask(m.group(0)), "confidence": "high"})
+                if not DOC_KEY.search(m.group(0)):
+                    out.append({"line": i, "kind": kind, "match": mask(m.group(0)), "confidence": "high", "context": ctx})
                 hit = True
                 break
         if hit:
             continue
         m = _GENERIC.search(line)
-        if m and not PLACEHOLDER.search(m.group(2)) and entropy(m.group(2)) >= 3.3:
-            out.append({"line": i, "kind": f"generic secret ({m.group(1)})", "match": mask(m.group(2)), "confidence": "medium"})
+        if m and not PLACEHOLDER.search(m.group(2)) and not INTERPOLATION.search(m.group(2)) and entropy(m.group(2)) >= 3.3:
+            out.append({"line": i, "kind": f"generic secret ({m.group(1)})", "match": mask(m.group(2)), "confidence": "medium", "context": ctx})
     return out
 
 
@@ -261,4 +302,50 @@ def scan_injection(text: str) -> list[dict]:
         m = rx.search(text or "")
         if m:
             out.append({"kind": kind, "text": m.group(0).strip()})
+    return out
+
+
+# ----------------------------------------------------------------------------------------------------------- who references what (indirect coverage)
+_REF_CACHE: dict[tuple, dict] = {}
+
+
+def reference_index(source: str) -> dict[str, set[str]]:
+    """name -> the functions (or '<module>') that reference it.  Cached per file content."""
+    key = (len(source), hash(source))
+    if key in _REF_CACHE:
+        return _REF_CACHE[key]
+    refs: dict[str, set[str]] = {}
+    try:
+        tree = ast.parse(source)
+    except SyntaxError:
+        return refs
+
+    def visit(node, scope):
+        for child in ast.iter_child_nodes(node):
+            sc = child.name if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)) else scope
+            if isinstance(child, ast.Name):
+                refs.setdefault(child.id, set()).add(scope)
+            elif isinstance(child, ast.Attribute):
+                refs.setdefault(child.attr, set()).add(scope)
+            visit(child, sc)
+    visit(tree, "<module>")
+    if len(_REF_CACHE) > 2000:
+        _REF_CACHE.clear()
+    _REF_CACHE[key] = refs
+    return refs
+
+
+def module_parts(source: str) -> set[str]:
+    """Module names a file imports (every dotted part) - 'from reviewpilot.config import X' -> {reviewpilot, config}."""
+    out: set[str] = set()
+    try:
+        tree = ast.parse(source)
+    except SyntaxError:
+        return out
+    for n in ast.walk(tree):
+        if isinstance(n, ast.ImportFrom) and n.module:
+            out.update(n.module.split("."))
+        elif isinstance(n, ast.Import):
+            for a in n.names:
+                out.update(a.name.split("."))
     return out

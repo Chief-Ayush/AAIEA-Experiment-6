@@ -9,4 +9,4 @@ __pycache__/
 *.pyc
 .pytest_cache/
 data/
-reviewpilot/benchmark/
+venv/

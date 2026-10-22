@@ -14,6 +14,8 @@ from .base import agent, hub_of, settings_of, trace_of
 from .review import policy_decide
 
 DESTRUCTIVE = re.compile(r"(?i)\b(rm\s+-rf|delete|remove|drop|wipe|format|overwrite|chmod|sudo|push|deploy|install)\b")
+STRONG = re.compile(r"(?i)\b(rm\s+-rf|sudo|chmod)\b")
+QUESTION = re.compile(r"(?i)^\s*(what|how|why|where|which|who|when|does|do|is|are|can|could|explain|describe|tell me)\b")
 MAX_LEN = 500
 
 
@@ -26,6 +28,8 @@ def request_guard(state: dict) -> dict:
         return {"status": "rejected", "guard": {"ok": False, "category": "INPUT", "reason": f"request longer than {MAX_LEN} characters"},
                 "_summary": "rejected: too long"}
     m = DESTRUCTIVE.search(text)
+    if m and QUESTION.search(text) and not STRONG.search(text):
+        m = None                                      # "how is the price formatted?" asks about code, it does not ask for a change
     if m and not re.search(r"(?i)\bauto[- ]?fix\b", text):
         return {"status": "rejected", "guard": {"ok": False, "category": "SECURITY",
                                                 "reason": f"'{m.group(0)}' is not something the workbench does - its tools read, analyse and test code"},
@@ -132,6 +136,8 @@ def _line(r: dict) -> str:
         return f"{t}: {d['count']} finding(s) in {d['files']} file(s)"
     if t == "get_diff":
         return f"get_diff: {len(d['files'])} files, +{d['additions']}/-{d['deletions']}"
+    if t == "list_pull_requests":
+        return f"list_pull_requests: {d['count']} open pull request(s)"
     if t == "create_autofix_branch":
         return f"create_autofix_branch: {len(d['applied'])} fix(es) on {d['branch']}"
     return f"{t}: ok"

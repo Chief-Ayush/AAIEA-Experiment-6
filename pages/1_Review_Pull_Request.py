@@ -95,6 +95,9 @@ v = state["verdict"]
 human = state.get("human", {})
 findings = state.get("final_findings") or state.get("validated", [])
 verdict_banner(human.get("final_verdict") or v["verdict"], v["summary"], v["score"], v["confidence"])
+if human.get("overridden"):
+    st.warning(f"The agents' verdict was {v['verdict'].replace('_', ' ').title()}; the reviewer changed it to "
+               f"{human['final_verdict'].replace('_', ' ').title()}. The summary above describes the agents' assessment.")
 for note in v["notes"]:
     st.caption(note)
 if state.get("guard", {}).get("injection"):
@@ -122,11 +125,17 @@ if state["status"] == "awaiting_human":
         fix = c1.multiselect("Fix automatically", fixable, format_func=lambda r: AUTO_FIXABLE.get(r, r), disabled=not fixable,
                              placeholder="Nothing to fix" if not fixable else "Choose fixes",
                              help="Tests run on the fixed code first" + ("; then the fix is pushed to the PR branch." if is_gh else "."))
-        verdict = c2.selectbox("Verdict", VERDICTS, index=VERDICTS.index(v["verdict"]), format_func=lambda x: x.replace("_", " ").title())
+        verdict = c2.selectbox("Verdict", VERDICTS, index=VERDICTS.index(v["verdict"]), format_func=lambda x: x.replace("_", " ").title(),
+                               key=f"verdict_{state['trace_id']}", help="Defaults to the agents' verdict. Choosing a milder one overrides it and is stated in the posted review.")
+        confirm = st.checkbox("I am overriding the agents' verdict with a milder one", key=f"confirm_{state['trace_id']}",
+                              help="Required when the chosen verdict is milder than " + v["verdict"].replace("_", " ").title())
         note = st.text_input("Note", placeholder="Optional message for the author")
         b1, b2, _ = st.columns([1.3, 1, 4])
         post = b1.form_submit_button("Post to GitHub" if is_gh else "Post review", type="primary")
         skip = b2.form_submit_button("Don't post")
+    if post and VERDICTS.index(verdict) < VERDICTS.index(v["verdict"]) and not confirm:
+        st.error(f"The agents' verdict is {v['verdict'].replace('_', ' ').title()}; tick the override box to post {verdict.replace('_', ' ').title()}.")
+        post = skip = False
     if post or skip:
         dec = {"action": "approve" if post else "reject", "autofix": fix if post else [], "note": note, "by": github_status()["login"] or "reviewer",
                "dismiss": [i for i, x in enumerate(ed["Ignore"]) if x] if findings else []}

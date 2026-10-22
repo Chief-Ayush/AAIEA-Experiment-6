@@ -9,6 +9,7 @@ RULES = {
     "SEC002": ("high", "Dangerous call (code execution, shell or unsafe deserialisation)", "SecurityReviewer", False),
     "SEC003": ("high", "Instruction aimed at the reviewer (prompt injection)", "SecurityReviewer", False),
     "SEC004": ("high", "SQL built by string formatting", "SecurityReviewer", False),
+    "SEC005": ("medium", "Secret-like value in test, sample or embedded data", "SecurityReviewer", False),
     "TST001": ("high", "Tests fail on the pull request", "TestImpactAgent", False),
     "TST002": ("high", "Tests removed or skipped", "TestImpactAgent", False),
     "TST003": ("medium", "New or changed public function without tests", "TestImpactAgent", False),
@@ -20,6 +21,7 @@ RULES = {
     "QLT006": ("info", "TODO / FIXME added", "QualityReviewer", False),
     "QLT007": ("medium", "Mutable default argument", "QualityReviewer", False),
     "DIF001": ("medium", "Large pull request", "DiffAnalyst", False),
+    "DIF002": ("medium", "Generated or runtime file committed", "DiffAnalyst", False),
 }
 
 SEVERITY_WEIGHT = {"critical": 60, "high": 25, "medium": 10, "low": 3, "info": 0}
@@ -39,5 +41,14 @@ def make_finding(rule: str, path: str, line: int | None, message: str, evidence:
 def verdict_for(findings: list[dict]) -> tuple[str, int, str | None]:
     """Verdict, merge-readiness score (0-100) and the highest severity."""
     top = max((f["severity"] for f in findings), key=sev_rank, default=None)
-    score = max(0, 100 - sum(SEVERITY_WEIGHT[f["severity"]] for f in findings))
-    return VERDICT_FOR[top], score, top
+    return VERDICT_FOR[top], merge_score(findings), top
+
+
+def merge_score(findings: list[dict]) -> int:
+    """0-100.  The first finding of a rule costs its full weight; further findings of the same rule cost half each (at most four more), so
+    nine missing docstrings do not weigh as much as nine different problems."""
+    by_rule: dict[str, list[dict]] = {}
+    for f in findings:
+        by_rule.setdefault(f["rule"], []).append(f)
+    lost = sum(SEVERITY_WEIGHT[fs[0]["severity"]] * (1 + 0.5 * min(len(fs) - 1, 4)) for fs in by_rule.values())
+    return max(0, round(100 - lost))

@@ -6,7 +6,7 @@ Focus: protocol-driven system integration and developer tooling.
 A developer opens a pull request; ReviewPilot reviews it. Fourteen LangGraph agents plan the review, call **17 tools on four MCP
 servers over stdio**, run the affected tests first and the full suite only when they pass, turn the results into validated
 findings and a merge verdict (APPROVE / COMMENT / REQUEST_CHANGES / BLOCK), and let a human approve what is posted and any
-automatic fix before anything is written. A Developer Workbench turns plain-language requests ("Analyze calculator.py and run its
+automatic fix before anything is written. The Developer Workbench turns plain-language requests ("Analyze calculator.py and run its
 tests") into multi-tool MCP plans.
 
 Stack: **MCP Python SDK 1.x** (FastMCP servers, `ClientSession` + `stdio_client`) · **LangGraph 1.x** (StateGraph, parallel fan-out,
@@ -92,12 +92,24 @@ ResultValidator → Summarizer.
 | Page | What it does |
 |---|---|
 | Pull requests | Open PRs of the selected repository; review one; ignore findings, choose fixes, post to GitHub. |
-| Ask | Chat-style code tasks ("Where is divide used?", "Run the test suite") answered with MCP tool calls. |
+| Workbench | One developer request (e.g. "Analyze calculator.py and run its tests") -> plan -> Supervisor / PolicyGuard -> parallel or sequential execution -> validated results, each step in its own tab. HIGH-risk tools ask for a human decision. |
 | Code | Browse files with AST metrics; run the test suite. |
 | Settings | GitHub token / CLI status, one-click demo repositories, review defaults. |
 | Lab: How it works | MCP servers, workflow graph, every agent, failure handling, tool risk, review rules. |
 | Lab: Batch testing / Evaluation / Run evaluation | Many PRs at once (benchmark, picked, CSV, or a GitHub repository's open PRs) and the full evaluation. |
 | Lab: Security tests / MCP inspector / Traces | Attack console, raw tools/list and tools/call, mcp_traces.jsonl and logs. |
+
+## Behaviour on real repositories
+
+Lessons from reviewing real pull requests (Windows-authored code, scripts, UI pages, generated files):
+
+* Checkouts keep file bytes exactly (CRLF files used to be corrupted and failed every test run); a collection error reports its real reason and the right test file.
+* Secrets: documentation keys (`AKIA...EXAMPLE`), `{TOKEN}` / `${TOKEN}` templates and placeholders are ignored; a secret-like value in a test, sample or docs file, or inside a
+  multi-line string (templates, test data) is `SEC005` (medium, "check it"), only a real assignment in code is `SEC001` (critical).
+* `TST003` looks at indirect coverage (a helper called by a tested function, or by module code the tests import) and does not demand unit tests for UI pages, scripts or tooling.
+* Lint ignores `from __future__ import ...`, `# TODO` inside string literals and `print()` in command-line scripts.
+* `DIF001` counts reviewable lines only (not logs, lock files, data) and names the biggest file; `DIF002` flags newly added caches, logs and `.env` files.
+* The merge-readiness score weighs repeated findings of one rule less; a milder verdict than the agents' needs an explicit override confirmation and is stated in the posted review.
 
 ## Data and evaluation
 
@@ -109,4 +121,4 @@ ResultValidator → Summarizer.
   (faults are injected through `storage/mcp_logs/faults.json`), 12 human-in-the-loop scenarios, performance and optimisation.
 
 Known limits (kept visible in the report): behaviour changes to functions that already have tests (INV-15, TXT-12) and a
-paraphrased instruction to approve (TXT-16) are not detected; two workbench phrasings without file names are not understood.
+paraphrased instruction to approve (TXT-16) are not detected.
