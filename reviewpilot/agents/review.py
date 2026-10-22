@@ -14,14 +14,14 @@ from langgraph.types import interrupt
 from ..analysis import scan_injection
 from ..config import PATHS, VERDICTS
 from ..executor import execute
-from ..planning import is_test_path, plan_review
+from ..planning import NO_UNIT_TESTS, RUNTIME_ARTIFACT, is_generated, is_test_path, plan_review
 from ..rules import RULES, make_finding, sev_rank, verdict_for
 from ..workspace import SecurityError, normalize_pr_id, repo_root, safe_project_path
 from .base import agent, hub_of, settings_of, trace_of
 
 PR_ID_FORMAT = re.compile(r"^[A-Z]{3,4}-\d{1,3}$|^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+#\d+$")
 PATH_ARGS = ("path",)
-EXEMPT_LINE_RULES = {"TST001", "TST002", "TST003", "QLT004", "SEC003", "DIF001"}
+EXEMPT_LINE_RULES = {"TST001", "TST002", "TST003", "QLT004", "SEC003", "DIF001", "DIF002"}
 
 
 def _result(state: dict, tool: str) -> list[dict]:
@@ -187,9 +187,17 @@ def diff_analyst(state: dict) -> dict:
               "kind": "test" if is_test_path(f["path"]) else ("code" if f["path"].endswith(".py") else "docs/other")} for f in d["files"]]
     size = d["additions"] + d["deletions"]
     bucket = "XS" if size < 10 else "S" if size < 50 else "M" if size < 200 else "L" if size < s.large_pr_lines else "XL"
+    counted = [f for f in d["files"] if not is_generated(f["path"])]
+    reviewable = sum(f["additions"] + f["deletions"] for f in counted)
     findings = []
-    if size > s.large_pr_lines:
-        findings.append(make_finding("DIF001", d["files"][0]["path"], None, f"{size} changed lines - consider splitting the pull request"))
+    if reviewable > s.large_pr_lines:
+        biggest = max(counted, key=lambda f: f["additions"] + f["deletions"])
+        skipped = size - reviewable
+        findings.append(make_finding("DIF001", biggest["path"], None, f"{reviewable} changed lines of code"
+                                     + (f" (+{skipped} in generated files)" if skipped else "") + " - consider splitting the pull request"))
+    artifacts = [f["path"] for f in d["files"] if f["status"] == "added" and RUNTIME_ARTIFACT.search(f["path"])]
+    for path in artifacts[:5]:
+        findings.append(make_finding("DIF002", path, None, "this looks like a generated or runtime file (cache, log, environment, editor data) - add it to .gitignore"))
     kinds = {f["kind"] for f in files}
     summary = {"available": True, "files": files, "additions": d["additions"], "deletions": d["deletions"], "size": bucket,
                "touches_tests": "test" in kinds, "code_only": kinds == {"code"}, "docs_only": kinds <= {"docs/other"}}
@@ -199,14 +207,14 @@ def diff_analyst(state: dict) -> dict:
 
 # ======================================================================================================== 6b. TestImpactAgent
 def _test_path(test_id: str, known: list[str]) -> str:
-    cls = test_id.split("::")[0]
+    cls = test_id.split("::")[0] if "::" in test_id else test_id        # a collection error is reported as just the module name
     parts = cls.split(".")
     for start in range(len(parts)):
         for i in range(len(parts), start, -1):
             cand = "/".join(parts[start:i]) + ".py"
             if cand in known:
                 return cand
-    return known[0] if known else cls
+    return "/".join(parts) + ".py" if parts and parts[0] else (known[0] if known else cls)
 
 
 @agent("TestImpactAgent")
@@ -217,7 +225,7 @@ def test_impact(state: dict) -> dict:
     affected = state.get("plan_ctx", {}).get("affected_tests", [])
     all_tests = sorted({*affected, *[f["path"] for f in pr["files"] if is_test_path(f["path"])]})
     from ..workspace import head_files
-    known = sorted(p for p in head_files(pr["repo"], pr["id"]) if is_test_path(p))
+    known = sorted(p for p in head_files(pr["repo"], pr["id"]) if is_test_path(p) and not p.endswith(("__init__.py", "conftest.py")))
     test_runs = []
     failed_files = set()
     is_base = lambda r: (r.get("args") or {}).get("ref") == "base"  # noqa: E731
@@ -251,8 +259,9 @@ def test_impact(state: dict) -> dict:
             p = _test_path(f["test"], known)
             if p not in failed_files:
                 failed_files.add(p)
-                findings.append(make_finding("TST001", p, None, f"{f['test']} fails on the PR head" + (" (passes on the base)" if base_ok else ""),
-                                             f["message"][:200]))
+                what = "cannot be imported or collected" if "::" not in f["test"] else "fails"
+                findings.append(make_finding("TST001", p, None, f"{f['test'].lstrip(':')} {what} on the PR head" + (" (passes on the base)" if base_ok else "")
+                                             + (f": {f['message'][:160]}" if what != "fails" else ""), f["message"][:200]))
     # removed / skipped tests
     for c in _data(state, "compare_versions"):
         if not is_test_path(c["path"]):
@@ -270,9 +279,9 @@ def test_impact(state: dict) -> dict:
                 usage[call["data"]["symbol"]] = call["data"]
     for name, path, line in state.get("plan_ctx", {}).get("changed_functions", []):
         u = usage.get(name)
-        if u is not None and not u["tested"] and path.endswith(".py"):
+        if u is not None and not u["tested"] and not u.get("indirect") and path.endswith(".py") and not NO_UNIT_TESTS.search(path):
             findings.append(make_finding("TST003", path, line, f"{name}() is new or changed but no test references it"))
-    tested = sum(1 for u in usage.values() if u["tested"])
+    tested = sum(1 for u in usage.values() if u["tested"] or u.get("indirect"))
     return {"test_report": {"runs": test_runs, "affected_tests": affected, "functions_checked": len(usage), "functions_tested": tested,
                             "known_test_files": all_tests, "preexisting_failures": sorted(set(preexisting)), "environment_problem": env_problem},
             "findings": findings,
@@ -287,8 +296,13 @@ def security_reviewer(state: dict) -> dict:
     for scan in _data(state, "scan_secrets"):
         for h in scan["findings"]:
             if h["line"] in added.get(h["path"], set()):
-                findings.append(make_finding("SEC001", h["path"], h["line"], f"{h['kind']} committed in source ({h['confidence']} confidence)",
-                                             f"{h['kind']}: {h['match']}"))
+                if h.get("context", "code") == "code":
+                    findings.append(make_finding("SEC001", h["path"], h["line"], f"{h['kind']} committed in source ({h['confidence']} confidence)",
+                                                 f"{h['kind']}: {h['match']}"))
+                else:
+                    where = "a test, sample or docs file" if h["context"] == "fixture" else "a multi-line string (template or test data)"
+                    findings.append(make_finding("SEC005", h["path"], h["line"], f"{h['kind']} inside {where} - check that it is not a real credential",
+                                                 f"{h['kind']}: {h['match']}"))
     for scan in _data(state, "scan_security"):
         for h in scan["findings"]:
             if h["line"] in added.get(h["path"], set()):
@@ -516,6 +530,9 @@ def reporter(state: dict) -> dict:
             comments = [{"path": f["path"], "line": f["line"] or 0, "rule": f["rule"], "severity": f["severity"], "message": f["message"]} for f in findings][:50]
             fx = state.get("fix") or {}
             body = state["verdict"]["summary"]
+            if h.get("overridden"):
+                body = (f"Reviewer decision: {verdict.replace('_', ' ').title()} (overrides the automated assessment "
+                        f"{state['verdict']['verdict'].replace('_', ' ').title()}). Automated assessment: {body}")
             if fx.get("status") == "pushed":
                 body += f" Safe fixes ({', '.join(fx['rules'])}) were pushed to this branch as commit {fx['commit'][:7]} after the tests passed."
             elif fx.get("status", "").startswith("created"):

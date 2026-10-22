@@ -99,6 +99,18 @@ ResultValidator → Summarizer.
 | Lab: Batch testing / Evaluation / Run evaluation | Many PRs at once (benchmark, picked, CSV, or a GitHub repository's open PRs) and the full evaluation. |
 | Lab: Security tests / MCP inspector / Traces | Attack console, raw tools/list and tools/call, mcp_traces.jsonl and logs. |
 
+## Behaviour on real repositories
+
+Lessons from reviewing real pull requests (Windows-authored code, scripts, UI pages, generated files):
+
+* Checkouts keep file bytes exactly (CRLF files used to be corrupted and failed every test run); a collection error reports its real reason and the right test file.
+* Secrets: documentation keys (`AKIA...EXAMPLE`), `{TOKEN}` / `${TOKEN}` templates and placeholders are ignored; a secret-like value in a test, sample or docs file, or inside a
+  multi-line string (templates, test data) is `SEC005` (medium, "check it"), only a real assignment in code is `SEC001` (critical).
+* `TST003` looks at indirect coverage (a helper called by a tested function, or by module code the tests import) and does not demand unit tests for UI pages, scripts or tooling.
+* Lint ignores `from __future__ import ...`, `# TODO` inside string literals and `print()` in command-line scripts.
+* `DIF001` counts reviewable lines only (not logs, lock files, data) and names the biggest file; `DIF002` flags newly added caches, logs and `.env` files.
+* The merge-readiness score weighs repeated findings of one rule less; a milder verdict than the agents' needs an explicit override confirmation and is stated in the posted review.
+
 ## Data and evaluation
 
 * `data/repos/` — three sample projects (`calculator` from the lab manual, `inventory`, `textkit`), all tests passing on main.

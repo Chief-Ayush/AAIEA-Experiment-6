@@ -490,3 +490,120 @@
 2026-10-22 09:41:25,369 INFO TRACE-B6B42C55 agent ResultValidator 0.0ms - 0/2 results valid
 2026-10-22 09:41:25,369 INFO TRACE-B6B42C55 agent Summarizer 0.0ms - 0/2 tasks succeeded
 2026-10-22 09:42:21,566 INFO MCP hub connected: repo (6 tools, 617.1 ms), analysis (3 tools, 616.2 ms), quality (4 tools, 606.9 ms), automation (5 tools, 632.7 ms)
+2026-10-22 09:49:47,741 INFO TRACE-A32EACE6 review_start {"pr_id": "Chief-Ayush/AAIEA-Experiment-6#1", "settings": {"execution_mode": "parallel", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "manual", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}
+2026-10-22 09:49:47,789 INFO TRACE-A32EACE6 TASK-001 get_pull_request@repo success 20.3ms attempt=1
+2026-10-22 09:49:47,802 INFO TRACE-A32EACE6 agent IntakeGuard 35.2ms - Chief-Ayush/AAIEA-Experiment-6#1 'Upgraded app' - 17 files, +1435/-70
+2026-10-22 09:49:47,803 INFO TRACE-A32EACE6 agent Planner 0.1ms - 21 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-22 09:49:47,881 INFO TRACE-A32EACE6 agent Supervisor 76.2ms - 18 tools listed; 21 tasks approved, 0 rejected
+2026-10-22 09:49:47,911 INFO TRACE-A32EACE6 agent PolicyGuard 30.4ms - LOW 18, MEDIUM 3, HIGH 0; 0 denied
+2026-10-22 09:49:48,014 INFO TRACE-A32EACE6 TASK-002 get_diff@repo success 100.7ms attempt=1
+2026-10-22 09:49:50,085 INFO TRACE-A32EACE6 TASK-009 compare_versions@analysis success 2166.2ms attempt=1
+2026-10-22 09:49:50,099 INFO TRACE-A32EACE6 TASK-006 compare_versions@analysis success 2182.7ms attempt=1
+2026-10-22 09:49:50,114 INFO TRACE-A32EACE6 TASK-011 compare_versions@analysis success 20.6ms attempt=1
+2026-10-22 09:49:50,143 INFO TRACE-A32EACE6 TASK-012 compare_versions@analysis success 37.1ms attempt=1
+2026-10-22 09:49:50,186 INFO TRACE-A32EACE6 TASK-013 compare_versions@analysis success 65.1ms attempt=1
+2026-10-22 09:49:50,199 INFO TRACE-A32EACE6 TASK-005 compare_versions@analysis success 2283.5ms attempt=1
+2026-10-22 09:49:50,225 INFO TRACE-A32EACE6 TASK-014 compare_versions@analysis success 75.9ms attempt=1
+2026-10-22 09:49:50,245 INFO TRACE-A32EACE6 TASK-010 compare_versions@analysis success 2196.5ms attempt=1
+2026-10-22 09:49:50,264 INFO TRACE-A32EACE6 TASK-003 compare_versions@analysis success 2349.2ms attempt=1
+2026-10-22 09:49:50,362 INFO TRACE-A32EACE6 TASK-015 compare_versions@analysis success 168.2ms attempt=1
+2026-10-22 09:49:50,376 INFO TRACE-A32EACE6 TASK-008 compare_versions@analysis success 2459.4ms attempt=1
+2026-10-22 09:49:50,759 INFO TRACE-A32EACE6 TASK-004 compare_versions@analysis success 2843.8ms attempt=1
+2026-10-22 09:49:51,047 INFO TRACE-A32EACE6 TASK-007 compare_versions@analysis success 3129.8ms attempt=1
+2026-10-22 09:49:52,322 INFO TRACE-A32EACE6 TASK-018 lint@quality success 2067.4ms attempt=1
+2026-10-22 09:49:52,358 INFO TRACE-A32EACE6 TASK-016 scan_secrets@quality success 2151.2ms attempt=1
+2026-10-22 09:49:52,428 INFO TRACE-A32EACE6 TASK-017 scan_security@quality success 2192.1ms attempt=1
+2026-10-22 09:49:52,492 INFO TRACE-A32EACE6 TASK-019 find_usages@analysis success 60.2ms attempt=1
+2026-10-22 09:49:52,504 INFO TRACE-A32EACE6 TASK-020 find_usages@analysis success 70.7ms attempt=1
+2026-10-22 09:49:52,538 INFO TRACE-A32EACE6 TASK-021 find_usages@analysis success 104.4ms attempt=1
+2026-10-22 09:49:52,610 INFO TRACE-A32EACE6 TASK-023 find_usages@analysis success 174.9ms attempt=1
+2026-10-22 09:49:52,829 INFO TRACE-A32EACE6 TASK-022 find_usages@analysis success 394.5ms attempt=1
+2026-10-22 09:49:52,900 INFO TRACE-A32EACE6 TASK-024 find_usages@analysis success 463.3ms attempt=1
+2026-10-22 09:49:53,019 INFO TRACE-A32EACE6 TASK-025 find_usages@analysis success 581.9ms attempt=1
+2026-10-22 09:49:53,110 INFO TRACE-A32EACE6 TASK-026 find_usages@analysis success 671.9ms attempt=1
+2026-10-22 09:49:53,124 INFO TRACE-A32EACE6 TASK-027 find_usages@analysis success 626.3ms attempt=1
+2026-10-22 09:49:53,131 INFO TRACE-A32EACE6 TASK-030 find_usages@analysis success 517.5ms attempt=1
+2026-10-22 09:49:53,137 INFO TRACE-A32EACE6 TASK-031 find_usages@analysis success 303.7ms attempt=1
+2026-10-22 09:49:53,143 INFO TRACE-A32EACE6 TASK-028 find_usages@analysis success 634.7ms attempt=1
+2026-10-22 09:49:53,152 INFO TRACE-A32EACE6 TASK-029 find_usages@analysis success 608.8ms attempt=1
+2026-10-22 09:49:54,546 INFO TRACE-A32EACE6 TASK-032 run_tests@quality success 1383.1ms attempt=1
+2026-10-22 09:49:57,229 INFO TRACE-A32EACE6 TASK-033 run_tests@quality success 2678.2ms attempt=1
+2026-10-22 09:49:57,234 INFO TRACE-A32EACE6 agent Executor 9321.4ms - 32 MCP calls in 4 phases, 9321 ms wall (DOP 17, speed-up x3.84)
+2026-10-22 09:49:57,237 INFO TRACE-A32EACE6 agent DiffAnalyst 0.0ms - 17 files, +1435/-70 (size XL)
+2026-10-22 09:49:57,238 INFO TRACE-A32EACE6 agent QualityReviewer 0.1ms - QLT001 x1, QLT003 x6, QLT004 x3, QLT005 x9, QLT006 x3
+2026-10-22 09:49:57,239 INFO TRACE-A32EACE6 agent SecurityReviewer 1.5ms - SEC001 x4
+2026-10-22 09:49:58,934 INFO TRACE-A32EACE6 agent TestImpactAgent 1693.9ms - 3 test run(s): error, skipped, failed; 4/13 changed functions tested
+2026-10-22 09:49:58,936 INFO TRACE-A32EACE6 agent Validator 0.5ms - 35 findings kept, 2 dropped; 32/32 tool results valid
+2026-10-22 09:49:58,937 INFO TRACE-A32EACE6 agent VerdictAgent 0.0ms - BLOCK (score 0, confidence 1.0)
+2026-10-22 09:51:06,849 INFO TRACE-A32EACE6 agent HumanApproval 0.0ms - approve by Chief-Ayush; verdict APPROVE
+2026-10-22 09:51:16,933 INFO TRACE-A32EACE6 TASK-034 post_review@automation success 10078.9ms attempt=1
+2026-10-22 09:51:16,938 INFO TRACE-A32EACE6 report {"path": "storage/mcp_logs/runs/TRACE-A32EACE6.json", "status": "completed"}
+2026-10-22 09:51:16,938 INFO TRACE-A32EACE6 agent Reporter 10088.7ms - completed; report TRACE-A32EACE6.json; review posted
+2026-10-22 09:55:14,605 INFO MCP hub connected: repo (6 tools, 591.9 ms), analysis (3 tools, 568.0 ms), quality (4 tools, 598.0 ms), automation (5 tools, 612.7 ms)
+2026-10-22 09:58:55,431 INFO MCP hub connected: repo (6 tools, 623.9 ms), analysis (3 tools, 633.8 ms), quality (4 tools, 631.9 ms), automation (5 tools, 644.2 ms)
+2026-10-22 09:59:12,723 INFO MCP hub connected: repo (6 tools, 597.6 ms), analysis (3 tools, 592.1 ms), quality (4 tools, 613.8 ms), automation (5 tools, 590.1 ms)
+2026-10-22 09:59:13,326 WARNING MCP server 'analysis' reconnected
+2026-10-22 09:59:25,369 INFO MCP hub connected: repo (6 tools, 597.8 ms), analysis (3 tools, 598.9 ms), quality (4 tools, 607.6 ms), automation (5 tools, 586.0 ms)
+2026-10-22 09:59:54,236 INFO MCP hub connected: repo (6 tools, 620.9 ms), analysis (3 tools, 582.2 ms), quality (4 tools, 615.1 ms), automation (5 tools, 621.5 ms)
+2026-10-22 10:01:43,246 INFO MCP hub connected: repo (6 tools, 594.2 ms), analysis (3 tools, 580.9 ms), quality (4 tools, 596.4 ms), automation (5 tools, 611.7 ms)
+2026-10-22 10:02:01,073 INFO MCP hub connected: repo (6 tools, 605.7 ms), analysis (3 tools, 581.6 ms), quality (4 tools, 595.7 ms), automation (5 tools, 589.3 ms)
+2026-10-22 10:02:01,668 WARNING MCP server 'analysis' reconnected
+2026-10-22 10:02:13,665 INFO MCP hub connected: repo (6 tools, 593.8 ms), analysis (3 tools, 575.3 ms), quality (4 tools, 591.9 ms), automation (5 tools, 592.5 ms)
+2026-10-22 10:04:35,670 INFO MCP hub connected: repo (6 tools, 598.0 ms), analysis (3 tools, 601.1 ms), quality (4 tools, 594.6 ms), automation (5 tools, 607.3 ms)
+2026-10-22 10:10:57,616 INFO MCP hub connected: repo (6 tools, 602.0 ms), analysis (3 tools, 586.9 ms), quality (4 tools, 595.3 ms), automation (5 tools, 610.3 ms)
+2026-10-22 10:11:08,698 INFO TRACE-607994D9 review_start {"pr_id": "Chief-Ayush/AAIEA-Experiment-6#1", "settings": {"execution_mode": "parallel", "dependency_aware": true, "max_parallel": 8, "retry_policy": "controlled", "max_retries": 2, "retry_backoff_s": 0.05, "tool_timeout_s": 20.0, "test_timeout_s": 30.0, "validate_arguments": true, "reuse_connections": true, "enforce_policy": true, "require_approval_for": "HIGH", "approval_mode": "manual", "interactive": false, "complexity_threshold": 10, "large_pr_lines": 400, "full_suite_after_affected": true}
+2026-10-22 10:11:08,743 INFO TRACE-607994D9 TASK-001 get_pull_request@repo success 18.5ms attempt=1
+2026-10-22 10:11:08,758 INFO TRACE-607994D9 agent IntakeGuard 35.1ms - Chief-Ayush/AAIEA-Experiment-6#1 'Upgraded app' - 17 files, +1435/-70
+2026-10-22 10:11:08,759 INFO TRACE-607994D9 agent Planner 0.1ms - 21 tasks: compare_versions, find_usages, get_diff, lint, run_tests, scan_secrets, scan_security
+2026-10-22 10:11:08,781 INFO TRACE-607994D9 agent Supervisor 21.5ms - 18 tools listed; 21 tasks approved, 0 rejected
+2026-10-22 10:11:08,810 INFO TRACE-607994D9 agent PolicyGuard 28.7ms - LOW 18, MEDIUM 3, HIGH 0; 0 denied
+2026-10-22 10:11:08,936 INFO TRACE-607994D9 TASK-002 get_diff@repo success 124.1ms attempt=1
+2026-10-22 10:11:11,239 INFO TRACE-607994D9 TASK-006 compare_versions@analysis success 2424.9ms attempt=1
+2026-10-22 10:11:11,268 INFO TRACE-607994D9 TASK-005 compare_versions@analysis success 2453.4ms attempt=1
+2026-10-22 10:11:11,285 INFO TRACE-607994D9 TASK-011 compare_versions@analysis success 36.1ms attempt=1
+2026-10-22 10:11:11,327 INFO TRACE-607994D9 TASK-012 compare_versions@analysis success 49.6ms attempt=1
+2026-10-22 10:11:11,358 INFO TRACE-607994D9 TASK-013 compare_versions@analysis success 64.5ms attempt=1
+2026-10-22 10:11:11,383 INFO TRACE-607994D9 TASK-014 compare_versions@analysis success 48.7ms attempt=1
+2026-10-22 10:11:11,482 INFO TRACE-607994D9 TASK-015 compare_versions@analysis success 113.9ms attempt=1
+2026-10-22 10:11:11,496 INFO TRACE-607994D9 TASK-003 compare_versions@analysis success 2683.6ms attempt=1
+2026-10-22 10:11:11,665 INFO TRACE-607994D9 TASK-007 compare_versions@analysis success 2849.9ms attempt=1
+2026-10-22 10:11:11,677 INFO TRACE-607994D9 TASK-008 compare_versions@analysis success 2861.1ms attempt=1
+2026-10-22 10:11:11,823 INFO TRACE-607994D9 TASK-009 compare_versions@analysis success 3006.4ms attempt=1
+2026-10-22 10:11:11,939 INFO TRACE-607994D9 TASK-010 compare_versions@analysis success 2960.8ms attempt=1
+2026-10-22 10:11:12,484 INFO TRACE-607994D9 TASK-004 compare_versions@analysis success 3669.9ms attempt=1
+2026-10-22 10:11:13,579 INFO TRACE-607994D9 TASK-017 scan_security@quality success 2087.8ms attempt=1
+2026-10-22 10:11:13,588 INFO TRACE-607994D9 TASK-018 lint@quality success 2082.1ms attempt=1
+2026-10-22 10:11:14,061 INFO TRACE-607994D9 TASK-016 scan_secrets@quality success 2670.1ms attempt=1
+2026-10-22 10:11:14,360 INFO TRACE-607994D9 TASK-019 find_usages@analysis success 295.7ms attempt=1
+2026-10-22 10:11:14,467 INFO TRACE-607994D9 TASK-020 find_usages@analysis success 400.8ms attempt=1
+2026-10-22 10:11:14,687 INFO TRACE-607994D9 TASK-022 find_usages@analysis success 618.3ms attempt=1
+2026-10-22 10:11:14,814 INFO TRACE-607994D9 TASK-021 find_usages@analysis success 746.6ms attempt=1
+2026-10-22 10:11:14,958 INFO TRACE-607994D9 TASK-024 find_usages@analysis success 888.8ms attempt=1
+2026-10-22 10:11:15,052 INFO TRACE-607994D9 TASK-023 find_usages@analysis success 982.6ms attempt=1
+2026-10-22 10:11:15,066 INFO TRACE-607994D9 TASK-025 find_usages@analysis success 995.7ms attempt=1
+2026-10-22 10:11:15,078 INFO TRACE-607994D9 TASK-026 find_usages@analysis success 1007.0ms attempt=1
+2026-10-22 10:11:15,090 INFO TRACE-607994D9 TASK-027 find_usages@analysis success 724.8ms attempt=1
+2026-10-22 10:11:15,098 INFO TRACE-607994D9 TASK-028 find_usages@analysis success 625.4ms attempt=1
+2026-10-22 10:11:15,105 INFO TRACE-607994D9 TASK-030 find_usages@analysis success 285.6ms attempt=1
+2026-10-22 10:11:15,119 INFO TRACE-607994D9 TASK-029 find_usages@analysis success 424.2ms attempt=1
+2026-10-22 10:11:15,130 INFO TRACE-607994D9 TASK-031 find_usages@analysis success 166.7ms attempt=1
+2026-10-22 10:11:34,691 INFO TRACE-607994D9 TASK-032 run_tests@quality success 19557.0ms attempt=1
+2026-10-22 10:12:07,259 WARNING TRACE-607994D9 TASK-033 run_tests@quality failed 32562.8ms attempt=1 [TIMEOUT] Error executing tool run_tests: [TIMEOUT] pytest exceeded 30s
+2026-10-22 10:12:39,704 WARNING TRACE-607994D9 TASK-033 run_tests@quality failed 32392.2ms attempt=2 [TIMEOUT] Error executing tool run_tests: [TIMEOUT] pytest exceeded 30s
+2026-10-22 10:13:11,763 WARNING TRACE-607994D9 TASK-033 run_tests@quality failed 31950.0ms attempt=3 [TIMEOUT] Error executing tool run_tests: [TIMEOUT] pytest exceeded 30s
+2026-10-22 10:13:11,764 INFO TRACE-607994D9 agent Executor 122952.9ms - 32 MCP calls in 4 phases, 122953 ms wall (DOP 17, speed-up x0.73)
+2026-10-22 10:13:11,767 INFO TRACE-607994D9 agent DiffAnalyst 0.1ms - 17 files, +1435/-70 (size XL)
+2026-10-22 10:13:11,768 INFO TRACE-607994D9 agent QualityReviewer 0.1ms - QLT003 x6, QLT005 x9
+2026-10-22 10:13:11,769 INFO TRACE-607994D9 agent SecurityReviewer 1.4ms - SEC005 x1
+2026-10-22 10:13:14,037 INFO TRACE-607994D9 agent TestImpactAgent 2267.2ms - 3 test run(s): passed, error, skipped; 9/13 changed functions tested
+2026-10-22 10:13:14,038 INFO TRACE-607994D9 agent Validator 0.2ms - 15 findings kept, 2 dropped; 31/32 tool results valid
+2026-10-22 10:13:14,038 INFO TRACE-607994D9 agent VerdictAgent 0.0ms - COMMENT (score 46, confidence 0.85)
+2026-10-22 10:14:59,541 INFO TRACE-EF20014D workbench_start {"request": "Scan textkit for hard-coded secrets"}
+2026-10-22 10:14:59,548 INFO TRACE-EF20014D agent RequestGuard 0.0ms - request accepted
+2026-10-22 10:15:00,277 INFO TRACE-EF20014D agent TaskPlanner 726.7ms - intents secrets -> 1 task(s) on Chief-Ayush/AAIEA-Experiment-6
+2026-10-22 10:15:00,300 INFO TRACE-EF20014D agent Supervisor 22.0ms - 1/1 tasks valid
+2026-10-22 10:15:00,301 INFO TRACE-EF20014D agent PolicyGuard 0.0ms - 1 allowed, 0 denied
+2026-10-22 10:15:01,253 INFO TRACE-EF20014D TASK-001 scan_secrets@quality success 949.2ms attempt=1
+2026-10-22 10:15:01,256 INFO TRACE-EF20014D agent Executor 954.1ms - 1 calls, 1 phase(s), 954 ms
+2026-10-22 10:15:01,257 INFO TRACE-EF20014D agent ResultValidator 0.0ms - 1/1 results valid
+2026-10-22 10:15:01,258 INFO TRACE-EF20014D agent Summarizer 0.0ms - 1/1 tasks succeeded

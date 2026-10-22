@@ -13,6 +13,7 @@ PR_TEXT = "PR description"
 
 # Secret-looking values are assembled from pieces so this source file itself never contains a complete key.
 STRIPE_KEY = "sk" + "_live_" + "Z3mQ8vN2xK7pR4tY9wB5cH1d"
+AWS_KEY = "AKIA" + "Q3XM7TP2NRW5HVD4"
 GITHUB_TOKEN = "gh" + "p_" + "A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6Q7r8"
 
 
@@ -121,7 +122,7 @@ def test_square():
 ''')])
 
 pr("CALC-08", "Upload reports to S3", "Adds the access key id the upload job needs.", "hardcoded secret", "BLOCK", [("SEC001", "app.py")], [
-    mod("app.py", 'OPS = {', 'AWS_ACCESS_KEY_ID = "AKIAIOSFODNN7EXAMPLE"\nOPS = {')])
+    mod("app.py", 'OPS = {', f'AWS_ACCESS_KEY_ID = "{AWS_KEY}"\nOPS = {{')])
 
 pr("CALC-09", "Document division by zero", "README only.", "docs", "APPROVE", [], [
     app("README.md", "\n## Notes\n\nDividing by zero raises `ValueError`.\n")])
@@ -397,7 +398,7 @@ def test_margin():
 
 pr("INV-21", "Nightly cleanup job", "Credentials, tracing and imports for the cleanup job.", "mixed", "BLOCK",
    [("SEC001", "inventory/config.py"), ("QLT001", "inventory/pricing.py"), ("QLT004", "inventory/reports.py")], [
-    app("inventory/config.py", 'AWS_ACCESS_KEY_ID = "AKIAIOSFODNN7EXAMPLE"\n'),
+    app("inventory/config.py", f'AWS_ACCESS_KEY_ID = "{AWS_KEY}"\n'),
     mod("inventory/pricing.py", "    return round(price * (1 - percent / 100), 2)",
         "    print(price, percent)\n    return round(price * (1 - percent / 100), 2)"),
     mod("inventory/reports.py", '"""Plain-text stock reports."""\n', '"""Plain-text stock reports."""\nimport json\n')])

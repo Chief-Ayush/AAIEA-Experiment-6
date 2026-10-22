@@ -150,7 +150,7 @@ def materialize(repo: str, pr_id: str | None, dest: Path) -> Path:
     for path, content in head_files(repo, pr_id).items():
         target = safe_project_path(dest, path) if dest.exists() else dest / path
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(content, encoding="utf-8")
+        target.write_bytes(content.encode("utf-8"))           # exact bytes: write_text would turn CRLF into CR CR LF on Windows
     dest.mkdir(parents=True, exist_ok=True)
     return dest
 

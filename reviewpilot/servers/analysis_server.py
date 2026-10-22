@@ -9,7 +9,7 @@ from typing_extensions import TypedDict  # pydantic needs typing_extensions.Type
 
 from mcp.server.fastmcp import FastMCP
 
-from ..analysis import analyze_source, referenced_names
+from ..analysis import module_parts, reference_index,  analyze_source, referenced_names
 from ..workspace import InputError, base_files, head_files, load_pr, repo_root, safe_project_path
 from .common import READ_ONLY, risk_meta, run_blocking
 from .fixes import branch_files
@@ -92,6 +92,8 @@ class Usages(TypedDict):
     symbol: str
     count: int
     tested: bool
+    indirect: bool
+    callers: list[str]
     test_files: list[str]
     usages: list[Usage]
 
@@ -162,6 +164,40 @@ async def compare_versions(pr_id: str, path: str) -> Comparison:
     return await run_blocking("compare_versions", work)
 
 
+def _indirect_coverage(name: str, files: list[tuple[str, str]]) -> tuple[bool, list[str]]:
+    """Is `name` reached from code that tests exercise?  Follows callers up to four levels (a helper called by a tested function, or by
+    module-level code of a module the tests import, is covered even if no test mentions its name)."""
+    test_names: set[str] = set()
+    prod: dict[str, set[tuple[str, str]]] = {}
+    for p, c in files:
+        if not p.endswith(".py"):
+            continue
+        if p.split("/")[-1].startswith("test_") or "/tests/" in f"/{p}":
+            test_names |= referenced_names(c) | module_parts(c)
+            continue
+        for ref, scopes in reference_index(c).items():
+            for sc in scopes:
+                prod.setdefault(ref, set()).add((p, sc))
+    seen, frontier, chain = {name}, {name}, []
+    for _ in range(4):
+        nxt = set()
+        for n in frontier:
+            for p, sc in sorted(prod.get(n, ())):
+                stem = p.rsplit("/", 1)[-1][:-3]
+                key = stem if sc == "<module>" else sc
+                if key in test_names:
+                    chain.append(f"{p}:{sc}")
+                    return True, chain[:5]
+                if sc != "<module>" and sc not in seen:
+                    seen.add(sc)
+                    nxt.add(sc)
+                    chain.append(f"{p}:{sc}")
+        frontier = nxt
+        if not frontier:
+            break
+    return False, []
+
+
 @mcp.tool(annotations=READ_ONLY, meta=risk_meta("LOW"))
 async def find_usages(repo: str, symbol: str, pr_id: str = "") -> Usages:
     """Where a function or class name is referenced (AST-based, ignores comments and strings); tells whether tests use it."""
@@ -180,7 +216,11 @@ async def find_usages(repo: str, symbol: str, pr_id: str = "") -> Usages:
                     usages.append({"path": p, "line": i, "in_tests": is_test})
                     if is_test:
                         test_files.add(p)
-        return {"repo": repo, "symbol": symbol, "count": len(usages), "tested": bool(test_files), "test_files": sorted(test_files), "usages": usages[:200]}
+        indirect, callers = False, []
+        if not test_files:
+            indirect, callers = _indirect_coverage(name, list((head_files(repo, pr_id) if pr_id else base_files(repo)).items()))
+        return {"repo": repo, "symbol": symbol, "count": len(usages), "tested": bool(test_files), "indirect": indirect, "callers": callers,
+                "test_files": sorted(test_files), "usages": usages[:200]}
     return await run_blocking("find_usages", work)
 
 

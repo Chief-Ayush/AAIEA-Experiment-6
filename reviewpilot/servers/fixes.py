@@ -72,7 +72,9 @@ def _fix_file(path: str, base: str | None, head: str, rules: set[str]) -> tuple[
                 applied.append({"rule": "QLT002", "path": path, "line": e["line"], "change": "bare except -> except Exception"})
     if "SEC001" in rules:
         needs_os = False
-        for s in scan_secrets_text(head):
+        for s in scan_secrets_text(head, path):
+            if s.get("context", "code") != "code":
+                continue
             ln = lines[s["line"] - 1]
             m = re.match(r"^(\s*)([A-Z][A-Z0-9_]*)\s*=\s*(.+)$", ln)
             if s["line"] in added and m and s["kind"] != "private_key":

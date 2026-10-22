@@ -13,6 +13,16 @@ from .workspace import base_files, list_repos
 TEST_FILE = re.compile(r"(^|/)test_[^/]*\.py$|(^|/)tests/")
 
 
+GENERATED = re.compile(r"(^|/)(storage|data|node_modules|venv|\.venv|dist|build|__pycache__|\.git)/|\.(log|lock|pyc|map|csv|sqlite3?|db)$|\.min\.(js|css)$|(^|/)(package-lock\.json|poetry\.lock|yarn\.lock|Pipfile\.lock)$")
+RUNTIME_ARTIFACT = re.compile(r"(^|/)(__pycache__|node_modules|venv|\.venv|\.idea|\.vscode)/|\.pyc$|\.log$|(^|/)\.env$|(^|/)\.DS_Store$|(^|/)storage/(mcp_logs|cache|worktrees)/")
+NO_UNIT_TESTS = re.compile(r"(^|/)(pages|ui|scripts|tools|docs|examples|migrations|benchmark)/|(^|/)(__main__|conftest|setup|manage)\.py$")
+
+
+def is_generated(path: str) -> bool:
+    """Lock files, logs, caches, data dumps: their size says nothing about how much code there is to review."""
+    return bool(GENERATED.search(path))
+
+
 def is_test_path(path: str) -> bool:
     return bool(TEST_FILE.search(path))
 

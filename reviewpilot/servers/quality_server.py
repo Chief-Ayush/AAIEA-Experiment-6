@@ -66,6 +66,7 @@ class SecretHit(TypedDict):
     kind: str
     match: str
     confidence: str
+    context: str
 
 
 class SecretScan(TypedDict):
@@ -108,19 +109,28 @@ def _select(repo, files, paths):
     return out
 
 
+def _reason(el) -> str:
+    """Why a test failed: pytest's message plus the last 'E ' lines of the traceback (a collection error's message is only 'collection failure')."""
+    msg = (el.get("message") or "").strip()
+    e_lines = [ln.strip()[1:].strip() for ln in (el.text or "").splitlines() if ln.startswith("E ")]
+    detail = " | ".join(e_lines[-3:])
+    out = msg if not detail or detail in msg else (f"{msg}: {detail}" if msg and msg != "collection failure" else (f"collection failure: {detail}" if msg else detail))
+    return (out or (el.text or "").strip().splitlines()[-1:] and (el.text or "").strip().splitlines()[-1] or "")[:300]
+
+
 def _parse_junit(path):
     tree = ET.parse(path)
     cases, failures = 0, []
     counts = {"failed": 0, "errors": 0, "skipped": 0}
     for tc in tree.iter("testcase"):
         cases += 1
-        name = f"{tc.get('classname', '')}::{tc.get('name')}"
+        name = f"{tc.get('classname')}::{tc.get('name')}" if tc.get("classname") else tc.get("name") or "?"
         for tag, key in (("failure", "failed"), ("error", "errors"), ("skipped", "skipped")):
             el = tc.find(tag)
             if el is not None:
                 counts[key] += 1
                 if tag != "skipped":
-                    failures.append({"test": name, "message": (el.get("message") or el.text or "")[:300]})
+                    failures.append({"test": name, "message": _reason(el)})
     return cases, counts, failures
 
 
@@ -136,7 +146,7 @@ def _run_tests(repo, pr_id, ref, targets, timeout_s):
         for p, c in files.items():
             dest = wt / p
             dest.parent.mkdir(parents=True, exist_ok=True)
-            dest.write_text(c, encoding="utf-8")
+            dest.write_bytes(c.encode("utf-8"))                 # exact bytes: write_text would turn CRLF into CR CR LF on Windows
         if not any(n in files for n in ("pytest.ini", "pyproject.toml", "setup.cfg", "tox.ini")):
             (wt / "pytest.ini").write_text("[pytest]\n", encoding="utf-8")     # pin rootdir to the checkout
         for t in targets:
@@ -216,7 +226,7 @@ async def scan_secrets(repo: str, pr_id: str = "", paths: list[str] = []) -> Sec
         sel = {p: c for p, c in files.items() if not paths or p in paths}
         for p in paths:
             safe_project_path(repo_root(repo), p)
-        hits = [{"path": p, **h} for p, c in sel.items() for h in scan_secrets_text(c)]
+        hits = [{"path": p, **h} for p, c in sel.items() for h in scan_secrets_text(c, p)]
         return {"repo": repo, "files": len(sel), "count": len(hits), "findings": hits}
     return await run_blocking("scan_secrets", work)
 
