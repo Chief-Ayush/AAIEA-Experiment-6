@@ -10,7 +10,7 @@ sidebar()
 
 nav = st.navigation({
     "": [st.Page("pages/1_Review_Pull_Request.py", url_path="pulls", title="Pull requests", icon=":material/rate_review:", default=True),
-         st.Page("pages/2_Developer_Workbench.py", url_path="ask", title="Ask", icon=":material/chat:"),
+         st.Page("pages/2_Developer_Workbench.py", url_path="workbench", title="Workbench", icon=":material/terminal:"),
          st.Page("pages/3_Repositories.py", url_path="code", title="Code", icon=":material/code:"),
          st.Page("pages/10_Settings.py", url_path="settings", title="Settings", icon=":material/settings:")],
     "Lab": [st.Page("pages/0_Overview.py", url_path="how-it-works", title="How it works", icon=":material/account_tree:"),

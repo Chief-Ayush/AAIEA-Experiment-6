@@ -178,6 +178,77 @@ def _search_query(text: str) -> tuple[str, bool]:
     return "", False
 
 
+# ----------------------------------------------------------------------------------------------------------- natural questions
+STOPWORDS = set("""a an the this that these those is are was were be been being do does did can could should would will shall may might must have has had
+what which who whom whose when where why how whether if then than so as of in on at to for from by with without about into over under between
+and or not no yes any all each every some more most other such only own same too very just also still it its i me my we our you your they them
+their there here please tell show give explain describe find look get let know want need like make use used using work works working
+code repo repository project module modules file files function functions method methods class classes thing things""".split())
+COVERAGE = re.compile(r"(?i)\b(covered|coverage|tested|untested|has tests?|have tests?)\b")
+OVERVIEW = re.compile(r"(?i)\b(overview|summari[sz]e (this|the|my)|what is this|what does this (repo|repository|project)|about this (repo|repository|project)|"
+                      r"project structure|architecture|high[- ]level)\b")
+PR_LIST = re.compile(r"(?i)\b(open )?(prs|pull requests)\b")
+DEF_RX = re.compile(r"(?m)^\s*(?:async\s+)?(?:def|class)\s+([A-Za-z_]\w*)")
+
+
+def _def_span(source: str, name: str) -> tuple[int, int] | None:
+    import ast
+    try:
+        tree = ast.parse(source)
+    except SyntaxError:
+        return None
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)) and node.name == name:
+            return node.lineno, node.end_lineno
+    return None
+
+
+def _natural_plan(text: str, repo: str, contents: dict[str, str], base: dict, pr_id: str) -> list[tuple[str, dict, str]]:
+    """Fallback for questions without an explicit command ('What does the pricing module do?', 'Is divide covered by tests?',
+    'How is the discount calculated?').  Names mentioned in the question are matched against the repository (modules, functions,
+    classes, words in the code) and turned into ordinary MCP tool calls - the same supervisor, policy and executor apply."""
+    tokens = [t for t in re.findall(r"[A-Za-z_][A-Za-z0-9_]*", text) if t.lower() not in STOPWORDS and len(t) > 2]
+    py = {p: c for p, c in contents.items() if p.endswith(".py")}
+    is_test = lambda p: bool(TEST_FILE.search(p))  # noqa: E731
+    defined: dict[str, tuple[str, str]] = {}
+    for p, c in sorted(py.items(), key=lambda kv: is_test(kv[0])):          # production code wins over tests
+        for m in DEF_RX.finditer(c):
+            defined.setdefault(m.group(1).lower(), (p, m.group(1)))
+    stems: dict[str, str] = {}
+    for p in sorted(contents, key=is_test):
+        stem = p.rsplit("/", 1)[-1].rsplit(".", 1)[0].lower()
+        if stem and stem != "__init__" and not is_test(p):
+            stems.setdefault(stem, p)
+    plan: list[tuple[str, dict, str]] = []
+    symbols = [defined[t.lower()] for t in tokens if t.lower() in defined]
+    mods = [stems[t.lower()] for t in tokens if t.lower() in stems and t.lower() not in defined]
+    if PR_LIST.search(text) and not pr_id:
+        return [("list_pull_requests", {"repo": repo}, "open pull requests")]
+    if OVERVIEW.search(text) and not symbols and not mods:
+        plan.append(("list_files", dict(base), "list the project files"))
+        readme = next((p for p in contents if p.lower() in ("readme.md", "readme.rst", "readme.txt")), None)
+        if readme:
+            plan.append(("read_file", base | {"path": readme}, f"read {readme}"))
+        return plan
+    if COVERAGE.search(text) and symbols:
+        return [("find_usages", base | {"symbol": symbols[0][1]}, f"usages of {symbols[0][1]} (and whether tests use it)")]
+    for path, name in symbols[:2]:
+        span = _def_span(contents[path], name)
+        args = base | {"path": path} | ({"start_line": span[0], "end_line": span[1]} if span else {})
+        plan.append(("read_file", args, f"read {name} in {path}"))
+    for path in dict.fromkeys(mods):
+        plan.append(("read_file", base | {"path": path}, f"read {path}"))
+    if plan:
+        return plan[:3]
+    # no module or symbol named: search the repository for the words of the question that occur in it
+    corpus = "\n".join(contents.values()).lower()
+    words = sorted({t.lower() for t in tokens if t.lower() in corpus}, key=len, reverse=True)[:3]
+    if words:
+        return [("search_code", base | {"query": "(?i)" + "|".join(re.escape(w) for w in words), "regex": True, "path_glob": "*"},
+                 f"search for {', '.join(words)}")]
+    return []
+
+
 def plan_request(text: str, default_repo: str | None = None) -> dict:
     """Natural-language developer request -> {intent, repo, pr_id, tasks, notes}.  Unknown requests return no tasks."""
     notes: list[str] = []
@@ -202,7 +273,8 @@ def plan_request(text: str, default_repo: str | None = None) -> dict:
             repo = load_pr(pr_id)["repo"]
         except Exception:  # noqa: BLE001
             notes.append(f"pull request {pr_id} not found")
-    files = list(base_files(repo)) if repo else []
+    contents = base_files(repo) if repo else {}
+    files = list(contents)
     paths = [_resolve_path(p, files) for p in raw_paths]
     found = []
     for name, rx in INTENTS:
@@ -282,6 +354,11 @@ def plan_request(text: str, default_repo: str | None = None) -> dict:
             if "secret" in low:
                 rules.append("SEC001")
             add("create_autofix_branch", {"pr_id": pr_id, "rules": rules or ["QLT001", "QLT004"]}, "write safe fixes to a review branch")
+    if not tasks and repo:
+        for tool, args, purpose in _natural_plan(text or "", repo, contents, base, pr_id):
+            add(tool, args, purpose)
+        if tasks:
+            notes.append("no explicit command found - planned from the names in the question")
     if not tasks:
         notes.append("request not understood - try: 'Analyze calculator.py and run its tests'")
     return {"intent": "workbench" if tasks else "unknown", "repo": repo, "pr_id": pr_id, "tasks": tasks, "notes": notes, "intents": names}

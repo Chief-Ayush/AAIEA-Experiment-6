@@ -129,3 +129,9 @@ def load_settings() -> Settings:
 
 def save_settings(s: Settings) -> None:
     PREFS_FILE.write_text(json.dumps(s.to_dict(), indent=1), encoding="utf-8")
+
+
+# data/ (sample repositories, pull requests, labels) is generated and git-ignored: build it on first start.
+from .benchmark.build import ensure_data  # noqa: E402
+
+ensure_data()

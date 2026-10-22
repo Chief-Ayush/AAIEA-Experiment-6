@@ -122,7 +122,7 @@ AGENTS = [
     {"name": "TaskPlanner", "group": "Planning", "stage": "W2", "workflow": "workbench",
      "purpose": "Maps a free-form request to MCP tool calls.",
      "responsibilities": ["Detects intents (list, read, analyze, search, usages, tests, lint, secrets, security, diff, auto-fix).",
-                          "Finds the repository and resolves file names; 'run its tests' depends on the analysis tasks."],
+                          "Finds the repository and resolves file names; 'run its tests' depends on the analysis tasks.",],
      "tools": [], "produces": "plan", "on_failure": "Unknown requests return a hint instead of a guess."},
     {"name": "ResultValidator", "group": "Validation", "stage": "W6", "workflow": "workbench",
      "purpose": "Validates every tool result of a workbench request.",
